@@ -1,0 +1,65 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: tansci-gateway
+  redis:
+    database: 0
+    host: 10.167.1.73
+    port: 6379
+    password:
+  cloud:
+    # Nacos注册中心
+    nacos:
+      discovery:
+        server-addr: 10.167.1.73:8848
+        namespace: c969345a-1251-4387-a64d-1da75fff8f0c
+    # 网关路由配置
+    gateway:
+      # 设置与服务注册发现组件结合，这样可以采用服务名的路由策略
+      discovery:
+        locator:
+          enabled: true  # 使用服务发现路由
+          lower-case-service-id: true  # 服务路由名小写
+
+      # 配置路由规则
+      routes:
+        # 采用自定义路由ID
+        - id: tansci-auth # 统一授权
+          # 采用 LoadBalanceClient 方式请求，以 lb:// 开头，后面的是注册在 Nacos 上的服务名
+          uri: lb://tansci-auth
+          predicates:
+            - Path=/auth/**
+          filters:
+            - SwaggerHeaderFilter
+            - StripPrefix=1
+        - id: tansci-admin # 商户
+          uri: lb://tansci-admin
+          predicates:
+            - Path=/admin/**
+          filters:
+            - SwaggerHeaderFilter
+            - StripPrefix=1
+
+    # Sentinel熔断器
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: 10.167.1.73:8858 # sentinel控制台
+      eager: true  # 服务启动直接建立心跳连接
+      datasource: # Sentinel使用Nacos存储规则
+        ds1:
+          nacos:
+            server-addr: 10.167.1.73:8848
+            dataId: ${spring.application.name}-flow-rules
+            namespace: c969345a-1251-4387-a64d-1da75fff8f0c
+            data-type: json
+            rule-type: flow
+
+# 配置白名单路径
+exclusion:
+  url:
+    - /auth/login
+    - /auth/signout
+    - /admin/v2/api-docs
+

@@ -1,0 +1,44 @@
+server:
+  port: 8002
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: tansci-auth
+  main:
+    allow-circular-references: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.167.1.73:8848
+        namespace: c969345a-1251-4387-a64d-1da75fff8f0c
+  redis:
+    database: 0
+    host: 10.167.1.73
+    port: 6379
+    password:
+
+# dubbo配置
+dubbo:
+  protocol:
+    # dubbo 协议
+    name: dubbo
+    # dubbo 协议端口（ -1 表示自增端口，从 20880 开始）
+    port: 20881
+  registry:
+    # 挂载到 Spring Cloud 注册中心
+    address: spring-cloud://10.167.1.73
+  scan:
+    base-packages: com.tansci.provider.impl
+  consumer:
+    check: false
+    timeout: 60000
+    retries: -1
+  provider:
+    timeout: 60000
+  cloud:
+    # 服务消费方订阅服务提供方的应用名称的列表，若需订阅多应用，使用 "," 分割。 不推荐使用默认值为 "*"，它将订阅所有应用。
+    subscribed-services: tansci-admin

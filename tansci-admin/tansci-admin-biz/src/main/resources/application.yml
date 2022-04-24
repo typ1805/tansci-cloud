@@ -1,0 +1,103 @@
+server:
+  port: 8003
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: tansci-admin
+  main:
+    allow-circular-references: true # 2.6.* 报循环依赖错误
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.167.1.73:8848
+        namespace: c969345a-1251-4387-a64d-1da75fff8f0c
+    # Sentinel熔断器
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: 10.167.1.73:8858 # sentinel控制台
+      eager: true  # 服务启动直接建立心跳连接
+      datasource: # Sentinel使用Nacos存储规则
+        ds1:
+          nacos:
+            server-addr: 10.167.1.73:8848
+            dataId: ${spring.application.name}-flow-rules
+            namespace: c969345a-1251-4387-a64d-1da75fff8f0c
+            data-type: json
+            rule-type: flow
+  #Druid 连接池通用配置
+  datasource:
+    url: jdbc:mysql://10.167.1.73:3306/call_cloud?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true&useSSL=false
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # 下面为连接池的补充设置，应用到上面所有数据源中
+      # 初始化大小，最小，最大
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      # sql 校验
+      validation-query: select count(1) from sys.objects Where type='U' And type_desc='USER_TABLE'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
+      #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat # wall 若开启 wall，会把 if 中的 and 判断为注入进行拦截
+      use-global-data-source-stat: true
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+# 主键策略配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  # 实体扫描配置，多个用逗号分隔
+  #  type-aliases-package: com.blog.domain
+  check-config-location: true
+  configuration:
+    cache-enabled: false
+    # 配置驼峰命名规则
+    map-underscore-to-camel-case: true
+    # 开启打印SQL
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 主键类型： auto-数据库自增，input-用户输入id，id_worker-全局唯一id（数字类型），UUID-使用UUID
+      id-type: auto
+      # 驼峰转下划线
+
+# dubbo配置
+dubbo:
+  protocol:
+    # dubbo 协议
+    name: dubbo
+    # dubbo 协议端口（ -1 表示自增端口，从 20880 开始）
+    port: 20882
+  registry:
+    # 挂载到 Spring Cloud 注册中心
+    address: spring-cloud://10.167.1.73
+  scan:
+    base-packages: com.tansci.provider.impl
+  consumer:
+    check: false
+    timeout: 60000
+    retries: -1
+  provider:
+    timeout: 60000
+  cloud:
+  # 服务消费方订阅服务提供方的应用名称的列表，若需订阅多应用，使用 "," 分割。 不推荐使用默认值为 "*"，它将订阅所有应用。
+#    subscribed-services:
+
