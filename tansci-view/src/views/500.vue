@@ -1,15 +1,12 @@
 <script setup lang="ts">
-
 </script>
 <template>
-    <div class="index-container">
-        <el-card>
-            首页
-        </el-card>
+    <div class="login-container">
+        login
     </div>
 </template>
 <style scoped lang="scss">
-    .index-container{
+    .login-container{
         color: #00ff00;
     }
 </style>

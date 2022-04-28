@@ -1,18 +1,40 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router"
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
-const routes: Array<RouteRecordRaw> = [
-    {
-        path: "/",
-        redirect: "/home",
-    },
-    {
-        path: "/home",
-        name: "home",
-        component: () => import("@/views/Index.vue"),
-    },
-];
+// 路由按模块分类
+import common from './common'
+import dynamic from './dynamic'
+
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes: [
+        ...common,
+        ...dynamic,
+        {path:'/:pathMatch(.*)*', redirect:'/404'}
+    ]
 })
+
+NProgress.inc(0.2)
+NProgress.configure({ easing: 'ease', speed: 600, showSpinner: false })
+
+// 设置title
+router.beforeEach((to, from, next) => {
+    // 启动进度条
+    NProgress.start()
+
+    // 设置头部
+    if (to.meta.title) {
+        document.title = to.meta.title
+    } else {
+        document.title = "Tansci"
+    }
+    next()
+})
+
+router.afterEach(() => {
+    // 关闭进度条
+    NProgress.done()
+})
+
 export default router
