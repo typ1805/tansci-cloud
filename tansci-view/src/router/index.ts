@@ -1,18 +1,18 @@
-//  import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
-//  const routes: Array<RouteRecordRaw> = [
-//    {
-//        path: '/',
-//        name: 'Index',
-//        meta: {
-//            title: '首页',
-//        },
-//        component: () => import('@/views/Index.vue')
-//    }
-//  ]
-
-//  const router = createRouter({
-//    history: createWebHistory(),
-//    routes
-//  });
-//  export default router;
+const routes: Array<RouteRecordRaw> = [
+    {
+        path: "/",
+        redirect: "/home",
+    },
+    {
+        path: "/home",
+        name: "home",
+        component: () => import("@/views/Index.vue"),
+    },
+];
+const router = createRouter({
+    history: createWebHistory(),
+    routes
+})
+export default router

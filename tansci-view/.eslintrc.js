@@ -3,7 +3,7 @@ module.exports = {
 
     parserOptions: {
         parser: '@typescript-eslint/parser',
-        ecmaVersion: 2022,
+        ecmaVersion: 2020,
         sourceType: 'module',
         ecmaFeatures: {
             jsx: true
@@ -14,7 +14,7 @@ module.exports = {
         'plugin:vue/vue3-recommended',
         'plugin:@typescript-eslint/recommended',
         'prettier',
-        'plugin:prettier/recommended'
+        'plugin:prettier/recommended',
     ],
 
     rules: {
