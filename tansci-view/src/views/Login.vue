@@ -112,8 +112,7 @@
 					</div>
 					<el-divider><el-icon><star-filled /></el-icon></el-divider>
 					<div class="other-login">
-						<el-image v-for="item in otherForm.modes" :key="item.id" @click="otherLogin(item.id)" :src="item.icon"
-							style="width:32px;height:32px;padding:0 0.4rem;cursor: pointer;">
+						<el-image v-for="item in otherForm.modes" :key="item.id" :src="item.icon" style="width:32px;height:32px;padding:0 0.4rem;cursor: pointer;">
 						</el-image>
 					</div>
 				</div>
