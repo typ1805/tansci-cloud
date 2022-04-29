@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * @ClassName： SysMenuDto.java
- * @ClassPath： com.kuiper.dto.SysMenuDto.java
- * @Description： 菜单DTO
+ * @ClassName： SysRoleDto.java
+ * @ClassPath： com.tansci.dto.SysRoleDto.java
+ * @Description： 角色DTO
  * @Author： tanyp
  * @Date： 2022/2/22 10:25
  **/
@@ -20,17 +20,14 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "菜单DTO")
-public class SysMenuDto implements Serializable {
+@ApiModel(value = "角色DTO")
+public class SysRoleDto implements Serializable {
 
-    @ApiModelProperty(value = "菜单id")
+    @ApiModelProperty(value = "角色id")
     private String id;
 
-    @ApiModelProperty(value = "菜单名称")
+    @ApiModelProperty(value = "角色名称")
     private String name;
-
-    @ApiModelProperty(value = "父菜单ID")
-    private String parentId;
 
     @ApiModelProperty(value = "状态")
     private Integer status;
@@ -38,7 +35,10 @@ public class SysMenuDto implements Serializable {
     @ApiModelProperty(value = "类型")
     private Integer type;
 
-    @ApiModelProperty(value = "权限id")
+    @ApiModelProperty(value = "用户id")
+    private String userId;
+
+    @ApiModelProperty(value = "角色id")
     private String roleId;
 
 }

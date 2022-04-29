@@ -54,6 +54,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             AuthUser user = new AuthUser(userVo.getUsername(), userVo.getPassword(), authorities);
             user.setId(userVo.getId());
             user.setType(userVo.getType());
+            user.setRoleId(userVo.getRoleId());
             return user;
         } else {
             throw new UsernameNotFoundException("用户【" + username + "】不存在!");

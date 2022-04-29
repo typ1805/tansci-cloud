@@ -20,12 +20,19 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class UserInfo implements Serializable {
 
+    // 用户id
     private String id;
 
+    // 用户名称
     private String username;
 
+    // 用户昵称
     private String nickname;
 
+    // 用户类型
     private Integer type;
+
+    // 权限ID
+    private String roleId;
 
 }

@@ -5,7 +5,6 @@ import com.tansci.constants.Constants;
 import com.tansci.domain.SysMenu;
 import com.tansci.dto.SysMenuDto;
 import com.tansci.service.SysMenuService;
-import com.tansci.utils.UUIDUtil;
 import com.tansci.utils.WrapMapper;
 import com.tansci.utils.Wrapper;
 import io.swagger.annotations.Api;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 
 
 /**
@@ -40,13 +38,6 @@ public class SysMenuController {
         return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, sysMenuService.list(dto));
     }
 
-    @ApiOperation(value = "获取权限菜单树", notes = "获取权限菜单树")
-    @Log(modul = "菜单-获取权限菜单树", type = Constants.SELECT, desc = "获取权限菜单树")
-    @GetMapping("treeList")
-    public Wrapper treeList(SysMenuDto dto) {
-        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, sysMenuService.treeList(dto));
-    }
-
     @ApiOperation(value = "根据id查询", notes = "根据id查询")
     @Log(modul = "菜单-根据id查询", type = Constants.SELECT, desc = "根据id查询")
     @GetMapping("getById/{id}")
@@ -60,7 +51,6 @@ public class SysMenuController {
     public Wrapper save(@RequestBody SysMenu sysMenu) {
         sysMenu.setUpdateTime(LocalDateTime.now());
         sysMenu.setCreateTime(LocalDateTime.now());
-        sysMenu.setCode(UUIDUtil.getUUID(20).toUpperCase(Locale.ROOT));
         return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, sysMenuService.save(sysMenu));
     }
 

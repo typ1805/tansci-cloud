@@ -34,10 +34,9 @@ public class SysDicServiceImpl extends ServiceImpl<SysDicMapper, SysDic> impleme
                         .eq(Objects.nonNull(dto.getParentId()), SysDic::getParentId, dto.getParentId())
                         .eq(Objects.nonNull(dto.getGroupName()), SysDic::getGroupName, dto.getGroupName())
                         .eq(Objects.nonNull(dto.getType()), SysDic::getType, dto.getType())
-                        .between(Objects.nonNull(dto.getStartTime()) && Objects.nonNull(dto.getEndTime()), SysDic::getCreateTime, dto.getStartTime(), dto.getEndTime())
         );
 
-        List<SysDic> newDicList = dicList.stream().filter(item ->  "0".equals(item.getParentId())).map(item -> {
+        List<SysDic> newDicList = dicList.stream().filter(item -> "0".equals(item.getParentId())).map(item -> {
             item.setChildren(this.getChildrens(item, dicList));
             item.setTypeName(item.getType() == null ? "" : Enums.getVlaueByGroup(item.getType(), "dic_type"));
             return item;
@@ -46,11 +45,11 @@ public class SysDicServiceImpl extends ServiceImpl<SysDicMapper, SysDic> impleme
     }
 
 
-  /**
-   *  @author: lr
-   *  @Date: 2022/2/28
-   *  @Description:封装树形数据
-   */
+    /**
+     * @author: lr
+     * @Date: 2022/2/28
+     * @Description:封装树形数据
+     */
     public List<SysDic> getChildrens(SysDic dic, List<SysDic> list) {
         List<SysDic> treeDic = list.stream().filter(item -> Objects.equals(item.getParentId(), dic.getId())).map(item -> {
             // 递归添加子数据

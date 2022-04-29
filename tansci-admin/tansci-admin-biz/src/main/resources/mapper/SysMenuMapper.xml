@@ -4,82 +4,47 @@
 <mapper namespace="com.tansci.mapper.SysMenuMapper">
 
     <select id="list" resultType="com.tansci.domain.SysMenu" parameterType="com.tansci.dto.SysMenuDto">
-        select m.id, m.code, m.name, m.parent_id, m.type, m.status, m.url, m.icon, m.level, m.sort, m.update_time, m.create_time, m.remarks, um.user_id
-        from sys_menu m
-        left join sys_user_menu um on m.id = um.menu_id and um.user_id = #{dto.userId}
-        ORDER BY m.sort ASC
-    </select>
+        SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`
+        FROM(
+            <if test="dto.roleId != null and dto.roleId != ''">
+                SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, `role_id`
+                FROM sys_menu m
+                LEFT JOIN sys_menu_role mr on mr.menu_id = m.id
+                WHERE mr.role_id = #{dto.roleId}
+                <if test="dto.status != null and dto.status != ''">
+                    m.status = #{dto.status}
+                </if>
+                <if test="dto.type != null and dto.type != ''">
+                    m.type = #{dto.type}
+                </if>
+                <if test="dto.name != null and dto.name != ''">
+                    m.name = #{dto.name}
+                </if>
+            </if>
 
-    <select id="treeList" resultType="com.tansci.domain.SysMenu" parameterType="com.tansci.dto.SysMenuDto">
-        select m1.id, m1.code, m1.name, m1.parent_id, m1.type, m1.status, m1.url, m1.icon, m1.level, m1.sort, m1.update_time, m1.create_time, m1.remarks
-        <if test="dto.userId != null and dto.userId != ''">
-            , um.user_id
-        </if>
-        from sys_menu m1
-        <if test="dto.userId != null and dto.userId != ''">
-            left join sys_user_menu um on m1.id = um.menu_id
-        </if>
-        <where>
-            <if test="dto.userId != null and dto.userId != ''">
-                and um.user_id = #{dto.userId}
-            </if>
-            <if test="dto.parentId != null and dto.parentId != ''">
-                and m1.parent_id = #{dto.parentId}
-            </if>
-            <if test="dto.status != null">
-                and m1.status = #{dto.status}
-            </if>
-            <if test="dto.type != null">
-                and m1.type = #{dto.type}
-            </if>
-        </where>
-        UNION ALL
-        <choose>
-            <when test="dto.userId != null and dto.userId != ''">
-                select m2.id, m2.code, m2.name, m2.parent_id, m2.type, m2.status, m2.url, m2.icon, m2.level, m2.sort, m2.update_time, m2.create_time, m2.remarks, "" userId
-                from sys_menu m2 where m2.id in (
-                    select m.parent_id from sys_menu m
-                    left join sys_user_menu um on m.id = um.menu_id
-                    where um.user_id = #{dto.userId}
-                    <if test="dto.parentId != null and dto.parentId != ''">
-                        and m.parent_id = #{dto.parentId}
-                    </if>
-                    <if test="dto.status != null">
-                        and m.status = #{dto.status}
-                    </if>
-                    <if test="dto.type != null">
-                        and m.type = #{dto.type}
-                    </if>
-                )
-            </when>
-            <otherwise>
-                select m2.id, m2.code, m2.name, m2.parent_id, m2.type, m2.status, m2.url, m2.icon, m2.level, m2.sort, m2.update_time, m2.create_time, m2.remarks
-                from sys_menu m2 where m2.id in (
-                    select m.parent_id from sys_menu m
-                    <where>
-                        <if test="dto.parentId != null and dto.parentId != ''">
-                            and m.parent_id = #{dto.parentId}
-                        </if>
-                        <if test="dto.status != null">
-                            and m.status = #{dto.status}
-                        </if>
-                        <if test="dto.type != null">
-                            and m.type = #{dto.type}
-                        </if>
-                    </where>
-                )
-            </otherwise>
-        </choose>
-        ORDER BY sort ASC
+            UNION ALL
+            SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, null `role_id`
+            FROM sys_menu m
+            <where>
+                <if test="dto.status != null and dto.status != ''">
+                    m.status = #{dto.status}
+                </if>
+                <if test="dto.type != null and dto.type != ''">
+                    m.type = #{dto.type}
+                </if>
+                <if test="dto.name != null and dto.name != ''">
+                    m.name = #{dto.name}
+                </if>
+            </where>
+        ) t GROUP BY id
     </select>
 
     <select id="getMenuChildrens" parameterType="string" resultType="com.tansci.domain.SysMenu">
-        SELECT *
-        FROM (
-                 SELECT t1.*, IF(FIND_IN_SET(parent_id, @pids) > 0, @pids := CONCAT(@pids, ',', id), '0') AS ischild
-                 FROM (SELECT * FROM sys_menu ORDER BY id ASC) t1,
-                      (SELECT @pids := #{id}) t2
-             ) t3
+        SELECT * FROM (
+            SELECT t1.*, IF(FIND_IN_SET(parent_id, @pids) > 0, @pids := CONCAT(@pids, ',', id), '0') AS ischild
+            FROM (SELECT * FROM sys_menu ORDER BY id ASC) t1,
+            (SELECT @pids := #{id}) t2
+        ) t3
         WHERE ischild != '0'
     </select>
 

@@ -1,4 +1,6 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
+import axios, {AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios'
+import qs from 'qs'
+import { showMessage } from "./status"
 import { ElMessage } from 'element-plus'
 import router from '../router'
 import NProgress from 'nprogress'
@@ -7,45 +9,66 @@ import 'nprogress/nprogress.css'
 NProgress.inc(0.2)
 NProgress.configure({ easing: 'ease', speed: 600, showSpinner: false })
 
-const defaultConfig: AxiosRequestConfig = {
-    // timeout: 10000,
+let axiosInstance:AxiosInstance = axios.create({
+    // baseURL: process.env.VUE_APP_BASE_URL + "/api/v1/",
     headers: {
         Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
         "X-Requested-With": "XMLHttpRequest"
-    }
-}
-
-axios.interceptors.request.use(function (config) {
-    config.headers!['Authorization'] = 'Bearer '+ sessionStorage.getItem('token') || ''
-    // 启动进度条
-    NProgress.start()
-    return config
+    },
+    transformRequest: [
+        function(data) {
+            // 由于使用的 form-data传数据所以要格式化
+            delete data.Authorization;
+            data = qs.stringify(data);
+            return data;
+        }
+    ]
 })
 
-axios.interceptors.response.use(res => {
-    if (!res) {
-        ElMessage.error("服务器异常，请稍后再试！")
-        return Promise.reject(res)
-    }
+// axios实例拦截请求
+axiosInstance.interceptors.request.use(
+    (config: AxiosRequestConfig) => {
+        // const { user } = store.state
+        // if (token) {
+        //   config.headers.Authorization = `Bearer ${token}`
+        // }
 
-    // 下载文件特殊处理
-    if(res.config.responseType == 'blob'){
-        // 关闭进度条
-        NProgress.done();
-        return res;
-    } else {
-        if (res.data.code != 200) {
+        // 启动进度条
+        NProgress.start()
+        return config;
+    },
+    (error:any) => {
+        return Promise.reject(error);
+    }
+)
+
+// axios实例拦截响应
+axiosInstance.interceptors.response.use(
+    (response: AxiosResponse) => {
+        if (response.status === 200) {
+            // 关闭进度条
             NProgress.done();
-            ElMessage.error(res.data.message)
-            if (res.data.code == 403 || res.data.code == 401) router.push({path: '/login'})
-            return Promise.reject(res.data)
+            return response;
+        } else {
+            showMessage(response.status);
+            // 关闭进度条
+            NProgress.done();
+            if (response.data.code == 403 || response.data.code == 401) router.push({path: '/login'})
+            return response;
+        }
+    },
+    // 请求失败
+    (error: any) => {
+        const {response} = error;
+        if (response) {
+            // 请求已发出，但是不在2xx的范围
+            showMessage(response.status);
+            return Promise.reject(response.data);
+        } else {
+            ElMessage.warning('网络连接异常,请稍后再试!');
         }
     }
-    
-    // 关闭进度条
-    NProgress.done();
-    return res.data;
-})
+)
 
-export default axios
+export default axiosInstance

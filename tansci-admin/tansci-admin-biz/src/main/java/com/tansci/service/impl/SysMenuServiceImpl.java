@@ -1,11 +1,11 @@
 package com.tansci.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.tansci.base.UserInfo;
 import com.tansci.domain.SysMenu;
 import com.tansci.dto.SysMenuDto;
 import com.tansci.mapper.SysMenuMapper;
 import com.tansci.service.SysMenuService;
+import com.tansci.utils.UserInfoContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -29,35 +29,15 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public List<SysMenu> list(SysMenuDto dto) {
-        List<SysMenu> list = this.baseMapper.list(dto);
-        list = list.stream().distinct().collect(Collectors.toList());
-
-        // 组装树型数据
-        Map<String, List<SysMenu>> map = list.stream().collect(Collectors.groupingBy(SysMenu::getParentId, Collectors.toList()));
-        list.stream().forEach(item -> item.setChildren(map.get(item.getId())));
-
-        List<SysMenu> sysMenus = map.get("0");
-
-        return sysMenus;
-    }
-
-    @Override
-    public List<SysMenu> treeList(SysMenuDto dto) {
         // 用户权限
-        if (Objects.isNull(dto.getUserId()) || Objects.equals("", dto.getUserId())) {
-//            UserInfo user = UserInfoContext.getUser();
-//            if (Objects.nonNull(user) && !Objects.equals(1, user.getType())) {
-//                dto.setUserId(user.getId());
-//            }
+        if (!Objects.equals(1, UserInfoContext.getUser().getType())) {
+            dto.setRoleId(UserInfoContext.getUser().getRoleId());
         }
-
-        List<SysMenu> list = this.baseMapper.treeList(dto);
-        list = list.stream().distinct().collect(Collectors.toList());
+        List<SysMenu> list = this.baseMapper.list(dto);
 
         // 组装树型数据
         Map<String, List<SysMenu>> map = list.stream().collect(Collectors.groupingBy(SysMenu::getParentId, Collectors.toList()));
         list.stream().forEach(item -> item.setChildren(map.get(item.getId())));
-
         List<SysMenu> sysMenus = map.get("0");
         return sysMenus;
     }
@@ -66,7 +46,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public Integer delete(SysMenuDto dto) {
         List<String> ids = new ArrayList<>();
         ids.add(dto.getId());
-
         List<SysMenu> menus = this.baseMapper.getMenuChildrens(dto.getId());
         if (Objects.nonNull(menus) && menus.size() > 0) {
             ids.addAll(menus.stream().map(SysMenu::getId).collect(Collectors.toList()));

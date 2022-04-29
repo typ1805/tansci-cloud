@@ -1,6 +1,7 @@
 package com.tansci.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -46,13 +47,13 @@ public class SysUser implements Serializable {
     @ApiModelProperty(value = "类型：0、普通用户，1、管理员")
     private Integer type;
 
-    @ApiModelProperty(value = "状态：0：删除；1：正常；2：禁用")
+    @ApiModelProperty(value = "状态：0：正常，1：删除，2：禁用")
     private Integer status;
 
     @ApiModelProperty(value = "微信唯一标识")
     private String openId;
 
-    @ApiModelProperty(value = "用户生日")
+    @ApiModelProperty(value = "出生日期")
     private LocalDate birthday;
 
     @ApiModelProperty(value = "性别：0：男；1：女")
@@ -64,6 +65,9 @@ public class SysUser implements Serializable {
     @ApiModelProperty(value = "电话")
     private String phone;
 
+    @ApiModelProperty(value = "身份证号")
+    private String idCard;
+
     @ApiModelProperty(value = "地址")
     private String address;
 
@@ -74,5 +78,9 @@ public class SysUser implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     @ApiModelProperty(value = "更新时间")
     private LocalDateTime updateTime;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "权限ID")
+    private String roleId;
 
 }

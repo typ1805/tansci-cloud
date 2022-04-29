@@ -13,8 +13,8 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
-        namespace: c969345a-1251-4387-a64d-1da75fff8f0c
+        server-addr: 10.167.1.73:8848
+        namespace: d01a5728-d581-438a-a0e8-e180a08f1e6d
     # Sentinel熔断器
     sentinel:
       transport:
@@ -26,14 +26,14 @@ spring:
           nacos:
             server-addr: 127.0.0.1:8848
             dataId: ${spring.application.name}-flow-rules
-            namespace: c969345a-1251-4387-a64d-1da75fff8f0c
+            namespace: d01a5728-d581-438a-a0e8-e180a08f1e6d
             data-type: json
             rule-type: flow
   #Druid 连接池通用配置
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/tansci_cloud?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true&useSSL=false
     username: root
-    password: root
+    password: admin
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       # 下面为连接池的补充设置，应用到上面所有数据源中
@@ -88,7 +88,7 @@ dubbo:
     port: 20882
   registry:
     # 挂载到 Spring Cloud 注册中心
-    address: spring-cloud://127.0.0.1
+    address: spring-cloud://10.167.1.73
   scan:
     base-packages: com.tansci.provider.impl
   consumer:

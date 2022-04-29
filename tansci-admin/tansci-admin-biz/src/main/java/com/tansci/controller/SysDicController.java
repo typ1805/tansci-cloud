@@ -53,7 +53,6 @@ public class SysDicController {
                                 .eq(Objects.nonNull(dto.getParentId()), SysDic::getParentId, dto.getParentId())
                                 .eq(Objects.nonNull(dto.getGroupName()), SysDic::getGroupName, dto.getGroupName())
                                 .eq(Objects.nonNull(dto.getType()), SysDic::getType, dto.getType())
-                                .between(Objects.nonNull(dto.getStartTime()) && Objects.nonNull(dto.getEndTime()), SysDic::getCreateTime, dto.getStartTime(), dto.getEndTime())
                                 .orderByAsc(SysDic::getSort)
                 )
         );
@@ -63,6 +62,7 @@ public class SysDicController {
     @ApiOperation(value = "添加字典", notes = "添加字典")
     @PostMapping("/save")
     public Wrapper<Boolean> save(@RequestBody SysDic sysDic) {
+        sysDic.setUpdateTime(LocalDateTime.now());
         sysDic.setCreateTime(LocalDateTime.now());
         return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, sysDicService.save(sysDic));
     }

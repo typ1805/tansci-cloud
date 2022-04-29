@@ -13,11 +13,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
-        namespace: c969345a-1251-4387-a64d-1da75fff8f0c
+        server-addr: 10.167.1.73:8848
+        namespace: d01a5728-d581-438a-a0e8-e180a08f1e6d
   redis:
-    database: 0
-    host: 127.0.0.1
+    database: 2
+    host: 10.167.1.73
     port: 6379
     password:
 
@@ -30,7 +30,7 @@ dubbo:
     port: 20881
   registry:
     # 挂载到 Spring Cloud 注册中心
-    address: spring-cloud://127.0.0.1
+    address: spring-cloud://10.167.1.73
   scan:
     base-packages: com.tansci.provider.impl
   consumer:

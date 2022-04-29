@@ -4,16 +4,16 @@ spring:
   application:
     name: tansci-gateway
   redis:
-    database: 0
-    host: 127.0.0.1
+    database: 2
+    host: 10.167.1.73
     port: 6379
     password:
   cloud:
     # Nacos注册中心
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
-        namespace: c969345a-1251-4387-a64d-1da75fff8f0c
+        server-addr: 10.167.1.73:8848
+        namespace: d01a5728-d581-438a-a0e8-e180a08f1e6d
     # 网关路由配置
     gateway:
       # 设置与服务注册发现组件结合，这样可以采用服务名的路由策略
@@ -45,14 +45,14 @@ spring:
     sentinel:
       transport:
         port: 8719
-        dashboard: 127.0.0.1:8858 # sentinel控制台
+        dashboard: 10.167.1.73:8858 # sentinel控制台
       eager: true  # 服务启动直接建立心跳连接
       datasource: # Sentinel使用Nacos存储规则
         ds1:
           nacos:
-            server-addr: 127.0.0.1:8848
+            server-addr: 10.167.1.73:8848
             dataId: ${spring.application.name}-flow-rules
-            namespace: c969345a-1251-4387-a64d-1da75fff8f0c
+            namespace: d01a5728-d581-438a-a0e8-e180a08f1e6d
             data-type: json
             rule-type: flow
 

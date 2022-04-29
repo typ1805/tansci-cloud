@@ -21,8 +21,6 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
     List<SysMenu> list(@Param("dto") SysMenuDto dto);
 
-    List<SysMenu> treeList(@Param("dto") SysMenuDto dto);
-
     List<SysMenu> getMenuChildrens(@Param("id") String id);
 
 }

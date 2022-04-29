@@ -22,6 +22,7 @@ public class AuthUser implements UserDetails, Serializable {
     private String password;
     private String username;
     private Integer type;
+    private String roleId;
     private Set<SimpleGrantedAuthority> authorities;
     private final boolean accountNonExpired;
     private final boolean accountNonLocked;
@@ -91,5 +92,13 @@ public class AuthUser implements UserDetails, Serializable {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 }

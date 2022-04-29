@@ -39,11 +39,11 @@ public class SysUserDto implements Serializable {
     @ApiModelProperty(value = "电话")
     private String phone;
 
-    @ApiModelProperty(value = "密码")
-    private String password;
-
     @ApiModelProperty(value = "状态")
     private Integer status;
+
+    @ApiModelProperty(value = "密码")
+    private String password;
 
     @ApiModelProperty(value = "旧密码")
     private String oldPassword;

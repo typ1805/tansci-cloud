@@ -35,11 +35,14 @@ public class SysMenu implements Serializable {
     @ApiModelProperty(value = "主键id", hidden = true)
     private String id;
 
-    @ApiModelProperty(value = "菜单编码")
-    private String code;
-
     @ApiModelProperty(value = "菜单名称")
     private String name;
+
+    @ApiModelProperty(value = "中文名称")
+    private String chineseName;
+
+    @ApiModelProperty(value = "英文名称")
+    private String englishName;
 
     @ApiModelProperty(value = "父菜单ID")
     private String parentId;
@@ -59,7 +62,7 @@ public class SysMenu implements Serializable {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
-    @ApiModelProperty(value = "类型")
+    @ApiModelProperty(value = "类型：0、菜单，1、按钮，2、链接")
     private Integer type;
 
     @ApiModelProperty(value = "描述")
@@ -76,9 +79,5 @@ public class SysMenu implements Serializable {
     @TableField(exist = false)
     @ApiModelProperty(value = "子级菜单")
     private List<SysMenu> children;
-
-    @TableField(exist = false)
-    @ApiModelProperty(value = "用户已选择菜单")
-    private List<String> menuIds;
 
 }

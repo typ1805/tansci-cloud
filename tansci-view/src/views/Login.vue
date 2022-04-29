@@ -1,11 +1,12 @@
 <script setup lang="ts">
-	import {onBeforeMount,reactive,ref,toRefs,unref} from "vue"
-	import {ElMessage} from 'element-plus'
+	import {onBeforeMount,reactive,ref,toRefs} from "vue"
+	import type {FormInstance, ElMessage} from 'element-plus'
 	import {useRouter} from 'vue-router'
 	import SlidingVerify from '@/components/SlidingVerify.vue'
+	import { login } from '@/api/login'
 
 	const router = useRouter()
-	let loginRuleForm = ref(null) 
+	const loginFormRef = ref<FormInstance>() 
 	let slidingVerify = ref()
 	const loginLogo = new URL('../assets/image/login-left.png', import.meta.url).href
 
@@ -19,19 +20,8 @@
 			verifyStatus: null,
 			keepPassword: null,
 		},
-		loginMode: true,
-		otherForm: {
-			modes:[
-				{id:1,name:'微信扫码登录',icon: new URL('../assets/image/icon/wechat.svg', import.meta.url).href},
-				{id:2,name:'微博扫码登录',icon: new URL('../assets/image/icon/weibo.svg', import.meta.url).href},
-				{id:3,name:'QQ扫码登录',icon: new URL('../assets/image/icon/qq.svg', import.meta.url).href},
-			],
-			qrcodeTitle: '',
-			qrcodeUrl: '',
-			status: 0,
-		}
 	})
-	const {loginStyle,loginForm,loginMode,otherForm,} = toRefs(state)
+	const {loginStyle,loginForm} = toRefs(state)
 
 	onBeforeMount(() => {
 		state.loginStyle.height = (document.body.clientHeight || document.documentElement.clientHeight) + "px"
@@ -44,30 +34,32 @@
 		state.loginForm.verifyStatus = e;
 	}
 
-	const submit = async () => {
-		const form = unref(loginRuleForm)
-		if (!form) return;
-		await form.validate();
-
-		// 登录成功后设置token到vuex中
-		let param = {
-			username: state.loginForm.username,
-			password: state.loginForm.password
-		}
-		// login(param).then(loginRes=>{
-		// 	if(loginRes){
-		// 		store.commit('setToken', loginRes.result.token);
-		// 		store.commit('setUser', loginRes.result);
-		// 		// 获取菜单
-		// 		menuList({type:1, status: 1}).then(menuRes=>{
-		// 			store.commit('setMenus', menuRes.result);
-		// 			router.push({path: 'home'});
-		// 		})
-		// 	}
-		// }).catch(()=>{
-		// 	state.loginForm.verifyStatus = null;
-		// 	slidingVerify.value.onRefresh()
-		// })
+	const submit = async (formEl: FormInstance | undefined) => {
+		if (!formEl) return;
+		await formEl.validate((valid)=>{
+			if(valid){
+				// 登录成功后设置token到缓存
+				let param:any = {
+					username: state.loginForm.username,
+					password: state.loginForm.password
+				}
+				login(param).then((res:any) =>{
+					if(res){
+						console.log(res)
+						// store.commit('setToken', res.result.token);
+						// store.commit('setUser', res.result);
+						// 获取菜单
+						// menuList({type:1, status: 1}).then(menuRes=>{
+						// 	store.commit('setMenus', menuRes.result);
+						// 	router.push({path: 'home'});
+						// })
+					}
+				}).catch(()=>{
+					state.loginForm.verifyStatus = null;
+					slidingVerify.value.onRefresh()
+				})
+			}
+		});
 	}
 
 </script>
@@ -79,7 +71,7 @@
 					<el-image :src="loginLogo"  style="width: 100%; height: 100%;"></el-image>
 				</div>
 				<div class="login-form">
-					<el-form v-if="loginMode" :model="loginForm" :rules="rules" ref="loginRuleForm">
+					<el-form :model="loginForm" :rules="rules" ref="loginFormRef">
 						<div class="login-form-title">欢迎登录</div>
 						<el-form-item prop="username" :rules="[
 								{required: true,message: '请输入用户名',trigger: 'blur'},
@@ -98,24 +90,10 @@
 							<el-checkbox v-model="loginForm.keepPassword" label="记住密码"></el-checkbox>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" round @click="submit" style="width:100%">登录</el-button>
+							<el-button type="primary" round @click="submit(loginFormRef)" style="width:100%">登录</el-button>
 						</el-form-item>
 					</el-form>
-					<div v-else-if="!loginMode" class="other-form">
-						<div class="login-form-title">{{otherForm.qrcodeTitle}}</div>
-						<el-result v-if="otherForm.status == 1" icon="success" title="扫码成功" sub-title="正在登录中，请稍后。"></el-result>
-						<el-result v-if="otherForm.status == 2" icon="error" title="授权失败" sub-title="登录授权失败，请刷新重试。"></el-result>
-						<el-image v-if="otherForm.status == 0" :src="otherForm.qrcodeUrl" :lazy="true" style="width:180px;height:180px;cursor: pointer;"></el-image>
-						<div>
-							<el-button @click="loginMode = true" type="text" icon='UserFilled'>账号密码登录</el-button>
-						</div>
-					</div>
 					<el-divider><el-icon><star-filled /></el-icon></el-divider>
-					<div class="other-login">
-						<el-image v-for="item in otherForm.modes" :key="item.id" @click="otherLogin(item.id)" :src="item.icon"
-							style="width:32px;height:32px;padding:0 0.4rem;cursor: pointer;">
-						</el-image>
-					</div>
 				</div>
 			</div>
 		</el-card>
@@ -153,9 +131,6 @@
 					font-weight: 700;
 					text-align: center;
 					padding-bottom: 2rem;
-				}
-				.other-login{
-					text-align: center;
 				}
 			}
 		}

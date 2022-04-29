@@ -18,8 +18,6 @@ public interface SysMenuService extends IService<SysMenu> {
 
     List<SysMenu> list(SysMenuDto dto);
 
-    List<SysMenu> treeList(SysMenuDto dto);
-
     Integer delete(SysMenuDto dto);
 
 }

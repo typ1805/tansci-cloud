@@ -41,9 +41,7 @@ public class LogInfoController {
     @GetMapping("/logInfoPage")
     public Wrapper<IPage<LogInfo>> logInfoPage(Page page) {
         return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, logInfoService.page(page,
-                Wrappers.<LogInfo>lambdaQuery()
-//                        .eq(!Objects.equals(1, UserInfoContext.getUser().getType()), LogInfo::getUserId, UserInfoContext.getUser().getId())
-                        .orderByDesc(LogInfo::getCreateTime))
+                Wrappers.<LogInfo>lambdaQuery().orderByDesc(LogInfo::getCreateTime))
         );
     }
 
@@ -51,9 +49,7 @@ public class LogInfoController {
     @GetMapping("/logErrorPage")
     public Wrapper<IPage<LogErrorInfo>> logErrorPage(Page page) {
         return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, logErrorInfoService.page(page,
-                Wrappers.<LogErrorInfo>lambdaQuery()
-//                        .eq(!Objects.equals(1, UserInfoContext.getUser().getType()), LogErrorInfo::getUserId, UserInfoContext.getUser().getId())
-                        .orderByDesc(LogErrorInfo::getCreateTime))
+                Wrappers.<LogErrorInfo>lambdaQuery().orderByDesc(LogErrorInfo::getCreateTime))
         );
     }
 
