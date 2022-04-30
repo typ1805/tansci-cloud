@@ -1,6 +1,6 @@
 /**
  * 判断是否是移动端
- * @returns 
+ * @returns
  */
 export const isMobile = () => {
     if (navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)) {
@@ -12,10 +12,10 @@ export const isMobile = () => {
 
 /**
  * 时间格式化
- * @param {*} date 
- * @returns 
+ * @param {*} date
+ * @returns
  */
-export function dateTimeFormat(date:any) {
+export function dateTimeFormat(date: any) {
     var Y = date.getFullYear() + '-';
     var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
     var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
@@ -27,10 +27,10 @@ export function dateTimeFormat(date:any) {
 
 /**
  * 时间格式化
- * @param {*} date 
- * @returns 
+ * @param {*} date
+ * @returns
  */
-export function dateFormat(date:any) {
+export function dateFormat(date: any) {
     if (!date) {
         return null;
     }
@@ -43,10 +43,10 @@ export function dateFormat(date:any) {
 
 /**
  * 显示当前时间（年月日时分秒）
- * @param {*} timeStamp 
- * @returns 
+ * @param {*} timeStamp
+ * @returns
  */
-export function timeFormate(timeStamp:any) {
+export function timeFormate(timeStamp: any) {
     var year = new Date(timeStamp).getFullYear();
     var month = new Date(timeStamp).getMonth() + 1 < 10 ? "0" + (new Date(timeStamp).getMonth() + 1) : new Date(timeStamp).getMonth() + 1;
     var date = new Date(timeStamp).getDate() < 10 ? "0" + new Date(timeStamp).getDate() : new Date(timeStamp).getDate();
@@ -58,8 +58,8 @@ export function timeFormate(timeStamp:any) {
 
 /**
  * 判断：早上好,上午好,下午好,傍晚好,晚上好
- * @param {*} timeStamp 
- * @returns 
+ * @param {*} timeStamp
+ * @returns
  */
 export function timeAddress() {
     var now = new Date();
@@ -87,9 +87,9 @@ export function timeAddress() {
 
 /**
  * 数字格式化为千分位
- * @param {*} num 
- * @returns 
+ * @param {*} num
+ * @returns
  */
-export function numberDormat(num:Number) {
+export function numberDormat(num: Number) {
     return (num + '').replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g, '$1,');
 }

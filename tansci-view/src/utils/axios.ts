@@ -1,15 +1,15 @@
-import axios, {AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios'
+import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios'
 import qs from 'qs'
-import { showMessage } from "./status"
-import { ElMessage } from 'element-plus'
+import {showMessage} from "./status"
+import {ElMessage} from 'element-plus'
 import router from '../router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 NProgress.inc(0.2)
-NProgress.configure({ easing: 'ease', speed: 600, showSpinner: false })
+NProgress.configure({easing: 'ease', speed: 600, showSpinner: false})
 
-let axiosInstance:AxiosInstance = axios.create({
+let axiosInstance: AxiosInstance = axios.create({
     // baseURL: process.env.VUE_APP_BASE_URL + "/api/v1/",
     headers: {
         Accept: "application/json, text/plain, */*",
@@ -17,7 +17,7 @@ let axiosInstance:AxiosInstance = axios.create({
         "X-Requested-With": "XMLHttpRequest"
     },
     transformRequest: [
-        function(data) {
+        function (data) {
             // 由于使用的 form-data传数据所以要格式化
             delete data.Authorization;
             data = qs.stringify(data);
@@ -38,7 +38,7 @@ axiosInstance.interceptors.request.use(
         NProgress.start()
         return config;
     },
-    (error:any) => {
+    (error: any) => {
         return Promise.reject(error);
     }
 )

@@ -3,10 +3,6 @@ import axios from '@/utils/axios'
 /**
  * 登录
  */
-interface ILogin {
-    token: string;
-    expires: number;
-}
-export const login = (params: ILogin) => {
+export const login = (params: any) => {
     return axios.post('/auth/login',params).then(res => res.data);
 };
