@@ -4,10 +4,15 @@
     import Submenu from "@/components/Submenu.vue"
     import {timeFormate} from '@/utils/utils'
     import {useRouter} from 'vue-router'
+    import {useUserStore, useTokenStore, useMenuStore} from '@/store/setttings'
+    import {logout} from '@/api/login'
 
+	const userStore = useUserStore();
+    const tokenStore = useTokenStore();
+    const menuStore = useMenuStore();
     const router = useRouter()
     const nowTimes = ref('')
-    const username = '管理员'
+    const username = userStore.$state.username == null ? '未登录':userStore.$state.username
     const state = reactive({
         isCollapse: false,
         asideWidth: '240px',
@@ -52,6 +57,18 @@
             type: 'warning'
         }).then(() => {
             console.log("退出")
+            logout().then((res:any) =>{
+                if(res){
+                    // 清除相关缓存信息
+                    userStore.delUser();
+                    tokenStore.delToken();
+                    menuStore.delMenu();
+                    // 获取菜单
+                    router.push({path: 'login'});
+                }
+            }).catch(()=>{
+            })
+            
         }).catch(e=>{
             console.log(e)
         })

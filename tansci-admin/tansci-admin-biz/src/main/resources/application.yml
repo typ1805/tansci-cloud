@@ -19,12 +19,12 @@ spring:
     sentinel:
       transport:
         port: 8719
-        dashboard: 127.0.0.1:8858 # sentinel控制台
+        dashboard: 10.167.1.73:8858 # sentinel控制台
       eager: true  # 服务启动直接建立心跳连接
       datasource: # Sentinel使用Nacos存储规则
         ds1:
           nacos:
-            server-addr: 127.0.0.1:8848
+            server-addr: 10.167.1.73:8848
             dataId: ${spring.application.name}-flow-rules
             namespace: d01a5728-d581-438a-a0e8-e180a08f1e6d
             data-type: json

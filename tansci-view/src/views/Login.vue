@@ -3,8 +3,13 @@
 	import type {FormInstance, ElMessage} from 'element-plus'
 	import {useRouter} from 'vue-router'
 	import SlidingVerify from '@/components/SlidingVerify.vue'
-	import { login } from '@/api/login'
+	import {useUserStore, useTokenStore, useMenuStore} from '@/store/setttings'
+	import {login} from '@/api/login'
+	import {menuList} from '@/api/system'
 
+	const userStore = useUserStore();
+	const tokenStore = useTokenStore();
+	const menuStore = useMenuStore();
 	const router = useRouter()
 	const loginFormRef = ref<FormInstance>() 
 	let slidingVerify = ref()
@@ -45,14 +50,18 @@
 				}
 				login(param).then((res:any) =>{
 					if(res){
-						console.log(res)
-						// store.commit('setToken', res.result.token);
-						// store.commit('setUser', res.result);
+						// 存储用户信息和token
+						userStore.setUser(res.result);
+						tokenStore.setToken(res.result.token);
 						// 获取菜单
-						// menuList({type:1, status: 1}).then(menuRes=>{
-						// 	store.commit('setMenus', menuRes.result);
-						// 	router.push({path: 'home'});
-						// })
+						let param:any = {
+							type: 0, 
+							status: 1
+						}
+						menuList(param).then((menuRes:any)=>{
+							menuStore.setMenu(menuRes.result);
+							router.push({path: 'index'});
+						})
 					}
 				}).catch(()=>{
 					state.loginForm.verifyStatus = null;

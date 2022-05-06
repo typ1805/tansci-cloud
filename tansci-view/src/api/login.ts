@@ -5,4 +5,11 @@ import axios from '@/utils/axios'
  */
 export const login = (params: any) => {
     return axios.post('/auth/login',params).then(res => res.data);
-};
+}
+
+/**
+ * 登出
+ */
+export function logout() {
+    return axios.post('/auth/signout');
+}

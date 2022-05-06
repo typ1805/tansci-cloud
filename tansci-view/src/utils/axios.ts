@@ -8,8 +8,7 @@ import 'nprogress/nprogress.css'
 
 NProgress.inc(0.2)
 NProgress.configure({easing: 'ease', speed: 600, showSpinner: false})
-
-let axiosInstance: AxiosInstance = axios.create({
+const axiosInstance: AxiosInstance = axios.create({
     // baseURL: process.env.VUE_APP_BASE_URL + "/api/v1/",
     headers: {
         Accept: "application/json, text/plain, */*",
@@ -19,7 +18,6 @@ let axiosInstance: AxiosInstance = axios.create({
     transformRequest: [
         function (data) {
             // 由于使用的 form-data传数据所以要格式化
-            delete data.Authorization;
             data = qs.stringify(data);
             return data;
         }
@@ -29,10 +27,10 @@ let axiosInstance: AxiosInstance = axios.create({
 // axios实例拦截请求
 axiosInstance.interceptors.request.use(
     (config: AxiosRequestConfig) => {
-        // const { user } = store.state
-        // if (token) {
-        //   config.headers.Authorization = `Bearer ${token}`
-        // }
+        const obj = JSON.parse(localStorage.getItem('token'));
+        if (obj && obj.token) {
+            config.headers.Authorization = `Bearer ${obj.token}`
+        }
 
         // 启动进度条
         NProgress.start()

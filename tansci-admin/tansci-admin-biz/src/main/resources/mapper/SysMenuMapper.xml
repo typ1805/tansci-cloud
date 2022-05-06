@@ -20,9 +20,8 @@
                 <if test="dto.name != null and dto.name != ''">
                     m.name = #{dto.name}
                 </if>
+                UNION ALL
             </if>
-
-            UNION ALL
             SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, null `role_id`
             FROM sys_menu m
             <where>
