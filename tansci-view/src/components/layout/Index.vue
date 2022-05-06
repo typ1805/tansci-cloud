@@ -7,7 +7,7 @@
     import {useUserStore, useTokenStore, useMenuStore} from '@/store/setttings'
     import {logout} from '@/api/login'
 
-	const userStore = useUserStore();
+	  const userStore = useUserStore();
     const tokenStore = useTokenStore();
     const menuStore = useMenuStore();
     const router = useRouter()
@@ -33,8 +33,9 @@
         // 获取菜单
         let routers:any = [];
         let _routes = router.options.routes;
+        console.log(_routes)
         _routes.forEach(item=>{
-            if (item.type === 1){
+            if (item.children){
                 routers.push(item)
             }
         })
