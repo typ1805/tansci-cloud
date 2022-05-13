@@ -2,7 +2,7 @@ import Layout from '@/components/layout/Index.vue'
 const modules = import.meta.glob('../views/**/**/*.vue')
 
 export function routers(){
-    let _routers = JSON.parse(localStorage.getItem("menu"));
+    let _routers = JSON.parse(sessionStorage.getItem("menu"));
     if(_routers && _routers.menu){
         return routerFilter(_routers.menu)
     }

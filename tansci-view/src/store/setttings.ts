@@ -12,7 +12,7 @@ export const useUserStore = defineStore({
         enabled: true,
         strategies: [
             {
-                storage: localStorage, 
+                storage: sessionStorage, 
                 paths: ['username','loginTime']
             }
         ]
@@ -39,7 +39,7 @@ export const useTokenStore = defineStore({
     persist: {
         enabled: true,
         strategies: [
-            {storage: localStorage, paths: ['token']}
+            {storage: sessionStorage, paths: ['token']}
         ]
     },
     actions: {
@@ -62,7 +62,7 @@ export const useMenuStore = defineStore({
     persist: {
         enabled: true,
         strategies: [
-            {storage: localStorage, paths: ['menu']}
+            {storage: sessionStorage, paths: ['menu']}
         ]
     },
     actions: {

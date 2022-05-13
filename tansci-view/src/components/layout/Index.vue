@@ -1,17 +1,19 @@
 <script setup lang="ts">
     import {onBeforeMount, onMounted, reactive, ref, unref, toRefs} from 'vue'
-    import {ElMessageBox} from 'element-plus'
+    import type {ElMessageBox, TabsPaneContext } from 'element-plus'
     import Submenu from "@/components/Submenu.vue"
+    import MenuTag from "@/components/MenuTag.vue"
     import {timeFormate} from '@/utils/utils'
     import {useRouter} from 'vue-router'
     import {useUserStore, useTokenStore, useMenuStore} from '@/store/setttings'
     import {logout} from '@/api/login'
 
-	  const userStore = useUserStore();
+	const userStore = useUserStore();
     const tokenStore = useTokenStore();
     const menuStore = useMenuStore();
     const router = useRouter()
     const nowTimes = ref('')
+    const menuTag = ref(null)
     const username = userStore.$state.username == null ? '未登录':userStore.$state.username
     const state = reactive({
         isCollapse: false,
@@ -33,7 +35,6 @@
         // 获取菜单
         let routers:any = [];
         let _routes = router.options.routes;
-        console.log(_routes)
         _routes.forEach(item=>{
             if (item.children){
                 routers.push(item)
@@ -91,6 +92,10 @@
             state.asideWidth = '64px'
         }
     }
+
+    const onSelect = (e) =>{
+        menuTag.value.onSelected(e)
+    }
 </script>
 <template>
     <div class="layout-container">
@@ -117,13 +122,19 @@
             <el-container>
                 <el-header height="60">
                     <div>
-                        <el-button @click="onCollapse" type="text" :icon="isCollapse?'Grid':'Menu'" >菜单折叠</el-button>
-                    </div>
-                    <div>
-                        <el-icon :size="16" color="#55bc8a" style="vertical-align: middle;padding-right:0.2rem;">
+                        <el-button @click="onCollapse" type="text" :icon="isCollapse?'Grid':'Menu'"></el-button>
+                        <el-icon :size="16" color="#55bc8a" style="vertical-align: middle;padding: 0 1rem;">
                             <Timer/>
                         </el-icon>
                         <span style="padding-right: 2rem;vertical-align: middle;">{{nowTimes}}</span>
+                    </div>
+                    <div>
+                        <el-tooltip content="深色">
+                            <el-icon :size="24" style="vertical-align: middle; padding-right: 1rem;"><Moon /></el-icon>
+                        </el-tooltip>
+                        <el-tooltip content="全屏">
+                            <el-icon :size="24" style="vertical-align: middle; padding-right: 1rem;"><FullScreen /></el-icon>
+                        </el-tooltip>
                         <el-dropdown style="line-height: 60px;">
                             <span class="el-dropdown-link" style="color:var(--theme);">
                                 <span style="cursor:pointer;vertical-align: middle;">{{username}} 欢迎您</span>
@@ -138,13 +149,16 @@
                     </div>
                 </el-header>
                 <el-main>
+                    <div class="menu-tag">
+                        <MenuTag ref="menuTag" :size="'default'"></MenuTag>
+                    </div>
                     <router-view/>
                 </el-main>
             </el-container>
         </el-container>
     </div>
 </template>
-<style scoped lang="scss">
+<style lang="scss">
     .layout-container{
         .el-aside{
             height: 100%;
@@ -157,7 +171,7 @@
                 background-color: var(--theme);
                 color:#fff;
                 .el-card__body{
-                    padding: 0.5rem 2rem;
+                    padding: 1.2rem 2rem;
                 }
             }
             .el-menu{
@@ -168,9 +182,11 @@
                 }
                 .el-sub-menu__title:hover{
                     background: var(--bg1) !important;
+                    color: #2F9688 !important;
                 }
                 .el-menu-item:hover{
                     background: var(--bg1) !important;
+                    color: #2F9688 !important;
                 }
             }
         }
@@ -183,15 +199,21 @@
             line-height: 60px;
             color: var(--theme);
             background: var(--bg1);
-            border: 1px transparent solid;
-            border-image: linear-gradient(to right, var(--bg1),#DCDFE6, var(--bg1)) 1 10;
-            box-shadow: 0 4px 8px 0 rgba(36,46,66,.06)!important;
+            // border: 1px transparent solid;
+            // border-image: linear-gradient(to right, var(--bg1),#DCDFE6, var(--bg1)) 1 10;
+            // box-shadow: 0 4px 8px 0 rgba(36,46,66,.06)!important;
         }
         .el-main{
-            padding: 0.6rem 0 0 0;
+            padding: 0;
             overflow-x: hidden;
             overflow-y: auto;
             background: var(--bg1);
+            .menu-tag{
+                padding: 0.2rem 0 0.4rem 0;
+                border: 1px transparent solid;
+                border-image: linear-gradient(to right, var(--bg1),#DCDFE6, var(--bg1)) 1 10;
+                box-shadow: 0 4px 8px 0 rgba(36,46,66,.06)!important;
+            }
         }
         .el-main::-webkit-scrollbar{
             width: 0px;
