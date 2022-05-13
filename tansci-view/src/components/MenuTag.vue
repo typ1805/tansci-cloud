@@ -103,7 +103,7 @@
         </el-tag>
     </el-space>
 </template>
-<style scoped lang="scss">
+<style lang="scss">
     .el-space__item{
         cursor: pointer;
     }

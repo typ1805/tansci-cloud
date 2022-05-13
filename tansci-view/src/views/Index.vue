@@ -5,7 +5,7 @@
     <div class="index-container">
         <el-card class="header-card" shadow="always">
             <div class="header-card-left">
-                <el-card shadow="always" style="background-color: #e7e1fb;">
+                <el-card shadow="always" style="background-color: #e7e1fb;height: 310px;">
                     2142 Gitee 访问量
                 </el-card>
             </div>
@@ -22,13 +22,13 @@
                 <el-card shadow="always" style="background-color: #f0f5fb;">
                     2142 Gitee 访问量
                 </el-card>
-                <el-card shadow="always" style="background-color: #f0f5fb;">
+                <el-card shadow="always" style="background-color: #e7e1fb;">
                     2142 Gitee 访问量
                 </el-card>
-                <el-card shadow="always" style="background-color: #f0f5fb;">
+                <el-card shadow="always" style="background-color: #e8faea;">
                     2142 Gitee 访问量
                 </el-card>
-                <el-card shadow="always" style="background-color: #f0f5fb;">
+                <el-card shadow="always" style="background-color: #fdf3e9;">
                     2142 Gitee 访问量
                 </el-card>
             </div>
@@ -43,7 +43,6 @@
             justify-content: space-between;
             .header-card-left{
                 float: left;
-                padding: 3rem;
             }
             .header-card-right{
                 display: flex;
@@ -51,7 +50,7 @@
                 justify-content: left;
                 .el-card{
                     margin: 0.4rem;
-                    padding: 3rem;
+                    padding: 3rem 2.8rem;
                     border-radius: 40px;
                 }
             }

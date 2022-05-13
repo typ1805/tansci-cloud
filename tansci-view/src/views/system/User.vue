@@ -2,9 +2,9 @@
 
 </script>
 <template>
-  <div >
+  <el-card shadow="always" >
     User
-  </div>
+  </el-card>
 </template>
 <style scoped lang="scss">
 

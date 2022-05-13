@@ -49,7 +49,7 @@ axiosInstance.interceptors.response.use(
             NProgress.done();
             return response;
         } else {
-            showMessage(response.status);
+            ElMessage.warning(showMessage(response.status));
             // 关闭进度条
             NProgress.done();
             if (response.data.code == 403 || response.data.code == 401) router.push({path: '/login'})
@@ -61,7 +61,7 @@ axiosInstance.interceptors.response.use(
         const {response} = error;
         if (response) {
             // 请求已发出，但是不在2xx的范围
-            showMessage(response.status);
+            ElMessage.warning(showMessage(response.status));
             return Promise.reject(response.data);
         } else {
             ElMessage.warning('网络连接异常,请稍后再试!');

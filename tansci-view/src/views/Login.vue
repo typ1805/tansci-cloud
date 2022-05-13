@@ -1,6 +1,7 @@
 <script setup lang="ts">
 	import {onBeforeMount,reactive,ref,toRefs} from "vue"
-	import type {FormInstance, ElMessage} from 'element-plus'
+	import {ElLoading} from 'element-plus'
+	import type {FormInstance} from 'element-plus'
 	import {useRouter} from 'vue-router'
 	import SlidingVerify from '@/components/SlidingVerify.vue'
 	import {useUserStore, useTokenStore, useMenuStore} from '@/store/setttings'
@@ -60,7 +61,15 @@
 						}
 						menuList(param).then((menuRes:any)=>{
 							menuStore.setMenu(menuRes.result);
-							router.push({path: 'index'});
+							const loading = ElLoading.service({
+								lock: true,
+								text: '加载数据中...',
+								background: 'rgba(0, 0, 0, 0.7)',
+							})
+							setTimeout(() => {
+								loading.close()
+								router.push({path: 'index'});
+							}, 3000)
 						})
 					}
 				}).catch(()=>{

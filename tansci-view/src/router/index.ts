@@ -29,6 +29,7 @@ router.beforeEach((to, from, next) => {
     } else {
         document.title = "Tansci"
     }
+
     next()
 })
 

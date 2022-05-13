@@ -23,8 +23,7 @@ export const useUserStore = defineStore({
             this.loginTime = data.loginTime
         },
         delUser () {
-            this.username = null
-            this.loginTime = null
+            sessionStorage.clear()
         }
     }
 })
@@ -47,7 +46,7 @@ export const useTokenStore = defineStore({
             this.token = data
         },
         delToken () {
-            this.token = null
+            sessionStorage.clear()
         }
     }
 })
@@ -70,7 +69,7 @@ export const useMenuStore = defineStore({
             this.menu = data
         },
         delMenu () {
-            this.menu = null
+            sessionStorage.clear()
         }
     }
 })

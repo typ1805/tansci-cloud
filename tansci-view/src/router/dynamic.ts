@@ -51,26 +51,3 @@ export function routerFilter(data:any) {
 
 export default routers();
 
-
-// export default[
-//     {
-//         path: '/index',
-//         name: 'index',
-//         chineseName: '首页',
-//         englishName: 'Index',
-//         type: 1,
-//         icon: "HomeFilled",
-//         meta: {title: "首页"},
-//         component: Layout,
-//         children: [{
-//             path: "/index",
-//             name: "index",
-//             chineseName: '首页',
-//             englishName: 'Index',
-//             icon: "HomeFilled",
-//             meta: { title: "首页" },
-//             component: () => import('@/views/Index.vue')
-//         }]
-//     },
-// ]
-

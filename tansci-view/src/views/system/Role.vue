@@ -2,9 +2,9 @@
 
 </script>
 <template>
-  <div >
+  <el-card shadow="always">
     Role
-  </div>
+  </el-card>
 </template>
 <style scoped lang="scss">
 

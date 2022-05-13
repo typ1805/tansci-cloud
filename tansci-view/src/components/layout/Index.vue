@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import {onBeforeMount, onMounted, reactive, ref, unref, toRefs} from 'vue'
-    import type {ElMessageBox, TabsPaneContext } from 'element-plus'
+    import {ElMessageBox } from 'element-plus'
     import Submenu from "@/components/Submenu.vue"
     import MenuTag from "@/components/MenuTag.vue"
     import {timeFormate} from '@/utils/utils'
