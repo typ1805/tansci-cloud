@@ -19,9 +19,14 @@ NProgress.inc(0.2)
 NProgress.configure({ easing: 'ease', speed: 600, showSpinner: false })
 
 // 设置title
-router.beforeEach((to, from, next) => {
+router.beforeEach((to: any, from: any, next: any) => {
     // 启动进度条
     NProgress.start()
+
+    //未登陆
+    if (!sessionStorage.getItem("token") && to.path !== "/login") {
+        return next({ path: "/login" });
+    };
 
     // 设置头部
     if (to.meta.title) {

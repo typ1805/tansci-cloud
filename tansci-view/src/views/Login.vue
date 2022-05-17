@@ -1,6 +1,5 @@
 <script setup lang="ts">
 	import {onBeforeMount,reactive,ref,toRefs} from "vue"
-	import {ElLoading} from 'element-plus'
 	import type {FormInstance} from 'element-plus'
 	import {useRouter} from 'vue-router'
 	import SlidingVerify from '@/components/SlidingVerify.vue'
@@ -11,12 +10,14 @@
 	const userStore = useUserStore();
 	const tokenStore = useTokenStore();
 	const menuStore = useMenuStore();
+	
 	const router = useRouter()
 	const loginFormRef = ref<FormInstance>() 
 	let slidingVerify = ref()
 	const loginLogo = new URL('../assets/image/login-left.png', import.meta.url).href
 
 	const state = reactive({
+		loading: false,
 		loginStyle: {
 			height: '',
 		},
@@ -27,7 +28,7 @@
 			keepPassword: null,
 		},
 	})
-	const {loginStyle,loginForm} = toRefs(state)
+	const {loading,loginStyle,loginForm} = toRefs(state)
 
 	onBeforeMount(() => {
 		state.loginStyle.height = (document.body.clientHeight || document.documentElement.clientHeight) + "px"
@@ -49,25 +50,19 @@
 					username: state.loginForm.username,
 					password: state.loginForm.password
 				}
-				const loading = ElLoading.service({
-					lock: true,
-					text: '加载数据中...',
-					background: 'rgba(0, 0, 0, 0.7)',
-				})
+				state.loading = true;
 				login(param).then((res:any) =>{
 					if(res){
 						// 存储用户信息和token
 						userStore.setUser(res.result);
 						tokenStore.setToken(res.result.token);
-						// 获取菜单
-						let param:any = {
-							type: 0, 
-							status: 1
-						}
-						menuList(param).then((menuRes:any)=>{
-							menuStore.setMenu(menuRes.result);
-							loading.close()
-							router.push({path: 'index'});
+
+						menuList({type: 0,status: 1}).then((menures:any)=>{
+							if(menures.result){
+								menuStore.setMenu(menures.result)
+								state.loading = false;
+								router.push({path: 'index'});
+							}
 						})
 					}
 				}).catch(()=>{
@@ -106,7 +101,7 @@
 							<el-checkbox v-model="loginForm.keepPassword" label="记住密码"></el-checkbox>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" round @click="submit(loginFormRef)" style="width:100%">登录</el-button>
+							<el-button type="primary" round @click="submit(loginFormRef)" :loading="loading" style="width:100%">登录</el-button>
 						</el-form-item>
 					</el-form>
 					<el-divider><el-icon><star-filled /></el-icon></el-divider>
