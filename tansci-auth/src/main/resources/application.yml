@@ -1,5 +1,5 @@
 server:
-  port: 8002
+  port: 9002
   servlet:
     context-path: /
 spring:
@@ -27,7 +27,7 @@ dubbo:
     # dubbo 协议
     name: dubbo
     # dubbo 协议端口（ -1 表示自增端口，从 20880 开始）
-    port: 20881
+    port: 30881
   registry:
     # 挂载到 Spring Cloud 注册中心
     address: spring-cloud://10.167.1.73

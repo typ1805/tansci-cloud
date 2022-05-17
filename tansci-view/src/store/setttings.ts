@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia'
 
 // 存储用户信息
-export const useUserStore = defineStore({
-    id: 'user',
+export const useUserStore = defineStore('user', {
     state: () => ({
         username: '',
         loginTime: '',
@@ -29,8 +28,7 @@ export const useUserStore = defineStore({
 })
 
 // 存储 token
-export const useTokenStore = defineStore({
-    id: 'token',
+export const useTokenStore = defineStore('token', {
     state: () => ({
         token: '',
     }),
@@ -52,8 +50,7 @@ export const useTokenStore = defineStore({
 })
 
 // 存储菜单信息
-export const useMenuStore = defineStore({
-    id: 'menu',
+export const useMenuStore = defineStore('menu', {
     state: () => ({
         menu: '',
     }),

@@ -120,22 +120,24 @@
                 </el-menu>
             </el-aside>
             <el-container>
-                <el-header height="60">
+                <el-header height="50">
                     <div>
-                        <el-button @click="onCollapse" type="text" :icon="isCollapse?'Grid':'Menu'"></el-button>
-                        <el-icon :size="16" color="#55bc8a" style="vertical-align: middle;padding: 0 1rem;">
+                        <el-icon @click="onCollapse" :size="20" style="vertical-align: middle; cursor: pointer;">
+                            <component :is="isCollapse?'Expand':'Fold'"></component>
+                        </el-icon>
+                        <el-icon :size="18" color="#55bc8a" style="vertical-align: middle;padding: 0 0.2rem 0 1rem;">
                             <Timer/>
                         </el-icon>
                         <span style="padding-right: 2rem;vertical-align: middle;">{{nowTimes}}</span>
                     </div>
                     <div>
                         <el-tooltip content="深色">
-                            <el-icon :size="24" style="vertical-align: middle; padding-right: 1rem;"><Moon /></el-icon>
+                            <el-icon :size="20" style="vertical-align: middle; padding-right: 1rem;"><Moon /></el-icon>
                         </el-tooltip>
                         <el-tooltip content="全屏">
-                            <el-icon :size="24" style="vertical-align: middle; padding-right: 1rem;"><FullScreen /></el-icon>
+                            <el-icon :size="20" style="vertical-align: middle; padding-right: 1rem;"><FullScreen /></el-icon>
                         </el-tooltip>
-                        <el-dropdown style="line-height: 60px;">
+                        <el-dropdown style="line-height: 50px;">
                             <span class="el-dropdown-link" style="color:var(--theme);">
                                 <span style="cursor:pointer;vertical-align: middle;">{{username}} 欢迎您</span>
                                 <el-icon style="vertical-align: middle;"><arrow-down /></el-icon>
@@ -196,9 +198,10 @@
         .el-header{
             display: flex;
             justify-content: space-between;
-            line-height: 60px;
+            line-height: 50px;
             color: var(--theme);
             background: var(--bg1);
+            padding-left: 0;
             // border: 1px transparent solid;
             // border-image: linear-gradient(to right, var(--bg1),#DCDFE6, var(--bg1)) 1 10;
             // box-shadow: 0 4px 8px 0 rgba(36,46,66,.06)!important;

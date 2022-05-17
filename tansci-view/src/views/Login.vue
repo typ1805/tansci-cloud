@@ -49,6 +49,11 @@
 					username: state.loginForm.username,
 					password: state.loginForm.password
 				}
+				const loading = ElLoading.service({
+					lock: true,
+					text: '加载数据中...',
+					background: 'rgba(0, 0, 0, 0.7)',
+				})
 				login(param).then((res:any) =>{
 					if(res){
 						// 存储用户信息和token
@@ -61,15 +66,8 @@
 						}
 						menuList(param).then((menuRes:any)=>{
 							menuStore.setMenu(menuRes.result);
-							const loading = ElLoading.service({
-								lock: true,
-								text: '加载数据中...',
-								background: 'rgba(0, 0, 0, 0.7)',
-							})
-							setTimeout(() => {
-								loading.close()
-								router.push({path: 'index'});
-							}, 3000)
+							loading.close()
+							router.push({path: 'index'});
 						})
 					}
 				}).catch(()=>{
