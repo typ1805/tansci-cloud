@@ -40,3 +40,78 @@ html, body {
     margin: 0;
     overflow: hidden;
 }
+
+// ==============公共样式==================
+/**
+ * Dialog 对话框
+ */
+.el-dialog__header{
+    background-color: #242e42;
+    margin-right: 0;
+    padding: 12px 20px;
+    .el-dialog__title{
+        color: #fff;
+    }
+}
+/**
+ * table组件样式
+ */
+.table-container{
+    .search-wrap{
+        display: flex;
+        flex-wrap: wrap;
+        background: var(--bg1);
+    }
+    .search-wrap>div{
+        line-height: 40px;
+        padding: 0.2rem 0.8rem;
+    }
+    .button-wrap{
+        display: flex;
+        flex-wrap: wrap;
+        padding-top: 0.6rem;
+    }
+    .button-wrap>div{
+        line-height: 40px;
+        padding: 0.2rem 0.8rem;
+    }
+    .table-wrap{
+        padding: 1rem 0;
+    }
+    .pagination-wrap{
+        padding-bottom: 0.2rem;
+        text-align: right;
+    }
+}
+
+/**
+ * el-table 滚动条样式
+ */
+.el-table__body-wrapper::-webkit-scrollbar {
+    width: 5px;
+    height: 1px;
+}
+.el-table__body-wrapper::-webkit-scrollbar-thumb {
+    background-color: #909399;
+    border-radius: 5px;
+}
+.el-table__body-wrapper::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background: #ededed;
+}
+
+/**
+ * 滚动条样式
+ */
+.scroll-div::-webkit-scrollbar{
+    width: 5px;
+    height: 1px;
+}
+.scroll-div::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: #909399;
+}
+.scroll-div::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background: #ededed;
+}

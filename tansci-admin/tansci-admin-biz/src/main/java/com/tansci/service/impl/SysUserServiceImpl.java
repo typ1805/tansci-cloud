@@ -5,17 +5,23 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tansci.domain.SysUser;
+import com.tansci.domain.SysUserRole;
 import com.tansci.dto.SysUserDto;
+import com.tansci.enums.Enums;
 import com.tansci.exception.BusinessException;
 import com.tansci.mapper.SysUserMapper;
+import com.tansci.service.SysUserRoleService;
 import com.tansci.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @path：com.tansci.service.impl.SysUserServiceImpl.java
@@ -29,9 +35,12 @@ import java.util.Objects;
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
+    @Autowired
+    private SysUserRoleService sysUserRoleService;
+
     @Override
     public IPage<SysUser> page(Page page, SysUserDto dto) {
-        return this.page(page,
+        IPage<SysUser> iPage = this.page(page,
                 Wrappers.<SysUser>lambdaQuery()
                         .eq(Objects.nonNull(dto.getStatus()), SysUser::getStatus, dto.getStatus())
                         .eq(Objects.nonNull(dto.getUsername()), SysUser::getUsername, dto.getUsername())
@@ -39,6 +48,29 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                         .like(Objects.nonNull(dto.getNickname()), SysUser::getNickname, dto.getNickname())
                         .orderByDesc(SysUser::getUpdateTime)
         );
+
+        if (Objects.nonNull(iPage.getRecords()) && iPage.getRecords().size() > 0) {
+            List<SysUserRole> roles = sysUserRoleService.list();
+            iPage.getRecords().forEach(item -> {
+                Optional<SysUserRole> rOptional = roles.stream().filter(u -> Objects.equals(u.getUserId(), item.getId())).findFirst();
+                if (rOptional.isPresent()) {
+                    item.setRoleId(rOptional.get().getRoleId());
+                }
+
+                if (Objects.nonNull(item.getStatus())) {
+                    item.setStatusName(Enums.getVlaueByGroup(item.getStatus(), "del_falg"));
+                }
+
+                if (Objects.nonNull(item.getSex())) {
+                    item.setSexName(Enums.getVlaueByGroup(item.getSex(), "user_sex"));
+                }
+
+                if (Objects.nonNull(item.getType())) {
+                    item.setTypeName(Enums.getVlaueByGroup(item.getType(), "user_type"));
+                }
+            });
+        }
+        return iPage;
     }
 
     @Override

@@ -8,20 +8,20 @@ import 'nprogress/nprogress.css'
 
 NProgress.inc(0.2)
 NProgress.configure({easing: 'ease', speed: 600, showSpinner: false})
+
 const axiosInstance: AxiosInstance = axios.create({
     // baseURL: process.env.VUE_APP_BASE_URL + "/api/v1/",
     headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json;charset=UTF-8",
         "X-Requested-With": "XMLHttpRequest"
     },
-    transformRequest: [
-        function (data) {
-            // 由于使用的 form-data传数据所以要格式化
-            data = qs.stringify(data);
-            return data;
-        }
-    ]
+    // transformRequest: [
+    //     function (data) {
+    //         // 由于使用的 form-data传数据所以要格式化
+    //         data = qs.stringify(data);
+    //         return data;
+    //     }
+    // ]
 })
 
 // axios实例拦截请求
@@ -44,7 +44,7 @@ axiosInstance.interceptors.request.use(
 // axios实例拦截响应
 axiosInstance.interceptors.response.use(
     (response: AxiosResponse) => {
-        if (response.status === 200) {
+        if (response.status === 200 && response.data.code == 200) {
             // 关闭进度条
             NProgress.done();
             return response;
@@ -52,7 +52,10 @@ axiosInstance.interceptors.response.use(
             ElMessage.warning(showMessage(response.status));
             // 关闭进度条
             NProgress.done();
-            if (response.data.code == 403 || response.data.code == 401) router.push({path: '/login'})
+            if (response.data.code == 403 || response.data.code == 401){
+                sessionStorage.clear();
+                router.push({path: 'login'});
+            } 
             return response;
         }
     },

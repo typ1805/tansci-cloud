@@ -11,4 +11,7 @@ import com.tansci.domain.SysUserRole;
  * @Date： 2022/4/25 16:29
  **/
 public interface SysUserRoleService extends IService<SysUserRole> {
+
+    Object userRoleSave(SysUserRole sysUserRole);
+
 }

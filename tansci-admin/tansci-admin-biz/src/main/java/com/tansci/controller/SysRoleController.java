@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tansci.annotation.Log;
 import com.tansci.constants.Constants;
 import com.tansci.domain.SysRole;
+import com.tansci.domain.SysUserRole;
 import com.tansci.dto.SysRoleDto;
 import com.tansci.service.SysRoleService;
+import com.tansci.service.SysUserRoleService;
 import com.tansci.utils.UserInfoContext;
 import com.tansci.utils.WrapMapper;
 import com.tansci.utils.Wrapper;
@@ -34,6 +36,8 @@ public class SysRoleController {
 
     @Autowired
     private SysRoleService sysRoleService;
+    @Autowired
+    private SysUserRoleService sysUserRoleService;
 
     @ApiOperation(value = "角色分页", notes = "角色分页")
     @Log(modul = "角色管理-角色分页", type = Constants.SELECT, desc = "角色分页")
@@ -71,6 +75,13 @@ public class SysRoleController {
     @PostMapping("update")
     public Wrapper<Object> update(@RequestBody SysRole sysRole) {
         return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, sysRoleService.updateById(sysRole));
+    }
+
+    @ApiOperation(value = "添加用户角色", notes = "添加用户角色")
+    @Log(modul = "角色管理-添加用户角色", type = Constants.INSERT, desc = "添加用户角色")
+    @PostMapping("userRoleSave")
+    public Wrapper<Object> userRoleSave(@RequestBody SysUserRole sysUserRole) {
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, sysUserRoleService.userRoleSave(sysUserRole));
     }
 
 }

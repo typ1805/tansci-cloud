@@ -46,18 +46,25 @@ public class SysUser implements Serializable {
 
     @ApiModelProperty(value = "类型：0、普通用户，1、管理员")
     private Integer type;
+    @TableField(exist = false)
+    private String typeName;
 
     @ApiModelProperty(value = "状态：0：正常，1：删除，2：禁用")
     private Integer status;
+    @TableField(exist = false)
+    private String statusName;
 
     @ApiModelProperty(value = "微信唯一标识")
     private String openId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", locale = "zh", timezone = "GMT+8")
     @ApiModelProperty(value = "出生日期")
     private LocalDate birthday;
 
     @ApiModelProperty(value = "性别：0：男；1：女")
     private Integer sex;
+    @TableField(exist = false)
+    private String sexName;
 
     @ApiModelProperty(value = "邮箱")
     private String email;

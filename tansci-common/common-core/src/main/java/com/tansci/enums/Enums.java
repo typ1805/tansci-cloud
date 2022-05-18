@@ -36,18 +36,15 @@ public enum Enums {
      */
     NOT_DEL_FALG(0, "del_falg", "正常"),
     IS_DEL_FALG(1, "del_falg", "已删除"),
-
-    /**
-     * 角色类型
-     */
-    ROLE_SYSTEM(0, "role_type", "平台角色"),
-    ROLE_NOT_SYSTEM(1, "role_type", "非平台角色"),
+    DISABLE_FALG(2, "del_falg", "已禁用"),
 
     /**
      * 用户信息相关
      */
-    USER_GENDER_MALE(0, "user_gender", "男"),
-    USER_GENDER_GIRL(1, "user_gender", "女"),
+    USER_SEX_MALE(0, "user_sex", "男"),
+    USER_SEX_GIRL(1, "user_sex", "女"),
+    USER_TYPE_ORDINARY(0, "user_type", "普通用户"),
+    USER_TYPE_ADMINISTRATORS(1, "user_type", "管理员"),
 
     /**
      * 消息状态
@@ -75,7 +72,7 @@ public enum Enums {
 
 
     /**
-     * @author: lr
+     * @author: tanyp
      * @Date: 2022/2/28
      * @Description:根据key获取value
      */
@@ -90,7 +87,7 @@ public enum Enums {
 
 
     /**
-     * @author: lr
+     * @author: tanyp
      * @Date: 2022/2/28
      * @Description:根据key和group获取value
      */

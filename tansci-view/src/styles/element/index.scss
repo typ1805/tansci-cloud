@@ -19,14 +19,20 @@ $--colors: (
     ),
 );
 
-//你应该在SCS中使用它们，因为我们是通过sass计算的。
-// omment下一行使用默认颜色
-@forward "element-plus/theme-chalk/src/common/var.scss" with
-(
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
     // do not use same name, it will override.
     $colors: $--colors,
-    $button-padding-horizontal: ("default": 50px)
+    // $button-padding-horizontal: ("default": 50px)
 );
+
+// 暗黑模式
+// @forward 'element-plus/theme-chalk/src/dark/var.scss' with (
+//     $bg-color: (
+//         'page': #0a0a0a,
+//         '': #626aef,
+//         'overlay': #1d1e1f,
+//     )
+// );
 
 // 如果要导入所有
 @use "element-plus/theme-chalk/src/index.scss" as *;

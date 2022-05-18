@@ -1,5 +1,6 @@
 package com.tansci.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tansci.domain.SysUserRole;
 import com.tansci.mapper.SysUserRoleMapper;
@@ -17,4 +18,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements SysUserRoleService {
+
+    @Override
+    public Object userRoleSave(SysUserRole sysUserRole) {
+        this.baseMapper.delete(Wrappers.<SysUserRole>lambdaQuery().eq(SysUserRole::getRoleId, sysUserRole.getRoleId()).eq(SysUserRole::getUserId, sysUserRole.getUserId()));
+        return this.baseMapper.insert(sysUserRole);
+    }
+
 }
