@@ -11,9 +11,9 @@
 
     <modules>
         <module>tansci-common</module>
-        <module>tansci-admin</module>
         <module>tansci-auth</module>
         <module>tansci-gateway</module>
+        <module>tansci-modules</module>
     </modules>
 
     <properties>

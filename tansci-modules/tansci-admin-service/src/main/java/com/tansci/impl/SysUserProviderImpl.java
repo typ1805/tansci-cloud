@@ -1,4 +1,4 @@
-package com.tansci.provider.impl;
+package com.tansci.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tansci.domain.SysUser;
