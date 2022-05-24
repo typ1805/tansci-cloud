@@ -9,27 +9,29 @@ import 'nprogress/nprogress.css'
 NProgress.inc(0.2)
 NProgress.configure({easing: 'ease', speed: 600, showSpinner: false})
 
+// 根据环境获得不同的代理模式
+// const baseURL = import.meta.env.VITE_BASE_URL as string;
 const axiosInstance: AxiosInstance = axios.create({
-    // baseURL: process.env.VUE_APP_BASE_URL + "/api/v1/",
+    // baseURL,
+    timeout: 10 * 1000, // 30秒超时
     headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        "X-Requested-With": "XMLHttpRequest"
+        'Content-Type': 'application/json'
     },
-    // transformRequest: [
-    //     function (data) {
-    //         // 由于使用的 form-data传数据所以要格式化
-    //         data = qs.stringify(data);
-    //         return data;
-    //     }
-    // ]
 })
 
 // axios实例拦截请求
-axiosInstance.interceptors.request.use(
-    (config: AxiosRequestConfig) => {
+axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
+        // 设置token
         const obj = JSON.parse(sessionStorage.getItem('token'));
         if (obj && obj.token) {
             config.headers.Authorization = `Bearer ${obj.token}`
+        }
+
+        if(config.method === 'post' || config.method === 'put'){
+            config.data = qs.stringify(config.data);
+        } else if(config.method === 'get' || config.method === 'delete'){
+            config.params = qs.parse(config.data);
+            config.data = undefined;
         }
 
         // 启动进度条
