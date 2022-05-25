@@ -13,7 +13,7 @@ NProgress.configure({easing: 'ease', speed: 600, showSpinner: false})
 // const baseURL = import.meta.env.VITE_BASE_URL as string;
 const axiosInstance: AxiosInstance = axios.create({
     // baseURL,
-    timeout: 10 * 1000, // 30秒超时
+    timeout: 30 * 1000, // 超时时间
     headers: {
         'Content-Type': 'application/json'
     },
@@ -25,13 +25,6 @@ axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
         const obj = JSON.parse(sessionStorage.getItem('token'));
         if (obj && obj.token) {
             config.headers.Authorization = `Bearer ${obj.token}`
-        }
-
-        if(config.method === 'post' || config.method === 'put'){
-            config.data = qs.stringify(config.data);
-        } else if(config.method === 'get' || config.method === 'delete'){
-            config.params = qs.parse(config.data);
-            config.data = undefined;
         }
 
         // 启动进度条
