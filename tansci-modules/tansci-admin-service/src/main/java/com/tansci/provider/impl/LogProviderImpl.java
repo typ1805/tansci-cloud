@@ -1,4 +1,4 @@
-package com.tansci.impl;
+package com.tansci.provider.impl;
 
 import com.tansci.domain.LogErrorInfo;
 import com.tansci.domain.LogInfo;

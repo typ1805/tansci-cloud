@@ -8,7 +8,7 @@ export const login = (params: any) => {
         url:'/auth/login',
         method:'post',
         params:params
-    })
+    }).then(res => res.data);
 }
 
 /**
