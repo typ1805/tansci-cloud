@@ -5,14 +5,20 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tansci.domain.SysRole;
+import com.tansci.domain.SysUser;
 import com.tansci.dto.SysRoleDto;
+import com.tansci.enums.Enums;
 import com.tansci.mapper.SysRoleMapper;
 import com.tansci.service.SysRoleService;
+import com.tansci.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName： SysRoleServiceImpl.java
@@ -25,6 +31,9 @@ import java.util.Objects;
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements SysRoleService {
 
+    @Autowired
+    private SysUserService sysUserService;
+
     @Override
     public IPage<SysRole> page(Page page, SysRoleDto dto) {
         IPage<SysRole> roleIPage = this.baseMapper.selectPage(page,
@@ -33,6 +42,20 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
                         .like(Objects.nonNull(dto.getName()), SysRole::getName, dto.getName())
                         .orderByDesc(SysRole::getUpdateTime)
         );
+
+        if (Objects.nonNull(roleIPage.getRecords()) && roleIPage.getRecords().size() > 0) {
+            List<SysUser> users = sysUserService.listByIds(roleIPage.getRecords().stream().map(SysRole::getCreator).distinct().collect(Collectors.toList()));
+            roleIPage.getRecords().forEach(item -> {
+                Optional<SysUser> uOptional = users.stream().filter(u -> Objects.equals(u.getId(), item.getCreator())).findFirst();
+                if (uOptional.isPresent()) {
+                    item.setCreatorName(uOptional.get().getNickname());
+                }
+
+                if (Objects.nonNull(item.getStatus())) {
+                    item.setStatusName(Enums.getVlaueByGroup(item.getStatus(), "status"));
+                }
+            });
+        }
         return roleIPage;
     }
 

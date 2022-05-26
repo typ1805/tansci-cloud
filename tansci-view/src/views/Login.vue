@@ -5,7 +5,7 @@
 	import SlidingVerify from '@/components/SlidingVerify.vue'
 	import {useUserStore, useTokenStore, useMenuStore} from '@/store/setttings'
 	import {login} from '@/api/login'
-	import {menuList} from '@/api/system'
+	import {menuList} from '@/api/system/menu'
 
 	const userStore = useUserStore();
 	const tokenStore = useTokenStore();

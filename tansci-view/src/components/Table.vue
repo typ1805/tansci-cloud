@@ -81,7 +81,7 @@
                             <el-tag :size="item.option.size" 
                                 :effect="item.option.effect" 
                                 :type="item.option.type">
-                                {{scope.row[item.prop]}}    
+                                {{scope.row[item.alias==null?item.prop:item.alias]}}    
                             </el-tag>
                         </template>
                     </el-table-column>
@@ -90,7 +90,7 @@
                         :label="item.label" :align="item.align != null ? item.align : 'center'" :width="item.width">
                         <template #default="scope">
                             <el-button @click="$emit('onButtonClick',scope.row)" type="text" :size="item.option.size">
-                                {{scope.row[item.prop]}}    
+                                {{scope.row[item.alias==null?item.prop:item.alias]}}    
                             </el-button>
                         </template>
                     </el-table-column>
@@ -101,7 +101,7 @@
                             <el-switch @change="$emit('onSwitchChange',scope.row)" inline-prompt 
                                 :active-value="item.option.activeValue" :active-color="item.option.activeColor" :active-text="item.option.activeText" 
                                 :inactive-value="item.option.inactiveValue" :inactive-color="item.option.inactiveColor" :inactive-text="item.option.inactiveText"
-                                v-model="scope.row[item.prop]"
+                                v-model="scope.row[item.alias==null?item.prop:item.alias]"
                             ></el-switch>
                         </template>
                     </el-table-column>
@@ -109,7 +109,7 @@
                     <el-table-column v-else-if="item.type == 'progress'" show-overflow-tooltip 
                         :label="item.label" :align="item.align != null ? item.align : 'center'" :width="item.width">
                         <template #default="scope">
-                            <el-progress :percentage="scope.row[item.prop]" 
+                            <el-progress :percentage="scope.row[item.alias==null?item.prop:item.alias]" 
                             :status="item.option.status"
                             :color="item.option.color"/>
                         </template>

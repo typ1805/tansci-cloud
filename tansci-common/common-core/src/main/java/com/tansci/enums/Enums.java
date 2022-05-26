@@ -63,6 +63,7 @@ public enum Enums {
      */
     STATUS_0(0, "status", "未启用"),
     STATUS_1(1, "status", "启用"),
+    STATUS_2(2, "status", "禁用"),
 
     ;
 

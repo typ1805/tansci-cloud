@@ -4,7 +4,8 @@
   import type {FormInstance} from 'element-plus'
   import Table from '@/components/Table.vue'
   import {dateFormat}from '@/utils/utils'
-  import {userPage,addUser,updateUser,delUser,roleList,userRoleSave} from '@/api/system'
+  import {userPage,addUser,updateUser,delUser} from '@/api/system/user'
+  import {roleList,userRoleSave} from '@/api/system/role'
 
   const userFormRef = ref<FormInstance>()
   const roleFormRef = ref<FormInstance>()
@@ -22,7 +23,7 @@
       {prop:'',label:'',fixed:'left'},
       {prop:'username',label:'名称'},
       {prop:'nickname',label:'昵称'},
-      {prop:'type',alias:'typeName',label:'类型'},
+      {prop:'type',alias:'typeName',label:'类型',type:'tag',option:{type:'info',size:'small',effect:'plain'}},
       {prop:'status',alias:'statusName',label:'状态'},
       {prop:'sex',alias:'sexName',label:'性别'},
       {prop:'birthday',label:'出生日期'},
@@ -140,7 +141,7 @@
 
   // 设置权限
   const onRoleList = () =>{
-    roleList({}).then(res=>{
+    roleList({status: 1}).then(res=>{
       if(res){
         state.roles = res.result
       }
@@ -251,7 +252,7 @@
     <Table :data="tableData" :column="tableTitle" :operation="true" :page="page" :loading="loading"
       @onSizeChange="onSizeChange" @onCurrentChange="onCurrentChange" @setCellColor="setCellColor">
       <template #search>
-        <div><el-button type="info" @click="onAddUser">添加用户</el-button></div>
+        <div><el-button type="info" @click="onAddUser">添加</el-button></div>
         <div><el-input v-model="searchForm.nickname" placeholder="请输入用户名称"></el-input></div>
         <div><el-button @click="onRefresh" icon="RefreshRight" circle></el-button></div>
         <div><el-button @click="onSearch" type="primary" icon="Search">查询</el-button></div>

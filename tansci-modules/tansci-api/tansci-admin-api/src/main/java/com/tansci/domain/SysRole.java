@@ -1,6 +1,7 @@
 package com.tansci.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -36,11 +37,15 @@ public class SysRole implements Serializable {
     @ApiModelProperty(value = "角色名称")
     private String name;
 
-    @ApiModelProperty(value = "状态：0、正常，1、禁用")
+    @ApiModelProperty(value = "状态：0、默认，1、启用，2、禁用")
     private Integer status;
+    @TableField(exist = false)
+    private String statusName;
 
     @ApiModelProperty(value = "创建人")
     private String creator;
+    @TableField(exist = false)
+    private String creatorName;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     @ApiModelProperty(value = "更新时间")

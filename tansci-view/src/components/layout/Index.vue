@@ -154,7 +154,7 @@
                     <div class="menu-tag">
                         <MenuTag ref="menuTag" :size="'default'"></MenuTag>
                     </div>
-                    <router-view/>
+                    <router-view style="margin-right: 0.2rem;" />
                 </el-main>
             </el-container>
         </el-container>

@@ -21,7 +21,7 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
 
     @Override
     public Object userRoleSave(SysUserRole sysUserRole) {
-        this.baseMapper.delete(Wrappers.<SysUserRole>lambdaQuery().eq(SysUserRole::getRoleId, sysUserRole.getRoleId()).eq(SysUserRole::getUserId, sysUserRole.getUserId()));
+        this.baseMapper.delete(Wrappers.<SysUserRole>lambdaUpdate().eq(SysUserRole::getUserId, sysUserRole.getUserId()));
         return this.baseMapper.insert(sysUserRole);
     }
 
