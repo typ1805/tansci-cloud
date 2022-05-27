@@ -25,15 +25,6 @@ $--colors: (
     // $button-padding-horizontal: ("default": 50px)
 );
 
-// 暗黑模式
-// @forward 'element-plus/theme-chalk/src/dark/var.scss' with (
-//     $bg-color: (
-//         'page': #0a0a0a,
-//         '': #626aef,
-//         'overlay': #1d1e1f,
-//     )
-// );
-
 // 如果要导入所有
 @use "element-plus/theme-chalk/src/index.scss" as *;
 

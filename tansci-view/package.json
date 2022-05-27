@@ -19,6 +19,8 @@
     "pinia": "^2.0.13",
     "pinia-plugin-persist": "^1.0.0",
     "qs": "^6.10.3",
+    "save": "^2.5.0",
+    "screenfull": "^6.0.1",
     "vue": "^3.2.25",
     "vue-router": "^4.0.14"
   },

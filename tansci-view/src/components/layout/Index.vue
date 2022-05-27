@@ -1,12 +1,14 @@
 <script setup lang="ts">
-    import {onBeforeMount, onMounted, reactive, ref, unref, toRefs} from 'vue'
-    import {ElMessageBox } from 'element-plus'
+    import {onBeforeMount, onMounted, reactive, ref, toRefs} from 'vue'
+    import {ElMessage, ElMessageBox } from 'element-plus'
     import Submenu from "@/components/Submenu.vue"
     import MenuTag from "@/components/MenuTag.vue"
     import {timeFormate} from '@/utils/utils'
     import {useRouter} from 'vue-router'
     import {useUserStore, useTokenStore, useMenuStore} from '@/store/setttings'
+    import screenfull from 'screenfull'
     import {logout} from '@/api/login'
+    
 
 	const userStore = useUserStore();
     const tokenStore = useTokenStore();
@@ -24,7 +26,7 @@
         routers: [],
     })
     const {
-        isCollapse,asideWidth,defaultHeight,routers,
+        isCollapse,asideWidth,defaultHeight,routers
     } = toRefs(state)
 
     onBeforeMount(() => {
@@ -93,8 +95,17 @@
         }
     }
 
-    const onSelect = (e) =>{
+    const onSelect = (e:any) =>{
         menuTag.value.onSelected(e)
+    }
+
+    // 全屏展示
+    const onFullScreen = () =>{
+        if(!screenfull.isEnabled){
+            ElMessage.warning('您的浏览器版本过低不支持全屏显示！');
+            return false;
+        }
+        screenfull.toggle();
     }
 </script>
 <template>
@@ -135,7 +146,7 @@
                             <el-icon :size="20" style="vertical-align: middle; padding-right: 1rem;"><Moon /></el-icon>
                         </el-tooltip>
                         <el-tooltip content="全屏">
-                            <el-icon :size="20" style="vertical-align: middle; padding-right: 1rem;"><FullScreen /></el-icon>
+                            <el-icon @click="onFullScreen" :size="20" style="vertical-align: middle; padding-right: 1rem;"><FullScreen /></el-icon>
                         </el-tooltip>
                         <el-dropdown style="line-height: 50px;">
                             <span class="el-dropdown-link" style="color:var(--theme);">
