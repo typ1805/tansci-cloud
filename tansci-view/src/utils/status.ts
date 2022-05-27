@@ -36,7 +36,7 @@ export const showMessage = (status:number|string) : string => {
             message = "HTTP版本不受支持(505)";
             break;
         default:
-            message = `连接出错(${status})!`;
+            message = `未授权，请重新登录!`;
     }
     return `${message}`;
 };

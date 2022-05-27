@@ -22,9 +22,8 @@ const axiosInstance: AxiosInstance = axios.create({
 // axios实例拦截请求
 axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
         // 设置token
-        const obj = JSON.parse(sessionStorage.getItem('token'));
-        if (obj && obj.token) {
-            config.headers.Authorization = `Bearer ${obj.token}`
+        if (sessionStorage.getItem('token')) {
+            config.headers.Authorization = `Bearer ${sessionStorage.getItem('token')}`
         }
 
         // 启动进度条

@@ -3,13 +3,11 @@
 	import type {FormInstance} from 'element-plus'
 	import {useRouter} from 'vue-router'
 	import SlidingVerify from '@/components/SlidingVerify.vue'
-	import {useUserStore, useTokenStore, useMenuStore} from '@/store/setttings'
+	import {useUserStore, useTokenStore} from '@/store/setttings'
 	import {login} from '@/api/login'
-	import {menuList} from '@/api/system/menu'
 
 	const userStore = useUserStore();
 	const tokenStore = useTokenStore();
-	const menuStore = useMenuStore();
 	
 	const router = useRouter()
 	const loginFormRef = ref<FormInstance>() 
@@ -56,14 +54,8 @@
 						// 存储用户信息和token
 						userStore.setUser(res.result);
 						tokenStore.setToken(res.result.token);
-
-						menuList({type: 0,status: 1}).then((menures:any)=>{
-							if(menures.result){
-								menuStore.setMenu(menures.result)
-								state.loading = false;
-								router.push({path: 'index'});
-							}
-						})
+						state.loading = false;
+						router.push({path: 'index'});
 					}
 				}).catch(()=>{
 					state.loginForm.verifyStatus = null;

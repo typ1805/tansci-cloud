@@ -7,19 +7,14 @@ export const useUserStore = defineStore('user', {
         loginTime: '',
     }),
     getters: {},
-    persist: {
-        enabled: true,
-        strategies: [
-            {
-                storage: sessionStorage, 
-                paths: ['username','loginTime']
-            }
-        ]
-    },
     actions: {
         setUser (data:any) {
             this.username = data.username
             this.loginTime = data.loginTime
+            sessionStorage.setItem('user', JSON.stringify({
+                username: data.username,
+                loginTime: data.loginTime
+            } as any))
         },
         delUser () {
             sessionStorage.clear()
@@ -33,15 +28,10 @@ export const useTokenStore = defineStore('token', {
         token: '',
     }),
     getters: {},
-    persist: {
-        enabled: true,
-        strategies: [
-            {storage: sessionStorage, paths: ['token']}
-        ]
-    },
     actions: {
         setToken (data:any) {
             this.token = data
+            sessionStorage.setItem('token', data)
         },
         delToken () {
             sessionStorage.clear()
@@ -55,15 +45,10 @@ export const useMenuStore = defineStore('menu', {
         menu: '',
     }),
     getters: {},
-    persist: {
-        enabled: true,
-        strategies: [
-            {storage: sessionStorage, paths: ['menu']}
-        ]
-    },
     actions: {
         setMenu (data:any) {
             this.menu = data
+            sessionStorage.setItem('menu', JSON.stringify(data))
         },
         delMenu () {
             sessionStorage.clear()
