@@ -89,7 +89,7 @@
                     <el-table-column v-else-if="item.type == 'button'" show-overflow-tooltip
                         :label="item.label" :align="item.align != null ? item.align : 'center'" :width="item.width">
                         <template #default="scope">
-                            <el-button @click="$emit('onButtonClick',scope.row)" type="text" :size="item.option.size">
+                            <el-button @click="$emit('onButtonClick',scope.row)" :type="item.option.type" link :size="item.option.size">
                                 {{scope.row[item.alias==null?item.prop:item.alias]}}    
                             </el-button>
                         </template>

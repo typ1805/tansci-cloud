@@ -46,8 +46,8 @@ public class SysDicServiceImpl extends ServiceImpl<SysDicMapper, SysDic> impleme
 
 
     /**
-     * @author: lr
-     * @Date: 2022/2/28
+     * @author: tanyp
+     * @Date: 2022/5/20
      * @Description:封装树形数据
      */
     public List<SysDic> getChildrens(SysDic dic, List<SysDic> list) {

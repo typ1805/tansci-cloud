@@ -226,7 +226,7 @@
                     <el-input-number v-model="menuForm.sort" :min="0" :max="999" style="width:50%"></el-input-number>
                 </el-form-item>
                 <el-form-item label="菜单级别" prop="level" :rules="[{required: true, message: '请选择级别', trigger: 'change'}]">
-                    <el-input-number v-model="menuForm.sort" :min="1" :max="999" style="width:50%"></el-input-number>
+                    <el-input-number v-model="menuForm.level" :min="1" :max="999" style="width:50%"></el-input-number>
                 </el-form-item>
                 <el-form-item label="菜单状态" prop="status" :rules="[{required: true, message: '请选择状态', trigger: 'change'}]">
                     <el-radio-group v-model="menuForm.status">
