@@ -3,21 +3,21 @@ export default[
     {
         path: '/',
         name: 'main',
-        chineseName: '首页',
-        englishName: 'Index',
-        icon: "HomeFilled",
-        meta: { title: "首页" },
-        component: Layout,
+        // chineseName: '首页',
+        // englishName: 'Index',
+        // icon: "HomeFilled",
+        // meta: { title: "首页" },
+        // component: Layout,
         redirect: "index",
-        children: [{
-            path: "/index",
-            name: "index",
-            chineseName: '首页',
-            englishName: 'Index',
-            icon: "HomeFilled",
-            meta: { title: "首页" },
-            component: () => import('@/views/Index.vue')
-        }]
+        // children: [{
+        //     path: "/index",
+        //     name: "index",
+        //     chineseName: '首页',
+        //     englishName: 'Index',
+        //     icon: "HomeFilled",
+        //     meta: { title: "首页" },
+        //     component: () => import('@/views/Index.vue')
+        // }]
     },
     {
         path: '/login',
