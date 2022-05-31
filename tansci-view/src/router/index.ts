@@ -20,7 +20,7 @@ const router = createRouter({
 NProgress.inc(0.2)
 NProgress.configure({ easing: 'ease', speed: 600, showSpinner: false })
 
-let flag = true
+let flag = true // 刷新标识
 router.beforeEach(async (to: any, from: any, next) => {
     // 启动进度条
     NProgress.start()
@@ -39,32 +39,17 @@ router.beforeEach(async (to: any, from: any, next) => {
 
     // 动态添加路由
     if(sessionStorage.getItem('token') && flag){
-        const menus = sessionStorage.getItem("menu")
-        if(!menus){
-            await menuList({type: 0,status: 1}).then((res:any)=>{
-                let result = routerFilter(res.result)
-                result.push({path:'/:pathMatch(.*)*', redirect:'/404'})
-                result.forEach((item:any) => {
-                    router.addRoute(item)
-                })
-                sessionStorage.setItem('menu', JSON.stringify([...dynamic,...result]))
-                flag = false
-                next({ ...to, replace: true })
+        const menuStore = useMenuStore();
+        await menuList({type: 0,status: 1}).then((res:any)=>{
+            let result = routerFilter(res.result)
+            result.push({path:'/:pathMatch(.*)*', redirect:'/404'})
+            result.forEach((item:any) => {
+                router.addRoute(item)
             })
-        } else {
-            let result = JSON.parse(menus)
-            // if(to.matched.length == 0){
-            //     router.push(to.fullPath)
-            // }
-
-            console.log(router.getRoutes())
-            console.log(result)
-            // result.forEach((item:any) => {
-            //     router.addRoute(item)
-            // })
-            // next({ ...to, replace: true })
-            // next()
-        }
+            menuStore.setMenu([...dynamic,...result])
+            flag = false
+            next({ ...to, replace: true })
+        })
     } else{
         next()
     }

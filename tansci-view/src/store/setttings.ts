@@ -6,7 +6,19 @@ export const useUserStore = defineStore('user', {
         username: '',
         loginTime: '',
     }),
-    getters: {},
+    getters: {
+        getUser(){
+            if(!this.username){
+                let user = JSON.parse(sessionStorage.getItem('user'))
+                this.username = user.username
+                this.loginTime = user.loginTime
+            }
+            return {
+                username: this.username,
+                loginTime: this.loginTime
+            }
+        }
+    },
     actions: {
         setUser (data:any) {
             this.username = data.username
@@ -27,7 +39,14 @@ export const useTokenStore = defineStore('token', {
     state: () => ({
         token: '',
     }),
-    getters: {},
+    getters: {
+        getToken(){
+            if(!this.token){
+                this.token = sessionStorage.getItem('token')
+            }
+            return this.token;
+        }
+    },
     actions: {
         setToken (data:any) {
             this.token = data
@@ -44,7 +63,14 @@ export const useMenuStore = defineStore('menu', {
     state: () => ({
         menu: '',
     }),
-    getters: {},
+    getters: {
+        getMenu(){
+            if(!this.menu){
+                this.menu = JSON.parse(sessionStorage.getItem('menu'))
+            }
+            return this.menu;
+        }
+    },
     actions: {
         setMenu (data:any) {
             this.menu = data

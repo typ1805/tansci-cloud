@@ -16,7 +16,7 @@
     const router = useRouter()
     const nowTimes = ref('')
     const menuTag = ref(null)
-    const username = userStore.$state.username == null ? '未登录':userStore.$state.username
+    const username = userStore.getUser.username == null ? '未登录':userStore.getUser.username
     const state = reactive({
         isCollapse: false,
         asideWidth: '240px',
@@ -36,9 +36,9 @@
     onMounted(()=>{
         // 获取菜单
         let routers:any = [];
-        let _routes = sessionStorage.getItem('menu');
+        let _routes = menuStore.getMenu;
         if(_routes){
-            JSON.parse(_routes).forEach((item:any)=>{
+            _routes.forEach((item:any)=>{
                 if (item.children){
                     routers.push(item)
                 }
