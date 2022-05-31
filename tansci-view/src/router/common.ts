@@ -2,22 +2,7 @@ import Layout from '@/components/layout/Index.vue'
 export default[
     {
         path: '/',
-        name: 'main',
-        // chineseName: '首页',
-        // englishName: 'Index',
-        // icon: "HomeFilled",
-        // meta: { title: "首页" },
-        // component: Layout,
-        redirect: "index",
-        // children: [{
-        //     path: "/index",
-        //     name: "index",
-        //     chineseName: '首页',
-        //     englishName: 'Index',
-        //     icon: "HomeFilled",
-        //     meta: { title: "首页" },
-        //     component: () => import('@/views/Index.vue')
-        // }]
+        redirect: "login",
     },
     {
         path: '/login',

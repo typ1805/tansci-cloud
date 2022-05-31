@@ -1,5 +1,4 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios'
-import qs from 'qs'
 import {showMessage} from "./status"
 import {ElMessage} from 'element-plus'
 import router from '../router'

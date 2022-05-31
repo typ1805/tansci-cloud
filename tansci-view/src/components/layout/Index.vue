@@ -36,13 +36,15 @@
     onMounted(()=>{
         // 获取菜单
         let routers:any = [];
-        let _routes = router.options.routes;
-        _routes.forEach(item=>{
-            if (item.children){
-                routers.push(item)
-            }
-        })
-        state.routers = routers;
+        let _routes = sessionStorage.getItem('menu');
+        if(_routes){
+            JSON.parse(_routes).forEach((item:any)=>{
+                if (item.children){
+                    routers.push(item)
+                }
+            })
+            state.routers = routers;
+        }
 
         window.onresize = () => {
             return (() => {
