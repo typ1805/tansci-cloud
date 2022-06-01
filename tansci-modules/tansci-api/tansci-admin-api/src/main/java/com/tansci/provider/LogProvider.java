@@ -2,6 +2,7 @@ package com.tansci.provider;
 
 import com.tansci.domain.LogErrorInfo;
 import com.tansci.domain.LogInfo;
+import com.tansci.domain.LoginLog;
 import com.tansci.utils.Wrapper;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -17,5 +18,7 @@ public interface LogProvider {
     Wrapper<Object> logInfoSave(@RequestBody LogInfo info);
 
     Wrapper<Object> logErrorInfoSave(@RequestBody LogErrorInfo info);
+
+    Wrapper<Object> loginLogSave(@RequestBody LoginLog loginLog);
 
 }

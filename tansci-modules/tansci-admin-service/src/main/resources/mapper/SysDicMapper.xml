@@ -6,7 +6,7 @@
     <select id="getDicChildrens" parameterType="String" resultType="com.tansci.domain.SysDic">
         SELECT * FROM (
             SELECT t1.*,IF(FIND_IN_SET(parent_id, @pids) > 0, @pids := CONCAT(@pids, ',', id), '0') AS ischild
-            FROM (SELECT * FROM sys_dic ORDER BY id ASC) t1,(SELECT @pids := #{id}) t2
+            FROM (SELECT * FROM sys_dic ORDER BY parent_id,id) t1,(SELECT @pids := #{id}) t2
         ) t3 WHERE ischild != '0'
     </select>
 

@@ -1,16 +1,10 @@
 package com.tansci.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tansci.domain.LogErrorInfo;
-import com.tansci.domain.LogInfo;
-import com.tansci.domain.LoginLog;
-import com.tansci.service.LogErrorInfoService;
-import com.tansci.service.LogInfoService;
-import com.tansci.service.LoginLogService;
+import com.tansci.dto.HomeDto;
+import com.tansci.service.HomeService;
 import com.tansci.utils.WrapMapper;
 import com.tansci.utils.Wrapper;
+import com.tansci.vo.LogStatisticsVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -20,50 +14,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @path：com.tansci.controller.LogInfoController.java
- * @className：LogInfoController.java
- * @description：操作日志
+ * @path：com.tansci.controller.HomeController.java
+ * @className：HomeController.java
+ * @description：首页统计
  * @author：tanyp
  * @dateTime：2022/2/15 9:34
  * @editNote：
  */
 @Slf4j
 @RestController
-@RequestMapping("/log")
-@Api(value = "log", tags = "操作日志")
-public class LogInfoController {
+@RequestMapping("/home")
+@Api(value = "home", tags = "首页统计")
+public class HomeController {
 
     @Autowired
-    private LogInfoService logInfoService;
+    private HomeService homeService;
 
-    @Autowired
-    private LogErrorInfoService logErrorInfoService;
-
-    @Autowired
-    private LoginLogService loginLogService;
-
-    @ApiOperation(value = "操作日志分页", notes = "操作日志分页")
-    @GetMapping("/logInfoPage")
-    public Wrapper<IPage<LogInfo>> logInfoPage(Page page) {
-        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, logInfoService.page(page,
-                Wrappers.<LogInfo>lambdaQuery().orderByDesc(LogInfo::getCreateTime))
-        );
+    @ApiOperation(value = "日志统计", notes = "日志统计")
+    @GetMapping("/logStatistics")
+    public Wrapper<LogStatisticsVo> logStatistics(HomeDto dto) {
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, homeService.logStatistics(dto));
     }
 
-    @ApiOperation(value = "异常日志分页", notes = "异常日志分页")
-    @GetMapping("/logErrorPage")
-    public Wrapper<IPage<LogErrorInfo>> logErrorPage(Page page) {
-        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, logErrorInfoService.page(page,
-                Wrappers.<LogErrorInfo>lambdaQuery().orderByDesc(LogErrorInfo::getCreateTime))
-        );
-    }
-
-    @ApiOperation(value = "登录日志分页", notes = "登录日志分页")
-    @GetMapping("/loginLogPage")
-    public Wrapper<IPage<LoginLog>> loginLogPage(Page page) {
-        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, loginLogService.page(page,
-                Wrappers.<LoginLog>lambdaQuery().orderByDesc(LoginLog::getCreateTime))
-        );
-    }
 
 }

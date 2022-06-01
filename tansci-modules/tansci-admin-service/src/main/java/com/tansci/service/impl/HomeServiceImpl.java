@@ -1,9 +1,36 @@
-package com.tansci.service.impl;/**
+package com.tansci.service.impl;
+
+import com.tansci.dto.HomeDto;
+import com.tansci.mapper.HomeMapper;
+import com.tansci.service.HomeService;
+import com.tansci.utils.UserInfoContext;
+import com.tansci.vo.LogStatisticsVo;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Objects;
+
+/**
  * @ClassName： HomeServiceImpl.java
  * @ClassPath： com.tansci.service.impl.HomeServiceImpl.java
- * @Description： TODO
+ * @Description： 首页统计
  * @Author： tanyp
  * @Date： 2022/6/1 15:34
  **/
-public class HomeServiceImpl {
+@Slf4j
+@Service
+public class HomeServiceImpl implements HomeService {
+
+    @Autowired
+    private HomeMapper homeMapper;
+
+    @Override
+    public LogStatisticsVo logStatistics(HomeDto dto) {
+        if (Objects.equals(0, UserInfoContext.getUser().getType())) {
+            dto.setUserId(UserInfoContext.getUser().getId());
+        }
+        return homeMapper.logStatistics(dto);
+    }
+
 }

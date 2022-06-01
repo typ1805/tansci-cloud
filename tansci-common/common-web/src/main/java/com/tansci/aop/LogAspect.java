@@ -2,15 +2,15 @@ package com.tansci.aop;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.nimbusds.jwt.SignedJWT;
 import com.tansci.annotation.Log;
 import com.tansci.constants.JWTConstants;
 import com.tansci.domain.LogErrorInfo;
 import com.tansci.domain.LogInfo;
 import com.tansci.domain.SysUser;
 import com.tansci.provider.LogProvider;
-import com.tansci.utils.IPUtils;
 import com.tansci.utils.JWTUtiles;
-import com.nimbusds.jwt.SignedJWT;
+import com.tansci.utils.SystemUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.aspectj.lang.JoinPoint;
@@ -133,7 +133,7 @@ public class LogAspect {
             logInfo.setMethod(className + "." + method.getName()); // 请求的方法名
             logInfo.setReqParam(JSON.toJSONString(converMap(request.getParameterMap()))); // 请求参数
             logInfo.setResParam(JSON.toJSONString(keys)); // 返回结果
-            logInfo.setIp(IPUtils.getIpAddress(request)); // 请求IP
+            logInfo.setIp(SystemUtils.getIpAddress(request)); // 请求IP
             logInfo.setUri(request.getRequestURI()); // 请求URI
             logInfo.setCreateTime(LocalDateTime.now()); // 创建时间
             logInfo.setVersion(version); // 操作版本
@@ -178,7 +178,7 @@ public class LogAspect {
                     .name(e.getClass().getName()) // 异常名称
                     .message(stackTraceToString(e.getClass().getName(), e.getMessage(), e.getStackTrace())) // 异常信息
                     .uri(request.getRequestURI()) // 操作URI
-                    .ip(IPUtils.getIpAddress(request)) // 操作员IP
+                    .ip(SystemUtils.getIpAddress(request)) // 操作员IP
                     .version(version) // 版本号
                     .createTime(LocalDateTime.now()) // 发生异常时间
                     .build();

@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tansci.domain.LogErrorInfo;
 import com.tansci.domain.LogInfo;
+import com.tansci.domain.LoginLog;
 import com.tansci.service.LogErrorInfoService;
 import com.tansci.service.LogInfoService;
+import com.tansci.service.LoginLogService;
 import com.tansci.utils.WrapMapper;
 import com.tansci.utils.Wrapper;
 import io.swagger.annotations.Api;
@@ -37,6 +39,9 @@ public class LogInfoController {
     @Autowired
     private LogErrorInfoService logErrorInfoService;
 
+    @Autowired
+    private LoginLogService loginLogService;
+
     @ApiOperation(value = "操作日志分页", notes = "操作日志分页")
     @GetMapping("/logInfoPage")
     public Wrapper<IPage<LogInfo>> logInfoPage(Page page) {
@@ -50,6 +55,14 @@ public class LogInfoController {
     public Wrapper<IPage<LogErrorInfo>> logErrorPage(Page page) {
         return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, logErrorInfoService.page(page,
                 Wrappers.<LogErrorInfo>lambdaQuery().orderByDesc(LogErrorInfo::getCreateTime))
+        );
+    }
+
+    @ApiOperation(value = "登录日志分页", notes = "登录日志分页")
+    @GetMapping("/loginLogPage")
+    public Wrapper<IPage<LoginLog>> loginLogPage(Page page) {
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, loginLogService.page(page,
+                Wrappers.<LoginLog>lambdaQuery().orderByDesc(LoginLog::getCreateTime))
         );
     }
 

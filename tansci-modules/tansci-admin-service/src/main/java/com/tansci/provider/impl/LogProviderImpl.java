@@ -2,10 +2,12 @@ package com.tansci.provider.impl;
 
 import com.tansci.domain.LogErrorInfo;
 import com.tansci.domain.LogInfo;
+import com.tansci.domain.LoginLog;
 import com.tansci.exception.BusinessException;
 import com.tansci.provider.LogProvider;
 import com.tansci.service.LogErrorInfoService;
 import com.tansci.service.LogInfoService;
+import com.tansci.service.LoginLogService;
 import com.tansci.utils.WrapMapper;
 import com.tansci.utils.Wrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +31,9 @@ public class LogProviderImpl implements LogProvider {
     @Autowired
     private LogErrorInfoService logErrorInfoService;
 
+    @Autowired
+    private LoginLogService loginLogService;
+
     @Override
     public Wrapper<Object> logInfoSave(LogInfo info) {
         try {
@@ -47,6 +52,20 @@ public class LogProviderImpl implements LogProvider {
     public Wrapper<Object> logErrorInfoSave(LogErrorInfo info) {
         try {
             boolean flag = logErrorInfoService.save(info);
+            return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, flag);
+        } catch (BusinessException e) {
+            log.error("{}", e);
+            return WrapMapper.wrap(Wrapper.ERROR_CODE, e.getMessage());
+        } catch (Exception e) {
+            log.error("{}", e);
+            return WrapMapper.error();
+        }
+    }
+
+    @Override
+    public Wrapper<Object> loginLogSave(LoginLog loginLog) {
+        try {
+            boolean flag = loginLogService.save(loginLog);
             return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, flag);
         } catch (BusinessException e) {
             log.error("{}", e);
