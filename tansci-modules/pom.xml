@@ -17,6 +17,7 @@
     <modules>
         <module>tansci-api</module>
         <module>tansci-admin-service</module>
+        <module>tansci-scheduled-service</module>
     </modules>
 
 </project>

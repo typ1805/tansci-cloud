@@ -11,7 +11,7 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 01/06/2022 17:27:50
+ Date: 10/06/2022 10:19:06
 */
 
 SET NAMES utf8mb4;
@@ -65,6 +65,7 @@ CREATE TABLE `log_info`  (
 -- ----------------------------
 -- Records of log_info
 -- ----------------------------
+INSERT INTO `log_info` VALUES ('3750228d-f1cb-40a1-a806-0c6faf26086d', '菜单-获取菜单树', 'SELECT', '获取菜单树', '{\"type\":\"0\",\"status\":\"1\"}', '{\"code\":200,\"fail\":false,\"message\":\"操作成功\",\"result\":[{\"children\":[{\"chineseName\":\"用户管理\",\"createTime\":\"2022-04-29T15:18:20\",\"englishName\":\"User\",\"icon\":\"UserFilled\",\"id\":\"09a724dfb41f47e50cb88ecd577c1656\",\"level\":2,\"name\":\"user\",\"parentId\":\"09a724dfb41f47e50cb88ecd577c1658\",\"sort\":2,\"status\":1,\"type\":0,\"updateTime\":\"2022-05-27T09:46:30\",\"url\":\"/system/User\"},{\"chineseName\":\"权限管理\",\"createTime\":\"2022-04-29T15:18:20\",\"englishName\":\"Role\",\"icon\":\"Coin\",\"id\":\"09a724dfb41f47e50cb88ecd577c1657\",\"level\":2,\"name\":\"role\",\"parentId\":\"09a724dfb41f47e50cb88ecd577c1658\",\"sort\":2,\"status\":1,\"type\":0,\"updateTime\":\"2022-05-27T09:46:44\",\"url\":\"/system/Role\"},{\"chineseName\":\"菜单管理\",\"createTime\":\"2022-04-29T15:18:20\",\"englishName\":\"Menu\",\"icon\":\"Menu\",\"id\":\"09a724dfb41f47e50cb88ecd577c1659\",\"level\":2,\"name\":\"menu\",\"parentId\":\"09a724dfb41f47e50cb88ecd577c1658\",\"sort\":3,\"status\":1,\"type\":0,\"updateTime\":\"2022-05-27T09:46:54\",\"url\":\"/system/Menu\"},{\"chineseName\":\"日志管理\",\"createTime\":\"2022-05-27T09:44:54\",\"englishName\":\"Log\",\"icon\":\"Cpu\",\"id\":\"74fef625ee6a5a60c43e6d1cd5359e50\",\"level\":2,\"name\":\"log\",\"parentId\":\"09a724dfb41f47e50cb88ecd577c1658\",\"remarks\":\"\",\"sort\":5,\"status\":1,\"type\":0,\"updateTime\":\"2022-05-27T09:47:06\",\"url\":\"/system/Log\"},{\"chineseName\":\"字典管理\",\"createTime\":\"2022-05-27T09:43:41\",\"englishName\":\"DicInfo\",\"icon\":\"Reading\",\"id\":\"8aa39bae3add690b6507f5fadc7c3c3a\",\"level\":2,\"name\":\"dicInfo\",\"parentId\":\"09a724dfb41f47e50cb88ecd577c1658\",\"remarks\":\"\",\"sort\":4,\"status\":1,\"type\":0,\"updateTime\":\"2022-05-27T09:47:18\",\"url\":\"/system/DicInfo\"}],\"chineseName\":\"系统管理\",\"createTime\":\"2022-04-29T15:18:20\",\"englishName\":\"System Manage\",\"icon\":\"Setting\",\"id\":\"09a724dfb41f47e50cb88ecd577c1658\",\"level\":1,\"name\":\"system\",\"parentId\":\"0\",\"sort\":2,\"status\":1,\"type\":0,\"updateTime\":\"2022-04-29T15:18:17\",\"url\":\"/system\"}],\"success\":true}', 53, 'bc3ac26e69731b617eb80274453f6dbb', 'admin', 'com.tansci.controller.SysMenuController.list', '/sysMenu/list', '127.0.0.1', '1.0.0', '2022-06-02 10:32:22');
 
 -- ----------------------------
 -- Table structure for login_log
@@ -85,6 +86,7 @@ CREATE TABLE `login_log`  (
 -- ----------------------------
 -- Records of login_log
 -- ----------------------------
+INSERT INTO `login_log` VALUES ('62b85c17d56a8eafd60e65543bd4d4bb', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_dic
@@ -229,5 +231,47 @@ CREATE TABLE `sys_user_role`  (
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES ('bc3ac26e69731b617eb80274453f6db1', '09a724dfb41f47e50cb88ecd577c1777');
 INSERT INTO `sys_user_role` VALUES ('bc3ac26e69731b617eb80274453f6dbb', '09a724dfb41f47e50cb88ecd577c1666');
+
+-- ----------------------------
+-- Table structure for task_config
+-- ----------------------------
+DROP TABLE IF EXISTS `task_config`;
+CREATE TABLE `task_config`  (
+  `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键ID',
+  `server_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务服务名称',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务名称',
+  `task_code` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务编码',
+  `expression` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务执行规则时间：cron表达式',
+  `status` int(1) NULL DEFAULT NULL COMMENT '状态：0、未启动，1、正常',
+  `creater` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `remarks` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '任务配置' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of task_config
+-- ----------------------------
+INSERT INTO `task_config` VALUES ('1', 'taskTestService', '自定义任务测试', 'T1000214524DFS', '*/20 * * * * ?', 1, 'admin', '2022-02-25 12:58:43', '2022-02-25 10:53:15', NULL);
+
+-- ----------------------------
+-- Table structure for task_log
+-- ----------------------------
+DROP TABLE IF EXISTS `task_log`;
+CREATE TABLE `task_log`  (
+  `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键id',
+  `task_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '调度id',
+  `server_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务服务名称',
+  `status` int(1) NULL DEFAULT NULL COMMENT '状态：0、成功，1、失败',
+  `execution_time` datetime NULL DEFAULT NULL COMMENT '执行时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `remarks` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '调度执行日志' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of task_log
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;

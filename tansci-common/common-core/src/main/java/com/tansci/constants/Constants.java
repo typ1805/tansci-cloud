@@ -41,64 +41,8 @@ public class Constants {
     public final static String DELETE = "DELETE";
 
     /**
-     * 资源域名前缀
+     * 任务调度默认启动10个线程
      */
-    public final static String RESOURCE_PREFIX = "mps-cloud";
-
-    /**
-     * 删除状态
-     */
-    public static final Integer IS_DELETE = 0;
-
-    /**
-     * 正常状态
-     */
-    public static final Integer NOT_DELETE = 1;
-
-    /**
-     * 禁用状态
-     */
-    public static final Integer DISABLE = 2;
-
-    /**
-     * 上架状态
-     */
-    public static final Integer ON_THE_SHELF = 1;
-
-    /**
-     * 下架状态
-     */
-    public static final Integer OFF_THE_SHELF = 0;
-
-    /**
-     * 默认
-     */
-    public static final Integer IS_DEFAULT = 1;
-
-    /**
-     * 非默认
-     */
-    public static final Integer NOT_DEFAULT = 0;
-
-    /**
-     * 女
-     */
-    public static final Integer SEX_WOMAN = 1;
-
-    /**
-     * 男
-     */
-    public static final Integer SEX_MAN = 0;
-
-    /**
-     * 已锁定无法登陆
-     */
-    public static final Integer IS_LOCKED = 1;
-
-    /**
-     * 未锁定
-     */
-    public static final Integer NOT_LOCKED = 0;
-
+    public final static Integer DEFAULT_THREAD_POOL = 10;
 
 }
