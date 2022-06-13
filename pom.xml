@@ -27,7 +27,13 @@
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
         <spring-boot.version>2.6.3</spring-boot.version>
         <spring-cloud-security.version>2.2.5.RELEASE</spring-cloud-security.version>
+
         <mysql.version>5.1.46</mysql.version>
+        <mariadb.version>3.0.4</mariadb.version>
+        <oracle.version>19.3.0.0</oracle.version>
+        <postgresql.version>42.3.3</postgresql.version>
+        <sqlserver.version>8.2.1.jre8</sqlserver.version>
+
         <druid-spring-boot.version>1.2.6</druid-spring-boot.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <fastjson.version>1.2.62</fastjson.version>
@@ -72,6 +78,26 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mariadb.jdbc</groupId>
+                <artifactId>mariadb-java-client</artifactId>
+                <version>${mariadb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.oracle.database.jdbc</groupId>
+                <artifactId>ojdbc8</artifactId>
+                <version>${oracle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.microsoft.sqlserver</groupId>
+                <artifactId>mssql-jdbc</artifactId>
+                <version>${sqlserver.version}</version>
             </dependency>
 
             <dependency>

@@ -11,11 +11,35 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 10/06/2022 10:19:06
+ Date: 13/06/2022 15:34:15
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for data_source
+-- ----------------------------
+DROP TABLE IF EXISTS `data_source`;
+CREATE TABLE `data_source`  (
+  `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '主键id',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '数据库名称',
+  `status` int(1) NULL DEFAULT NULL COMMENT '状态：0、启用，1、禁用',
+  `type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类型：1、mysql，2、MariaDB，3、Oracle11g，4、Oracle12c+，5、PostgreSql，6、SQLServer2008，7、SQLServer2012+，8、其他数据库',
+  `host` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '主机',
+  `port` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '端口',
+  `username` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '账号',
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `remarks` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据源' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of data_source
+-- ----------------------------
+INSERT INTO `data_source` VALUES ('0c600cf490fcea96ebc08f500ae55cc0', 'test', 0, '1', '10.167.1.71', '3306', 'root', 'root', '2022-06-13 16:47:43', '2022-06-13 16:07:43', NULL);
 
 -- ----------------------------
 -- Table structure for log_error_info
