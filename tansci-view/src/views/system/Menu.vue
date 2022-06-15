@@ -63,10 +63,14 @@
 
     const onOperateChange = (val:any) =>{
         if(val == 1){
+            let menuId = '0'
+            if(state.menuId){
+                menuId = state.menuId
+            }
             state.operate = 1;
             state.menuForm = {
                 id: '',
-                parentId: state.menuId,
+                parentId: menuId,
                 name: '',
                 chineseName: '',
                 englishName: '',

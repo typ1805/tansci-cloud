@@ -1,6 +1,7 @@
 package com.tansci.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -36,11 +37,17 @@ public class DataSource implements Serializable {
     @ApiModelProperty("数据库名称")
     private String name;
 
-    @ApiModelProperty("状态：0、启用，1、禁用")
+    @ApiModelProperty("状态：0、未启用，1、启用，1、禁用")
     private Integer status;
+    @TableField(exist = false)
+    @ApiModelProperty("状态")
+    private String statusName;
 
     @ApiModelProperty("类型：1、mysql，2、MariaDB，3、Oracle11g，4、Oracle12c+，5、PostgreSql，6、SQLServer2008，7、SQLServer2012+，8、其他数据库")
-    private String type;
+    private Integer type;
+    @TableField(exist = false)
+    @ApiModelProperty("类型")
+    private String typeName;
 
     @ApiModelProperty("主机")
     private String host;

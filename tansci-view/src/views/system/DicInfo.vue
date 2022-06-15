@@ -145,6 +145,7 @@
                                 remarks:''
                             };
                             onDicList();
+                            state.addVisible = false;
                         }
                     })
                 } else if (state.operate == 2) {
@@ -163,6 +164,7 @@
                                 remarks:''
                             };
                             onDicList();
+                            state.addVisible = false;
                         }
                     })
                 }

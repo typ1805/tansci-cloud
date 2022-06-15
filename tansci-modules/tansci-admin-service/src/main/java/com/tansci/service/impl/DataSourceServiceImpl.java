@@ -9,10 +9,13 @@ import com.tansci.DataSourceFactory;
 import com.tansci.DbQuery;
 import com.tansci.constants.DbQueryProperty;
 import com.tansci.domain.DataSource;
+import com.tansci.domain.SysDic;
 import com.tansci.dto.SourceDto;
+import com.tansci.enums.Enums;
 import com.tansci.exception.BusinessException;
 import com.tansci.mapper.DataSourceMapper;
 import com.tansci.service.DataSourceService;
+import com.tansci.service.SysDicService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @ClassName： DataSourceServiceImpl.java
@@ -35,15 +39,33 @@ public class DataSourceServiceImpl extends ServiceImpl<DataSourceMapper, DataSou
     @Autowired
     private DataSourceFactory dataSourceFactory;
 
+    @Autowired
+    private SysDicService sysDicService;
+
     @Override
     public IPage<DataSource> page(Page page, SourceDto dto) {
-        return this.baseMapper.selectPage(page,
+        IPage<DataSource> iPage = this.baseMapper.selectPage(page,
                 Wrappers.<DataSource>lambdaQuery()
                         .eq(Objects.nonNull(dto.getStatus()), DataSource::getStatus, dto.getStatus())
                         .eq(Objects.nonNull(dto.getDbType()), DataSource::getType, dto.getDbType())
                         .like(Objects.nonNull(dto.getName()), DataSource::getName, dto.getName())
                         .orderByDesc(DataSource::getUpdateTime)
         );
+
+        if (Objects.nonNull(iPage.getRecords())) {
+            List<SysDic> dics = sysDicService.list(Wrappers.<SysDic>lambdaQuery().eq(SysDic::getGroupName, "data_source").ne(SysDic::getDicValue, -1));
+            iPage.getRecords().forEach(item -> {
+                Optional<SysDic> dOptional = dics.stream().filter(d -> Objects.equals(d.getDicValue(), item.getType())).findFirst();
+                if (dOptional.isPresent()) {
+                    item.setTypeName(dOptional.get().getDicLabel());
+                }
+
+                if (Objects.nonNull(item.getStatus())) {
+                    item.setStatusName(Enums.getVlaueByGroup(item.getStatus(), "status"));
+                }
+            });
+        }
+        return iPage;
     }
 
     @Override
@@ -81,11 +103,11 @@ public class DataSourceServiceImpl extends ServiceImpl<DataSourceMapper, DataSou
     public Object checkConnection(SourceDto dto) {
         try {
             DataSource source = this.baseMapper.selectById(dto.getId());
-            if (Objects.isNull(source) || Objects.equals(1, source.getStatus())) {
+            if (Objects.isNull(source) || Objects.equals(2, source.getStatus())) {
                 throw new BusinessException("数据源不存在或已禁用，请核实！");
             }
 
-            DbQueryProperty dbQueryProperty = new DbQueryProperty(source.getType(), source.getHost(), source.getUsername(), source.getPassword(), Integer.parseInt(source.getPort()), source.getName(), source.getId());
+            DbQueryProperty dbQueryProperty = new DbQueryProperty(String.valueOf(source.getType()), source.getHost(), source.getUsername(), source.getPassword(), Integer.parseInt(source.getPort()), source.getName(), source.getId());
             DbQuery dbQuery = dataSourceFactory.createDbQuery(dbQueryProperty);
 
             Boolean valid = dbQuery.valid();
@@ -99,7 +121,7 @@ public class DataSourceServiceImpl extends ServiceImpl<DataSourceMapper, DataSou
     @Override
     public Object getDbTables(SourceDto dto) {
         DataSource source = this.baseMapper.selectById(dto.getId());
-        DbQueryProperty dbQueryProperty = new DbQueryProperty(source.getType(), source.getHost(), source.getUsername(), source.getPassword(), Integer.parseInt(source.getPort()), source.getName(), source.getId());
+        DbQueryProperty dbQueryProperty = new DbQueryProperty(String.valueOf(source.getType()), source.getHost(), source.getUsername(), source.getPassword(), Integer.parseInt(source.getPort()), source.getName(), source.getId());
         DbQuery dbQuery = dataSourceFactory.createDbQuery(dbQueryProperty);
         return dbQuery.getTables(source.getName());
     }
@@ -107,7 +129,7 @@ public class DataSourceServiceImpl extends ServiceImpl<DataSourceMapper, DataSou
     @Override
     public Object getDbTableColumns(SourceDto dto) {
         DataSource source = this.baseMapper.selectById(dto.getId());
-        DbQueryProperty dbQueryProperty = new DbQueryProperty(source.getType(), source.getHost(), source.getUsername(), source.getPassword(), Integer.parseInt(source.getPort()), source.getName(), source.getId());
+        DbQueryProperty dbQueryProperty = new DbQueryProperty(String.valueOf(source.getType()), source.getHost(), source.getUsername(), source.getPassword(), Integer.parseInt(source.getPort()), source.getName(), source.getId());
         DbQuery dbQuery = dataSourceFactory.createDbQuery(dbQueryProperty);
         return dbQuery.getTableColumns(source.getName(), dto.getTableName());
     }
