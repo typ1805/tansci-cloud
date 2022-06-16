@@ -54,6 +54,9 @@ public class TaskLog implements Serializable {
 
     @ApiModelProperty(value = "状态：0、成功，1、失败")
     private Integer status;
+    @TableField(exist = false)
+    @ApiModelProperty(value = "状态")
+    private String statusName;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     @ApiModelProperty(value = "执行时间")

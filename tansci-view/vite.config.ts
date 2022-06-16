@@ -33,6 +33,11 @@ export default defineConfig({
                 changeOrigin: true,
                 rewrite: (path) => path
             },
+            '/scheduled': {
+                target: url,
+                changeOrigin: true,
+                rewrite: (path) => path
+            },
         }
     }
 

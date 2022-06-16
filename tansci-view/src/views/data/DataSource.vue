@@ -187,18 +187,18 @@
 <template>
     <el-card class="source-container" shadow="always">
         <Table :data="tableData" :column="tableTitle" :operation="true" :page="page" :loading="loading"
-        @onSizeChange="onSizeChange" @onCurrentChange="onCurrentChange" @setCellColor="setCellColor">
-        <template #search>
-            <div><el-button type="info" @click="onAddSource">添加</el-button></div>
-            <div><el-input v-model="searchForm.name" placeholder="请输入用户名称"></el-input></div>
-            <div><el-button @click="onRefresh" icon="RefreshRight" circle></el-button></div>
-            <div><el-button @click="onSearch" type="primary" icon="Search">查询</el-button></div>
-        </template>
-        <template #column="scope">
-            <el-button @click="onCheckConnection(scope)" type='primary' text='primary' style="color:var(--down); padding:0;">连接验证</el-button>
-            <el-button @click="onEdit(scope)" type='primary' text='primary' style="color:var(--edit); padding:0;">编辑</el-button>
-            <el-button @click="onDelete(scope)" type='primary' text='primary' style="color:var(--delete); padding:0;">删除</el-button>
-        </template>
+            @onSizeChange="onSizeChange" @onCurrentChange="onCurrentChange">
+            <template #search>
+                <div><el-button type="info" @click="onAddSource">添加</el-button></div>
+                <div><el-input v-model="searchForm.name" placeholder="请输入用户名称"></el-input></div>
+                <div><el-button @click="onRefresh" icon="RefreshRight" circle></el-button></div>
+                <div><el-button @click="onSearch" type="primary" icon="Search">查询</el-button></div>
+            </template>
+            <template #column="scope">
+                <el-button @click="onCheckConnection(scope)" type='primary' text='primary' style="color:var(--down); padding:0;">连接验证</el-button>
+                <el-button @click="onEdit(scope)" type='primary' text='primary' style="color:var(--edit); padding:0;">编辑</el-button>
+                <el-button @click="onDelete(scope)" type='primary' text='primary' style="color:var(--delete); padding:0;">删除</el-button>
+            </template>
         </Table>
         <el-dialog title="数据源信息" v-model="sourceVisible" width="50%" :show-close="false">
             <el-form :model="sourceForm" :rules="rules" ref="sourceFormRef" status-icon label-width="100px">

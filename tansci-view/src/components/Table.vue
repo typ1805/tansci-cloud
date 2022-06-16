@@ -101,6 +101,7 @@
                             <el-switch @change="$emit('onSwitchChange',scope.row)" inline-prompt 
                                 :active-value="item.option.activeValue" :active-color="item.option.activeColor" :active-text="item.option.activeText" 
                                 :inactive-value="item.option.inactiveValue" :inactive-color="item.option.inactiveColor" :inactive-text="item.option.inactiveText"
+                                :size="item.option.size"
                                 v-model="scope.row[item.alias==null?item.prop:item.alias]"
                             ></el-switch>
                         </template>

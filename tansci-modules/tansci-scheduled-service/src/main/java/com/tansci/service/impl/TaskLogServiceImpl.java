@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tansci.domain.TaskConfig;
 import com.tansci.domain.TaskLog;
 import com.tansci.dto.TaskConfigDto;
+import com.tansci.enums.Enums;
 import com.tansci.mapper.TaskLogMapper;
 import com.tansci.service.TaskConfigService;
 import com.tansci.service.TaskLogService;
@@ -54,6 +55,9 @@ public class TaskLogServiceImpl extends ServiceImpl<TaskLogMapper, TaskLog> impl
                     item.setCreater(cOptional.get().getCreater());
                 }
 
+                if (Objects.nonNull(item.getStatus())) {
+                    item.setStatusName(Enums.getVlaueByGroup(item.getStatus(), "task_status"));
+                }
             });
         }
         return iPage;

@@ -65,6 +65,12 @@ public enum Enums {
     STATUS_1(1, "status", "启用"),
     STATUS_2(2, "status", "禁用"),
 
+    /**
+     * 调度执行状态
+     */
+    TASK_STATUS_SUCCESS(0, "task_status", "成功"),
+    TASK_STATUS_ERROR(1, "task_status", "失败"),
+
     ;
 
     private Integer key;
