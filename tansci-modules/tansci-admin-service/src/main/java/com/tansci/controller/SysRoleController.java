@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tansci.annotation.Log;
 import com.tansci.constants.Constants;
+import com.tansci.domain.SysMenuRole;
 import com.tansci.domain.SysRole;
 import com.tansci.domain.SysUserRole;
 import com.tansci.dto.SysRoleDto;
+import com.tansci.service.SysMenuRoleService;
 import com.tansci.service.SysRoleService;
 import com.tansci.service.SysUserRoleService;
 import com.tansci.utils.UserInfoContext;
@@ -38,6 +40,8 @@ public class SysRoleController {
     private SysRoleService sysRoleService;
     @Autowired
     private SysUserRoleService sysUserRoleService;
+    @Autowired
+    private SysMenuRoleService sysMenuRoleService;
 
     @ApiOperation(value = "角色分页", notes = "角色分页")
     @Log(modul = "角色管理-角色分页", type = Constants.SELECT, desc = "角色分页")
@@ -67,7 +71,7 @@ public class SysRoleController {
     @Log(modul = "角色管理-删除", type = Constants.DELETE, desc = "删除")
     @GetMapping("delete")
     public Wrapper<Object> delete(SysRoleDto dto) {
-        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, sysRoleService.removeById(dto.getId()));
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, sysRoleService.delete(dto));
     }
 
     @ApiOperation(value = "修改", notes = "修改")
@@ -82,6 +86,13 @@ public class SysRoleController {
     @PostMapping("userRoleSave")
     public Wrapper<Object> userRoleSave(@RequestBody SysUserRole sysUserRole) {
         return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, sysUserRoleService.userRoleSave(sysUserRole));
+    }
+
+    @ApiOperation(value = "添加菜单角色", notes = "添加菜单角色")
+    @Log(modul = "角色管理-添加菜单角色", type = Constants.INSERT, desc = "添加菜单角色")
+    @PostMapping("menuRoleSave")
+    public Wrapper<Object> menuRoleSave(@RequestBody SysMenuRole sysMenuRole) {
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, sysMenuRoleService.menuRoleSave(sysMenuRole));
     }
 
 }

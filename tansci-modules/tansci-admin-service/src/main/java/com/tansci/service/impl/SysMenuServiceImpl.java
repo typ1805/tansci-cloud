@@ -1,5 +1,6 @@
 package com.tansci.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tansci.domain.SysMenu;
 import com.tansci.dto.SysMenuDto;
@@ -9,10 +10,7 @@ import com.tansci.utils.UserInfoContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -30,16 +28,29 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     public List<SysMenu> list(SysMenuDto dto) {
         // 用户权限
-        if (!Objects.equals(1, UserInfoContext.getUser().getType())) {
+        dto.setUserType(UserInfoContext.getUser().getType());
+        if (Objects.isNull(dto.getRoleId()) && !Objects.equals(1, UserInfoContext.getUser().getType())) {
             dto.setRoleId(UserInfoContext.getUser().getRoleId());
         }
         List<SysMenu> list = this.baseMapper.list(dto);
 
-        // 组装树型数据
+        if (Objects.nonNull(dto.getRoleId())) {
+            // 获取所有菜单的父id
+            List<String> parentIds = list.stream().map(SysMenu::getParentId).distinct().collect(Collectors.toList());
+            if (Objects.nonNull(parentIds) && parentIds.size() > 0) {
+                List<SysMenu> parentList = this.list(
+                        Wrappers.<SysMenu>lambdaQuery().in(SysMenu::getId, parentIds)
+                                .eq(Objects.nonNull(dto.getType()), SysMenu::getType, dto.getType())
+                                .eq(Objects.nonNull(dto.getStatus()), SysMenu::getStatus, dto.getStatus())
+                );
+                list.addAll(parentList);
+            }
+        }
+
+        list = list.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(SysMenu::getId))), ArrayList::new));
         Map<String, List<SysMenu>> map = list.stream().collect(Collectors.groupingBy(SysMenu::getParentId, Collectors.toList()));
         list.stream().forEach(item -> item.setChildren(map.get(item.getId())));
-        List<SysMenu> sysMenus = map.get("0");
-        return sysMenus;
+        return map.get("0");
     }
 
     @Override

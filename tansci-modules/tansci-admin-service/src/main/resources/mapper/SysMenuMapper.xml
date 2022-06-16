@@ -4,37 +4,56 @@
 <mapper namespace="com.tansci.mapper.SysMenuMapper">
 
     <select id="list" resultType="com.tansci.domain.SysMenu" parameterType="com.tansci.dto.SysMenuDto">
-        SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`
-        FROM(
-            <if test="dto.roleId != null and dto.roleId != ''">
-                SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, `role_id`
+        SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, `role_id`
+        FROM (
+        <choose>
+            <when test="dto.userType == 1">
+                <if test="dto.roleId != null and dto.roleId != ''">
+                    SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, m.id as role_id
+                    FROM sys_menu m
+                    LEFT JOIN sys_menu_role mr on mr.menu_id = m.id
+                    WHERE mr.role_id = #{dto.roleId}
+                    <if test="dto.status != null and dto.status != ''">
+                        and m.status = #{dto.status}
+                    </if>
+                    <if test="dto.type != null and dto.type != ''">
+                        and m.type = #{dto.type}
+                    </if>
+                    <if test="dto.name != null and dto.name != ''">
+                        and m.name = #{dto.name}
+                    </if>
+                    UNION ALL
+                </if>
+                SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, null `role_id`
+                FROM sys_menu m
+                <where>
+                    <if test="dto.status != null and dto.status != ''">
+                        and m.status = #{dto.status}
+                    </if>
+                    <if test="dto.type != null and dto.type != ''">
+                        and m.type = #{dto.type}
+                    </if>
+                    <if test="dto.name != null and dto.name != ''">
+                        and m.name = #{dto.name}
+                    </if>
+                </where>
+            </when>
+            <otherwise>
+                SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, m.id as role_id
                 FROM sys_menu m
                 LEFT JOIN sys_menu_role mr on mr.menu_id = m.id
                 WHERE mr.role_id = #{dto.roleId}
                 <if test="dto.status != null and dto.status != ''">
-                    m.status = #{dto.status}
+                    and m.status = #{dto.status}
                 </if>
                 <if test="dto.type != null and dto.type != ''">
-                    m.type = #{dto.type}
+                    and m.type = #{dto.type}
                 </if>
                 <if test="dto.name != null and dto.name != ''">
-                    m.name = #{dto.name}
+                    and m.name = #{dto.name}
                 </if>
-                UNION ALL
-            </if>
-            SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, null `role_id`
-            FROM sys_menu m
-            <where>
-                <if test="dto.status != null and dto.status != ''">
-                    m.status = #{dto.status}
-                </if>
-                <if test="dto.type != null and dto.type != ''">
-                    m.type = #{dto.type}
-                </if>
-                <if test="dto.name != null and dto.name != ''">
-                    m.name = #{dto.name}
-                </if>
-            </where>
+            </otherwise>
+        </choose>
         ) t GROUP BY id
     </select>
 

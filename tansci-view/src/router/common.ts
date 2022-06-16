@@ -20,5 +20,5 @@ export default[
         name: '500',
         meta: {title: "500"},
         component: () => import("@/views/500.vue"),
-    }
+    },
 ]

@@ -38,6 +38,9 @@ public class SysMenuDto implements Serializable {
     @ApiModelProperty(value = "类型")
     private Integer type;
 
+    @ApiModelProperty(value = "用户类型")
+    private Integer userType;
+
     @ApiModelProperty(value = "权限id")
     private String roleId;
 

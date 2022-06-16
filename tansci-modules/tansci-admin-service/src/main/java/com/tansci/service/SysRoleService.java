@@ -21,4 +21,6 @@ public interface SysRoleService extends IService<SysRole> {
 
     List<SysRole> list(SysRole role);
 
+    Object delete(SysRoleDto dto);
+
 }

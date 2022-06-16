@@ -77,6 +77,10 @@ public class SysMenu implements Serializable {
     private LocalDateTime createTime;
 
     @TableField(exist = false)
+    @ApiModelProperty(value = "角色id")
+    private String roleId;
+
+    @TableField(exist = false)
     @ApiModelProperty(value = "子级菜单")
     private List<SysMenu> children;
 

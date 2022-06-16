@@ -36,3 +36,9 @@ export function delRole(params: any) {
 export function userRoleSave(params: any) {
     return axios.post('/admin/sysRole/userRoleSave', params).then(res => res.data);
 }
+/**
+ * 添加菜单角色
+ */
+export function menuRoleSave(params: any) {
+    return axios.post('/admin/sysRole/menuRoleSave', params).then(res => res.data);
+}

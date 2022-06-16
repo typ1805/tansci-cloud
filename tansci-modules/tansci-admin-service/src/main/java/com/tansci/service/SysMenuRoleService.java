@@ -11,4 +11,7 @@ import com.tansci.domain.SysMenuRole;
  * @Date： 2022/4/25 16:25
  **/
 public interface SysMenuRoleService extends IService<SysMenuRole> {
+
+    Object menuRoleSave(SysMenuRole sysMenuRole);
+
 }

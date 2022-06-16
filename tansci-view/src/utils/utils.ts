@@ -93,3 +93,18 @@ export function timeAddress() {
 export function numberDormat(num: Number) {
     return (num + '').replace(/(\d{1,3})(?=(\d{3})+(?:$|\.))/g, '$1,');
 }
+
+/**
+ * 获取菜单树，获取选中Id的集合
+ */
+export function getCheckTreeIds(data:any = [], arr:any = []) {
+    for (let item of data) {
+        if (item.roleId) {
+            arr.push(item.id);
+        }
+        if (item.children && item.children.length) {
+            getCheckTreeIds(item.children, arr);
+        }
+    }
+    return arr;
+}

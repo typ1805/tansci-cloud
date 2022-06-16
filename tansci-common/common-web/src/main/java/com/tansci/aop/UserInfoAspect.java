@@ -55,7 +55,13 @@ public class UserInfoAspect {
         try {
             SysUser user = getUser(request);
             if (Objects.nonNull(user)) {
-                UserInfoContext.setUser(UserInfo.builder().id(user.getId()).username(user.getUsername()).type(user.getType()).build());
+                UserInfoContext.setUser(
+                        UserInfo.builder()
+                                .id(user.getId())
+                                .username(user.getUsername())
+                                .type(user.getType())
+                                .roleId(user.getRoleId()).build()
+                );
             }
             return point.proceed();
         } catch (Exception e) {
