@@ -1,8 +1,9 @@
 package com.tansci.mapper;
 
 import com.tansci.dto.HomeDto;
-import com.tansci.vo.LogStatisticsVo;
+import com.tansci.vo.StatisticsVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @ClassName： HomeMapper.java
@@ -14,6 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface HomeMapper {
 
-    LogStatisticsVo logStatistics(HomeDto dto);
+    StatisticsVo statistics(@Param("dto") HomeDto dto);
 
 }

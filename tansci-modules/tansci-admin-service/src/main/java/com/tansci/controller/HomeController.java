@@ -4,7 +4,7 @@ import com.tansci.dto.HomeDto;
 import com.tansci.service.HomeService;
 import com.tansci.utils.WrapMapper;
 import com.tansci.utils.Wrapper;
-import com.tansci.vo.LogStatisticsVo;
+import com.tansci.vo.StatisticsVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -30,10 +30,10 @@ public class HomeController {
     @Autowired
     private HomeService homeService;
 
-    @ApiOperation(value = "日志统计", notes = "日志统计")
-    @GetMapping("/logStatistics")
-    public Wrapper<LogStatisticsVo> logStatistics(HomeDto dto) {
-        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, homeService.logStatistics(dto));
+    @ApiOperation(value = "指标统计", notes = "指标统计")
+    @GetMapping("/statistics")
+    public Wrapper<StatisticsVo> statistics(HomeDto dto) {
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, homeService.statistics(dto));
     }
 
 

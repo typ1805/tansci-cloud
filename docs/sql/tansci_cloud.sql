@@ -11,7 +11,7 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 16/06/2022 17:32:20
+ Date: 17/06/2022 13:15:46
 */
 
 SET NAMES utf8mb4;
@@ -62,6 +62,10 @@ CREATE TABLE `log_error_info`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '异常日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
+-- Records of log_error_info
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for log_info
 -- ----------------------------
 DROP TABLE IF EXISTS `log_info`;
@@ -82,6 +86,10 @@ CREATE TABLE `log_info`  (
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of log_info
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for login_log
@@ -166,14 +174,15 @@ CREATE TABLE `sys_menu`  (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES ('09a724dfb41f47e50cb88ecd577c1656', 'user', '09a724dfb41f47e50cb88ecd577c1658', '用户管理', 'User', 1, 0, '/system/User', 'UserFilled', 2, 2, '2022-05-27 09:46:30', '2022-04-29 15:18:20', NULL);
-INSERT INTO `sys_menu` VALUES ('09a724dfb41f47e50cb88ecd577c1657', 'role', '09a724dfb41f47e50cb88ecd577c1658', '权限管理', 'Role', 1, 0, '/system/Role', 'Coin', 2, 2, '2022-05-27 09:46:44', '2022-04-29 15:18:20', NULL);
+INSERT INTO `sys_menu` VALUES ('09a724dfb41f47e50cb88ecd577c1656', 'user', '09a724dfb41f47e50cb88ecd577c1658', '用户管理', 'User', 1, 0, '/system/User', 'Avatar', 2, 2, '2022-06-17 12:56:07', '2022-04-29 15:18:20', NULL);
+INSERT INTO `sys_menu` VALUES ('09a724dfb41f47e50cb88ecd577c1657', 'role', '09a724dfb41f47e50cb88ecd577c1658', '权限管理', 'Role', 1, 0, '/system/Role', 'ScaleToOriginal', 2, 2, '2022-06-17 12:56:56', '2022-04-29 15:18:20', NULL);
 INSERT INTO `sys_menu` VALUES ('09a724dfb41f47e50cb88ecd577c1658', 'system', '0', '系统管理', 'System Manage', 1, 0, '/system', 'Setting', 1, 2, '2022-04-29 15:18:17', '2022-04-29 15:18:20', NULL);
 INSERT INTO `sys_menu` VALUES ('09a724dfb41f47e50cb88ecd577c1659', 'menu', '09a724dfb41f47e50cb88ecd577c1658', '菜单管理', 'Menu', 1, 0, '/system/Menu', 'Menu', 2, 3, '2022-05-27 09:46:54', '2022-04-29 15:18:20', NULL);
 INSERT INTO `sys_menu` VALUES ('0e67c7947fa842e31ba21d2ba16af932', 'dataSource', '42e7e4594adccefcafc327e12a92f157', '数据源', 'DataSource', 1, 0, '/data/DataSource', 'Coin', 2, 1, '2022-06-15 15:20:12', '2022-06-15 15:19:56', '');
 INSERT INTO `sys_menu` VALUES ('42e7e4594adccefcafc327e12a92f157', 'data', '0', '元数据管理', 'Data', 1, 0, '/data', 'Coin', 1, 3, '2022-06-16 10:13:24', '2022-06-15 15:18:37', '');
+INSERT INTO `sys_menu` VALUES ('6f4857af914cdc0e8ce69d48a7866d27', 'index', '0', '首页', 'Index', 1, 0, '/Index', 'HomeFilled', 1, 1, '2022-06-17 11:01:46', '2022-06-17 10:59:50', '');
 INSERT INTO `sys_menu` VALUES ('74fef625ee6a5a60c43e6d1cd5359e50', 'log', '09a724dfb41f47e50cb88ecd577c1658', '日志管理', 'Log', 1, 0, '/system/Log', 'Cpu', 2, 5, '2022-05-27 09:47:06', '2022-05-27 09:44:54', '');
-INSERT INTO `sys_menu` VALUES ('7e460a7961432a59f604971555b3d0af', 'taskConfig', 'f1f784850a9dd4295ea261335ec2c4ea', '调度配置', 'TaskConfig', 1, 0, '/scheduled/TaskConfig', 'Watch', 2, 1, '2022-06-16 10:20:03', '2022-06-16 10:20:03', '');
+INSERT INTO `sys_menu` VALUES ('7e460a7961432a59f604971555b3d0af', 'taskConfig', 'f1f784850a9dd4295ea261335ec2c4ea', '调度配置', 'TaskConfig', 1, 0, '/scheduled/TaskConfig', 'Timer', 2, 1, '2022-06-17 12:47:31', '2022-06-16 10:20:03', '');
 INSERT INTO `sys_menu` VALUES ('8aa39bae3add690b6507f5fadc7c3c3a', 'dicInfo', '09a724dfb41f47e50cb88ecd577c1658', '字典管理', 'DicInfo', 1, 0, '/system/DicInfo', 'Reading', 2, 4, '2022-05-27 09:47:18', '2022-05-27 09:43:41', '');
 INSERT INTO `sys_menu` VALUES ('c50e6f238b744a1cf4f91d7cf34f8949', 'taskLog', 'f1f784850a9dd4295ea261335ec2c4ea', '调度日志', 'TaskLog', 1, 0, '/scheduled/TaskLog', 'DocumentCopy', 2, 2, '2022-06-16 10:21:21', '2022-06-16 10:21:21', '');
 INSERT INTO `sys_menu` VALUES ('c716b99aa13a5a5cbf096e51235bb847', 'dataRetrieval', '42e7e4594adccefcafc327e12a92f157', '数据元', 'DataRetrieval', 1, 0, '/data/DataRetrieval', 'Collection', 2, 2, '2022-06-16 10:14:34', '2022-06-15 17:00:35', '');

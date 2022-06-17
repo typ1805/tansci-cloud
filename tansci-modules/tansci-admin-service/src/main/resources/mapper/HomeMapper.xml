@@ -3,8 +3,8 @@
 
 <mapper namespace="com.tansci.mapper.HomeMapper">
 
-    <select id="logStatistics" parameterType="com.tansci.dto.HomeDto" resultType="com.tansci.vo.LogStatisticsVo">
-        SELECT count(li.id) operationNum, le.errorNum , ll.loginNum
+    <select id="statistics" parameterType="com.tansci.dto.HomeDto" resultType="com.tansci.vo.StatisticsVo">
+        SELECT count(li.id) operationNum, le.errorNum , ll.loginNum, tc.taskTotal, tc.taskNum
         FROM log_info li
         INNER JOIN(
             SELECT count(1) errorNum FROM log_error_info
@@ -20,7 +20,14 @@
                     AND user_id = #{dto.userId}
                 </if>
             </where>
-        ) ll
+        ) ll INNER JOIN(
+            SELECT count(1) taskTotal, count(status=1 OR NULL) taskNum FROM task_config
+            <where>
+                <if test="dto.userId != null and dto.userId != ''">
+                    AND creater = #{dto.userId}
+                </if>
+            </where>
+        ) tc
         <where>
             <if test="dto.userId != null and dto.userId != ''">
                 and li.user_id = #{dto.userId}

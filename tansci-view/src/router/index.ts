@@ -7,13 +7,11 @@ import {useMenuStore} from '@/store/setttings'
 
 // 路由按模块分类
 import common from './common'
-import dynamic from './dynamic'
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        ...common,
-        ...dynamic
+        ...common
     ]
 })
 
@@ -46,7 +44,7 @@ router.beforeEach(async (to: any, from: any, next) => {
             result.forEach((item:any) => {
                 router.addRoute(item)
             })
-            menuStore.setMenu([...dynamic,...result])
+            menuStore.setMenu([...result])
             flag = false
             next({ ...to, replace: true })
         })

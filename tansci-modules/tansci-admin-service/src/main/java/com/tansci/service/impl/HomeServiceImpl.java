@@ -4,7 +4,7 @@ import com.tansci.dto.HomeDto;
 import com.tansci.mapper.HomeMapper;
 import com.tansci.service.HomeService;
 import com.tansci.utils.UserInfoContext;
-import com.tansci.vo.LogStatisticsVo;
+import com.tansci.vo.StatisticsVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,11 +26,11 @@ public class HomeServiceImpl implements HomeService {
     private HomeMapper homeMapper;
 
     @Override
-    public LogStatisticsVo logStatistics(HomeDto dto) {
+    public StatisticsVo statistics(HomeDto dto) {
         if (Objects.equals(0, UserInfoContext.getUser().getType())) {
             dto.setUserId(UserInfoContext.getUser().getId());
         }
-        return homeMapper.logStatistics(dto);
+        return homeMapper.statistics(dto);
     }
 
 }

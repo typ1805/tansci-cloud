@@ -186,8 +186,17 @@
 <template>
     <el-card class="menu-container" shadow="always">
         <el-card class="menu-tree" shadow="never">
-            <el-tree :data="treeData" :props="{children: 'children', label: 'chineseName'}" accordion highlight-current @node-click="onNodeClick" 
-                empty-text="暂无菜单"></el-tree>
+            <el-tree :data="treeData" :props="{children: 'children', label: 'chineseName'}" highlight-current @node-click="onNodeClick" 
+                empty-text="暂无菜单">
+                <template #default="{ node, data }">
+                    <span class="custom-tree-node">
+                        <el-icon v-if="data.icon" style="vertical-align: middle;padding-right:10px;">
+                            <component :is="data.icon"></component>
+                        </el-icon>
+                        <span>{{ node.label }}</span>
+                    </span>
+                </template>    
+            </el-tree>
         </el-card>
         <el-card class="menu-form" shadow="never">
             <el-radio-group @change="onOperateChange" v-model="operate">

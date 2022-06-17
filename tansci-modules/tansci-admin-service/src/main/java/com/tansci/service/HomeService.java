@@ -1,7 +1,7 @@
 package com.tansci.service;
 
 import com.tansci.dto.HomeDto;
-import com.tansci.vo.LogStatisticsVo;
+import com.tansci.vo.StatisticsVo;
 
 /**
  * @ClassName： HomeService.java
@@ -12,6 +12,6 @@ import com.tansci.vo.LogStatisticsVo;
  **/
 public interface HomeService {
 
-    LogStatisticsVo logStatistics(HomeDto dto);
+    StatisticsVo statistics(HomeDto dto);
 
 }

@@ -12,7 +12,7 @@
 	const router = useRouter()
 	const loginFormRef = ref<FormInstance>() 
 	let slidingVerify = ref()
-	const loginLogo = new URL('../assets/image/login-left.png', import.meta.url).href
+	const loginLogo = new URL('../../assets/image/login-left.png', import.meta.url).href
 
 	const state = reactive({
 		loading: false,
