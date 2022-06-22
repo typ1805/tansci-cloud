@@ -5,12 +5,13 @@
     <parent>
         <groupId>com.tansci</groupId>
         <artifactId>tansci-common</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
-    <groupId>com.tansci</groupId>
+    <groupId>com.tansci.common.web</groupId>
     <artifactId>common-web</artifactId>
     <version>1.0.0</version>
+
     <name>common-web</name>
 
     <properties>
@@ -44,7 +45,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.tansci</groupId>
+            <groupId>com.tansci.admin.api</groupId>
             <artifactId>tansci-admin-api</artifactId>
             <version>1.0.0</version>
         </dependency>

@@ -5,10 +5,10 @@
     <parent>
         <groupId>com.tansci</groupId>
         <artifactId>tansci-common</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
-    <groupId>com.tansci</groupId>
+    <groupId>com.tansci.common.database</groupId>
     <artifactId>common-database</artifactId>
     <version>1.0.0</version>
 

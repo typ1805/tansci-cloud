@@ -32,7 +32,7 @@ dubbo:
     # 挂载到 Spring Cloud 注册中心
     address: spring-cloud://10.167.1.73
   scan:
-    base-packages: com.tansci.provider.impl
+    base-packages: com.tansci.auth.provider.impl
   consumer:
     check: false
     timeout: 60000

@@ -12,10 +12,10 @@
     <artifactId>tansci-modules</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
+
     <name>tansci-modules</name>
 
     <modules>
-        <module>tansci-api</module>
         <module>tansci-admin-service</module>
         <module>tansci-scheduled-service</module>
     </modules>

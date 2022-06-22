@@ -7,6 +7,9 @@ spring:
     name: tansci-admin
   main:
     allow-circular-references: true # 2.6.* 报循环依赖错误
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # Swagger 3.0 报错
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -90,7 +93,7 @@ dubbo:
     # 挂载到 Spring Cloud 注册中心
     address: spring-cloud://10.167.1.73
   scan:
-    base-packages: com.tansci.provider.impl
+    base-packages: com.tansci.admin.provider.impl
   consumer:
     check: false
     timeout: 60000

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.tansci.mapper.HomeMapper">
+<mapper namespace="com.tansci.admin.mapper.HomeMapper">
 
-    <select id="statistics" parameterType="com.tansci.dto.HomeDto" resultType="com.tansci.vo.StatisticsVo">
+    <select id="statistics" parameterType="com.tansci.admin.api.dto.HomeDto" resultType="com.tansci.admin.api.vo.StatisticsVo">
         SELECT count(li.id) operationNum, le.errorNum , ll.loginNum, tc.taskTotal, tc.taskNum
         FROM log_info li
         INNER JOIN(

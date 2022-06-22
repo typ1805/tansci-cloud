@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.tansci.mapper.SysMenuMapper">
+<mapper namespace="com.tansci.admin.mapper.SysMenuMapper">
 
-    <select id="list" resultType="com.tansci.domain.SysMenu" parameterType="com.tansci.dto.SysMenuDto">
+    <select id="list" resultType="com.tansci.admin.api.domain.SysMenu" parameterType="com.tansci.admin.api.dto.SysMenuDto">
         SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, `role_id`
         FROM (
         <choose>
@@ -57,7 +57,7 @@
         ) t GROUP BY id
     </select>
 
-    <select id="getMenuChildrens" parameterType="string" resultType="com.tansci.domain.SysMenu">
+    <select id="getMenuChildrens" parameterType="string" resultType="com.tansci.admin.api.domain.SysMenu">
         SELECT * FROM (
             SELECT t1.*, IF(FIND_IN_SET(parent_id, @pids) > 0, @pids := CONCAT(@pids, ',', id), 0) AS ischild
             FROM (SELECT * FROM sys_menu ORDER BY parent_id, id) t1,

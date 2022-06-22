@@ -13,6 +13,7 @@
         <module>tansci-common</module>
         <module>tansci-auth</module>
         <module>tansci-gateway</module>
+        <module>tansci-api</module>
         <module>tansci-modules</module>
     </modules>
 

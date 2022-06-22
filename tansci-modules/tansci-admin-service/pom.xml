@@ -8,7 +8,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <groupId>com.tansci</groupId>
+    <groupId>com.tansci.admin</groupId>
     <artifactId>tansci-admin-service</artifactId>
     <version>1.0.0</version>
     <name>tansci-admin-service</name>
@@ -49,13 +49,13 @@
         </dependency>
 
         <dependency>
-            <groupId>com.tansci</groupId>
+            <groupId>com.tansci.common.web</groupId>
             <artifactId>common-web</artifactId>
             <version>1.0.0</version>
         </dependency>
 
         <dependency>
-            <groupId>com.tansci</groupId>
+            <groupId>com.tansci.common.database</groupId>
             <artifactId>common-database</artifactId>
             <version>1.0.0</version>
         </dependency>

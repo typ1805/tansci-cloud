@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.tansci.datasource.CacheDataSourceFactoryBean
+  com.tansci.common.database.datasource.CacheDataSourceFactory

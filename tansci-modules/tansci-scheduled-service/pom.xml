@@ -8,9 +8,9 @@
         <version>1.0.0</version>
     </parent>
 
-    <groupId>com.tansci</groupId>
+    <groupId>com.tansci.scheduled</groupId>
     <artifactId>tansci-scheduled-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>tansci-scheduled-service</name>
 
     <properties>
@@ -49,13 +49,13 @@
         </dependency>
 
         <dependency>
-            <groupId>com.tansci</groupId>
+            <groupId>com.tansci.common.web</groupId>
             <artifactId>common-web</artifactId>
             <version>1.0.0</version>
         </dependency>
 
         <dependency>
-            <groupId>com.tansci</groupId>
+            <groupId>com.tansci.scheduled.api</groupId>
             <artifactId>tansci-scheduled-api</artifactId>
             <version>1.0.0</version>
         </dependency>
