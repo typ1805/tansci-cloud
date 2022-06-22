@@ -56,14 +56,14 @@
                     </div>
                 </template>
                 <div>
-                    <el-input v-model="searchForm.sql" type="textarea" rows="10" maxlength="1000" clearable placeholder="请输入正确的SQL语句..." show-word-limit/>
+                    <el-input v-model="searchForm.sql" type="textarea" rows="10" maxlength="4000" clearable placeholder="请输入正确的SQL语句..." show-word-limit/>
                 </div>
             </el-card>
             <el-card shadow="never" style="border-top: none;">
                 <template #header>
                     <span>执行结果</span>
                 </template>
-                <div style="height:300px;">
+                <div class="executor-card-result scroll-div">
                     {{result}}
                 </div>
             </el-card>
@@ -77,6 +77,10 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+            }
+            .executor-card-result{
+                height: 300px;
+                overflow: auto;
             }
         }
     }
