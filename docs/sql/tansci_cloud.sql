@@ -187,6 +187,7 @@ INSERT INTO `sys_menu` VALUES ('8aa39bae3add690b6507f5fadc7c3c3a', 'dicInfo', '0
 INSERT INTO `sys_menu` VALUES ('c50e6f238b744a1cf4f91d7cf34f8949', 'taskLog', 'f1f784850a9dd4295ea261335ec2c4ea', '调度日志', 'TaskLog', 1, 0, '/scheduled/TaskLog', 'DocumentCopy', 2, 2, '2022-06-16 10:21:21', '2022-06-16 10:21:21', '');
 INSERT INTO `sys_menu` VALUES ('c716b99aa13a5a5cbf096e51235bb847', 'dataRetrieval', '42e7e4594adccefcafc327e12a92f157', '数据元', 'DataRetrieval', 1, 0, '/data/DataRetrieval', 'Collection', 2, 2, '2022-06-16 10:14:34', '2022-06-15 17:00:35', '');
 INSERT INTO `sys_menu` VALUES ('f1f784850a9dd4295ea261335ec2c4ea', 'scheduled', '0', '调度管理', 'Scheduled', 1, 0, '/scheduled', 'AlarmClock', 1, 3, '2022-06-16 10:18:32', '2022-06-16 10:18:32', '');
+INSERT INTO `sys_menu` VALUES ('4a0268893bade9be3d9302a2d2244577', 'sqlExecutor', '42e7e4594adccefcafc327e12a92f157', '执行器', 'SqlExecutor', 1, 0, '/data/SqlExecutor', 'Monitor', 2, 3, '2022-06-22 15:05:01', '2022-06-22 15:04:07', '');
 
 -- ----------------------------
 -- Table structure for sys_menu_role

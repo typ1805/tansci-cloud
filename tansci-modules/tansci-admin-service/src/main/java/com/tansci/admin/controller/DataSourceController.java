@@ -89,4 +89,11 @@ public class DataSourceController {
         return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, dataSourceService.getDbTableColumns(dto));
     }
 
+    @ApiOperation(value = "SQL执行器（支持分页查询）", notes = "SQL执行器（支持分页查询）")
+    @Log(modul = "数据源-SQL执行器（支持分页查询）", type = Constants.SELECT, desc = "SQL执行器（支持分页查询）")
+    @PostMapping("sqlExecutor")
+    public Wrapper<Object> sqlExecutor(@RequestBody SourceDto dto) {
+        return WrapMapper.wrap(Wrapper.SUCCESS_CODE, Wrapper.SUCCESS_MESSAGE, dataSourceService.sqlExecutor(dto));
+    }
+
 }

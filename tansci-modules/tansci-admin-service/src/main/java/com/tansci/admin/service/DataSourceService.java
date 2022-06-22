@@ -33,4 +33,6 @@ public interface DataSourceService extends IService<DataSource> {
 
     Object getDbTableColumns(SourceDto dto);
 
+    Object sqlExecutor(SourceDto dto);
+
 }

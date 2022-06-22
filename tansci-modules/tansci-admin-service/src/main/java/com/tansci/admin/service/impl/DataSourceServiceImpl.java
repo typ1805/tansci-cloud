@@ -134,4 +134,20 @@ public class DataSourceServiceImpl extends ServiceImpl<DataSourceMapper, DataSou
         return dbQuery.getTableColumns(source.getName(), dto.getTableName());
     }
 
+    @Override
+    public Object sqlExecutor(SourceDto dto) {
+        if (Objects.isNull(dto.getSql()) || Objects.isNull(dto.getId())) {
+            throw new BusinessException("请求参数有误，请核实！");
+        }
+
+        DataSource source = this.baseMapper.selectById(dto.getId());
+        DbQueryProperty dbQueryProperty = new DbQueryProperty(String.valueOf(source.getType()), source.getHost(), source.getUsername(), source.getPassword(), Integer.parseInt(source.getPort()), source.getName(), source.getId());
+        DbQuery dbQuery = dataSourceFactory.createDbQuery(dbQueryProperty);
+        if (Objects.nonNull(dto.getSize()) && Objects.nonNull(dto.getOffset())) {
+            return dbQuery.queryByPage(dto.getSql(), dto.getOffset(), dto.getSize());
+        } else {
+            return dbQuery.queryList(dto.getSql());
+        }
+    }
+
 }

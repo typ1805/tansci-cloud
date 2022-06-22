@@ -38,4 +38,13 @@ public class SourceDto implements Serializable {
     @ApiModelProperty(value = "状态")
     private String status;
 
+    @ApiModelProperty(value = "SQL语句")
+    private String sql;
+
+    @ApiModelProperty(value = "分页参数，开始页数")
+    private Long offset;
+
+    @ApiModelProperty(value = "分页参数，大小")
+    private Long size;
+
 }

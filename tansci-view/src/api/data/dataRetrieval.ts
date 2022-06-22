@@ -20,3 +20,10 @@ export function getDbTables(params: any) {
 export function getDbTableColumns(params: any) {
     return axios.post('/admin/dataSource/getDbTableColumns', params).then(res => res.data);
 }
+
+/**
+ * SQL执行器（支持分页查询）
+ */
+export function sqlExecutor(params: any) {
+    return axios.post('/admin/dataSource/sqlExecutor', params).then(res => res.data);
+}
