@@ -1,138 +1,73 @@
-| 名称 | 描述 |
-|----|----|
-| 文档版本 | V1.0 |
-| 编写人 | tanyp |
-| 编写时间 | 2022-04-22 | 
-
 ## 简介
 
-SpringCloud Alibaba 项目
+Tansci Cloud 基于 SpringCloud Alibaba + Vue3.2 + Vite2 + ts+ Element Plus 的微服务项目。
 
-## 架构
+此项目包含开发分布式应用微服务的必需组件，方便开发者通过 Spring Cloud 编程模型轻松使用这些组件来开发分布式应用服务。 依托 Spring Cloud Alibaba，您只需要添加一些注解和少量配置，就可以将 Spring Cloud 应用接入阿里微服务解决方案，通过阿里中间件来迅速搭建分布式应用系统。
 
-### 结构图
+微服务版：
+- Gitee: [https://gitee.com/typ1805/tansci](https://gitee.com/typ1805/tansci)
+- GitHub：[https://github.com/typ1805/tansci](https://github.com/typ1805/tansci)
 
-![./docs/image/SpringCloudAlibaba.png](./docs/image/SpringCloudAlibaba.png)
+单体版：
+- Gitee: [https://gitee.com/typ1805/tansci](https://gitee.com/typ1805/tansci)
+- GitHub：[https://github.com/typ1805/tansci](https://github.com/typ1805/tansci)
 
-### 技术栈
+## 版本
 
-**环境要求**
+**1、后端**
+- java.version：1.8
+- spring-boot.version：2.6.3
+- spring-cloud.version：2021.0.1
+- spring-cloud-alibaba.version：2021.0.1.0
+- spring-cloud-security.version：2.2.5.RELEASE
+- mybatis-plus.version：3.5.1
+- nimbus-jose-jwt.version：9.1.1
+- knife4j-spring-boot.version：3.0.3
+- mysql.version：5.1.46
 
-| 名称 | 版本号 | 描述 |
+>版本参考地址：[https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E](https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E)
+
+**2、前端**
+- vite.version：2.9.9
+- typescript.version：4.5.4
+- vue.version：3.2.25
+- vue-router.version：4.0.15
+- element-plus.version：2.2.2
+- sass.version：1.51.0
+- axios.version：0.27.2
+- pinia.version：2.0.13
+- echarts.version：5.3.3
+
+---
+
+## 集成功能
+
+| 模块 | 功能 | 描述 |
 | ---- | ---- | ---- |
-| JDK | 1.8+ | 强制要求 |
-| mysql | 5.7+ | 数据库 |
-| redis | 5.0+ | NOSQL数据库 |
-| Nginx | 1.16+ | 请求转发、反向代理 |
-| Maven | 3.8+ | 项目构建，管理 |
-| Git | 2.14+ | 项目版本管理 |
+| 系统管理 | 用户管理<br>权限管理<br>菜单管理<br>字典管理<br>日志管理（操作、异常日志） | 基础功能模块 |
+| 元数据管理 | 数据源<br>数据元<br>SQL执行器 | 动态多数据源切换，支持：mysql、MariaDB、Oracle11g、Oracle12c、PostgreSql、SQLServer2008、SQLServer2012等 |
+| 调度管理 | 调度配置<br>调度日志 | 动态配置定时任务 |
 
-**技术**
 
-| 名称 | 版本号 | 描述 |
-| ---- | ---- | ---- |
-| SpringBoot | 2.6.3 | 主架构 |
-| SpringCloud | 2021.0.1 | 主架构 |
-| SpringCloud Alibaba | 2021.0.1.0 | 主架构 |
-| Mybatis Plus | 3.5.1 | 数据层 |
-| Druid | 1.2.6 | 连接池 |
-| Spring Security | -- | 权限认证 |
-| Fastjson | 1.2.62 | -- |
-| nimbus-jose-jwt | 9.1.1 | 安全认证 |
-| Lombok | 1.18.12 | -- |
-| knife4j | 3.0.3 | API文档 |
+## 详细文档
 
-## API文档
+执行SQL初始化数据，测试用户：admin / admin123
 
-API 文档访问地址 http://网关ip:网关端口/doc.html
+[项目详细文档](docs/doc.md)
 
-例如：[http://127.0.0.1:8001/doc.html](http://127.0.0.1:8001/doc.html)
+## 联系开发者
 
-## 登录认证
+- QQ：742354529
+- QQ群：747200630
+- 个人主站：[http://tansci.top](http://tansci.top)、[https://typ1805.gitee.io](https://typ1805.gitee.io)
 
-**安全认证登录示例：**
+## 项目预览
 
-- 请求地址：[http://localhost:8001/auth/login](http://localhost:8001/auth/login)
-- 请求方式：POST
-- 请求参数：
-```json
-{
-  "username": "admin",
-  "password": "admin123"
-}
-```
-- 返回参数：
-```json
-{
-  "code": 200,
-  "fail": false,
-  "message": "操作成功",
-  "result": {
-    "loginTime": "2022-02-16 11:58:29",
-    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdWJqZWN0IiwiZXhwIjoxNjQ0OTkxMTA4LCJwYXlsb2FkIjoie1wiYWNjb3VudE5vbkV4cGlyZWRcIjp0cnVlLFwiYWNjb3VudE5vbkxvY2tlZFwiOnRydWUsXCJhdXRob3JpdGllc1wiOlt7XCJhdXRob3JpdHlcIjpcIlJPTEVfTUVSQ0hBTlRTXCJ9XSxcImNyZWRlbnRpYWxzTm9uRXhwaXJlZFwiOnRydWUsXCJlbmFibGVkXCI6dHJ1ZSxcImlkXCI6XCJiYzNhYzI2ZTY5NzMxYjYxN2ViODAyNzQ0NTNmNmRiYVwiLFwicGFzc3dvcmRcIjpcIiQyYSQxMCR0bFdXZmpUT2JxTHNDNk9OcmhOTFwvLkdJcEFvRnUyMDVUWFBLNnhVUEhIcjFrQVwvcGFLNGxxXCIsXCJ1c2VybmFtZVwiOlwiYWRtaW5cIn0ifQ.8fXiQqlP9SLJK-_sPxws98VrUbDs5kvFysPmn3-Aqu8",
-    "username": "admin"
-  },
-  "success": true
-}
-```
-- 设置Headers
-```text
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdWJqZWN0IiwiZXhwIjoxNjQ0ODk4NjY0LCJwYXlsb2FkIjoie1wiYWNjb3VudE5vbkV4cGlyZWRcIjp0cnVlLFwiYWNjb3VudE5vbkxvY2tlZFwiOnRydWUsXCJhdXRob3JpdGllc1wiOlt7XCJhdXRob3JpdHlcIjpcIlJPTEVfTUVSQ0hBTlRTXCJ9XSxcImNyZWRlbnRpYWxzTm9uRXhwaXJlZFwiOnRydWUsXCJlbmFibGVkXCI6dHJ1ZSxcImlkXCI6XCJiYzNhYzI2ZTY5NzMxYjYxN2ViODAyNzQ0NTNmNmRiYVwiLFwicGFzc3dvcmRcIjpcIiQyYSQxMCR0bFdXZmpUT2JxTHNDNk9OcmhOTFwvLkdJcEFvRnUyMDVUWFBLNnhVUEhIcjFrQVwvcGFLNGxxXCIsXCJ1c2VybmFtZVwiOlwiYWRtaW5cIn0ifQ.54GyxZs77ADpE_KYzdy8EAPOLYWL4AqcJDQId_SYCok
-```
+> 页面布局基本和单体版一致，功能有所不同，可参考单体版 ```项目预览```
+> 
+> 拉项目本地启动，体验会更好哦！！！
 
-#### nacos配置（2.0.4）
+传送门： 
+- [https://gitee.com/typ1805/tansci#%E9%A1%B9%E7%9B%AE%E9%A2%84%E8%A7%88](https://gitee.com/typ1805/tansci#%E9%A1%B9%E7%9B%AE%E9%A2%84%E8%A7%88)
+- [https://github.com/typ1805/tansci#%E9%A1%B9%E7%9B%AE%E9%A2%84%E8%A7%88](https://github.com/typ1805/tansci#%E9%A1%B9%E7%9B%AE%E9%A2%84%E8%A7%88)
 
-下载地址：[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)
-
-修改配置文件 `nacos-server-2.0.4/conf/application.properties`
-
-```yml
-#*************** Config Module Related Configurations ***************#
-### If use MySQL as datasource:
-spring.datasource.platform=mysql
-
-### Count of DB:
-db.num=1
-
-### Connect URL of DB:
-db.url.0=jdbc:mysql://127.0.0.1:3306/call_config?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
-db.user.0=root
-db.password.0=root
-```
-
-执行 `nacos-server-2.0.4/bin/startup.cmd` 即可启动 Nacos 。
-
-```shell
-# linux
-cd /usr/local/nacos/bin
-./startup.sh -m standalone
-```
-
-浏览器访问： [http://localhost:8848/nacos](http://localhost:8848/nacos)
-
-默认用户名密码 `nacos/nacos`
-
-> 如果使用测试环境做注册中心，请创建自己的命名空间注册服务，避免多人混用。
-
-#### sentinel配置（1.8.3）
-
-下载地址：[https://github.com/alibaba/Sentinel/releases](https://github.com/alibaba/Sentinel/releases)
-
-执行命令运行：
-
-```shell
-# windows
-java -Dserver.port=8858 -Dcsp.sentinel.dashboard.server=localhost:8718 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.8.3.jar
-
-# linux
-nohup  java -Dserver.port=8858 -Dcsp.sentinel.dashboard.server=localhost:8718 -Dproject.name=sentinel-dashboard -jar /usr/local/sentinel/sentinel-dashboard-1.8.3.jar &
-
-```
-
-浏览器访问： [http://localhost:8080](http://localhost:8080)
-
-默认用户名密码 `sentinel/sentinel`
-
-> 其中 -Dserver.port=8080 用于指定 Sentinel 控制台端口为 8080。
->
-> 注意：启动 Sentinel 控制台需要 JDK 版本为 1.8 及以上版本。
