@@ -4,6 +4,8 @@ Tansci Cloud 基于 SpringCloud Alibaba + Vue3.2 + Vite2 + ts+ Element Plus 的�
 
 此项目包含开发分布式应用微服务的必需组件，方便开发者通过 Spring Cloud 编程模型轻松使用这些组件来开发分布式应用服务。 依托 Spring Cloud Alibaba，您只需要添加一些注解和少量配置，就可以将 Spring Cloud 应用接入阿里微服务解决方案，通过阿里中间件来迅速搭建分布式应用系统。
 
+此项目分为微服务版和单体版：
+
 单体版：
 - Gitee: [https://gitee.com/typ1805/tansci](https://gitee.com/typ1805/tansci)
 - GitHub：[https://github.com/typ1805/tansci](https://github.com/typ1805/tansci)
