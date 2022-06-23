@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {onBeforeMount, onMounted, reactive, ref, toRefs} from 'vue'
+    import {onBeforeMount, onDeactivated, onMounted, reactive, ref, toRefs} from 'vue'
     import {ElMessage, ElMessageBox } from 'element-plus'
     import Submenu from "@/components/Submenu.vue"
     import MenuTag from "@/components/MenuTag.vue"
@@ -20,9 +20,7 @@
     const state = reactive({
         isCollapse: false,
         asideWidth: '240px',
-        defaultHeight: {
-            height: ''
-        },
+        defaultHeight: null,
         routers: [],
     })
     const {
@@ -30,7 +28,7 @@
     } = toRefs(state)
 
     onBeforeMount(() => {
-        state.defaultHeight.height = (document.body.clientHeight || document.documentElement.clientHeight) + "px";
+        state.defaultHeight = (document.body.clientHeight || document.documentElement.clientHeight);
     })
 
     onMounted(()=>{
@@ -46,14 +44,18 @@
             state.routers = routers;
         }
 
-        window.onresize = () => {
-            return (() => {
-                state.defaultHeight.height = (document.body.clientHeight || document.documentElement.clientHeight) + "px";
-            })()
-        }
-
         onNowTimes();
+
+        window.addEventListener('resize', onDefaultHeight);
     })
+
+    onDeactivated(()=>{
+        window.removeEventListener('resize', onDefaultHeight, false)
+    })
+
+    const onDefaultHeight = () =>{
+        state.defaultHeight = window.innerHeight
+    }
 
     // 退出
     const onLogout = () =>{
@@ -113,11 +115,11 @@
 <template>
     <div class="layout-container">
         <el-container>
-            <el-aside :style="defaultHeight" :width="asideWidth">
+            <el-aside :style="{height: defaultHeight+'px'}" :width="asideWidth">
                 <el-card v-show="!isCollapse" shadow="always">
                     <div>
                         <el-icon :size="26" style="vertical-align: middle;"><OfficeBuilding/></el-icon>
-                        <span style="vertical-align: middle;padding-left:1rem;">TANSCI</span>
+                        <span style="vertical-align: middle;padding-left:1rem;">TANSCI CLOUD</span>
                     </div>
                 </el-card>
                 <el-menu router :default-active="$route.path" :collapse="isCollapse" @select="onSelect" text-color="#242e42" active-text-color="#2F9688" background-color="var(--bg1)">
@@ -134,40 +136,42 @@
             </el-aside>
             <el-container>
                 <el-header height="50">
-                    <div>
-                        <el-icon @click="onCollapse" :size="20" style="vertical-align: middle; cursor: pointer;">
-                            <component :is="isCollapse?'Expand':'Fold'"></component>
-                        </el-icon>
-                        <el-icon :size="18" color="#55bc8a" style="vertical-align: middle;padding: 0 0.2rem 0 1rem;">
-                            <Timer/>
-                        </el-icon>
-                        <span style="padding-right: 2rem;vertical-align: middle;">{{nowTimes}}</span>
+                    <div class="header-content">
+                        <div>
+                            <el-icon @click="onCollapse" :size="20" style="vertical-align: middle; cursor: pointer;">
+                                <component :is="isCollapse?'Expand':'Fold'"></component>
+                            </el-icon>
+                            <el-icon :size="18" color="#55bc8a" style="vertical-align: middle;padding: 0 0.2rem 0 1rem;">
+                                <Timer/>
+                            </el-icon>
+                            <span style="padding-right: 2rem;vertical-align: middle;">{{nowTimes}}</span>
+                        </div>
+                        <div>
+                            <el-tooltip content="深色">
+                                <el-icon :size="20" style="vertical-align: middle; padding-right: 1rem;"><Moon /></el-icon>
+                            </el-tooltip>
+                            <el-tooltip content="全屏">
+                                <el-icon @click="onFullScreen" :size="20" style="vertical-align: middle; padding-right: 1rem;"><FullScreen /></el-icon>
+                            </el-tooltip>
+                            <el-dropdown style="line-height: 50px;">
+                                <span class="el-dropdown-link" style="color:var(--theme);">
+                                    <span style="cursor:pointer;vertical-align: middle;">{{username}} 欢迎您</span>
+                                    <el-icon style="vertical-align: middle;"><arrow-down /></el-icon>
+                                </span>
+                                <template #dropdown>
+                                    <el-dropdown-menu>
+                                        <el-dropdown-item @click="onLogout" icon="SwitchButton">退出</el-dropdown-item>
+                                    </el-dropdown-menu>
+                                </template>
+                            </el-dropdown>
+                        </div>
                     </div>
-                    <div>
-                        <el-tooltip content="深色">
-                            <el-icon :size="20" style="vertical-align: middle; padding-right: 1rem;"><Moon /></el-icon>
-                        </el-tooltip>
-                        <el-tooltip content="全屏">
-                            <el-icon @click="onFullScreen" :size="20" style="vertical-align: middle; padding-right: 1rem;"><FullScreen /></el-icon>
-                        </el-tooltip>
-                        <el-dropdown style="line-height: 50px;">
-                            <span class="el-dropdown-link" style="color:var(--theme);">
-                                <span style="cursor:pointer;vertical-align: middle;">{{username}} 欢迎您</span>
-                                <el-icon style="vertical-align: middle;"><arrow-down /></el-icon>
-                            </span>
-                            <template #dropdown>
-                                <el-dropdown-menu>
-                                    <el-dropdown-item @click="onLogout" icon="SwitchButton">退出</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </template>
-                        </el-dropdown>
-                    </div>
-                </el-header>
-                <el-main>
-                    <div class="menu-tag">
+                    <div class="header-menu">
                         <MenuTag ref="menuTag" :size="'default'"></MenuTag>
                     </div>
-                    <router-view style="margin-right: 0.2rem;" />
+                </el-header>
+                <el-main :style="{height: (defaultHeight-100)+'px'}">
+                    <router-view style="margin-right: 0.2rem; padding-bottom: 1rem;"/>
                 </el-main>
             </el-container>
         </el-container>
@@ -209,27 +213,29 @@
             width: 0px;
         }
         .el-header{
-            display: flex;
-            justify-content: space-between;
-            line-height: 50px;
             color: var(--theme);
             background: var(--bg1);
             padding-left: 0;
-            // border: 1px transparent solid;
-            // border-image: linear-gradient(to right, var(--bg1),#DCDFE6, var(--bg1)) 1 10;
-            // box-shadow: 0 4px 8px 0 rgba(36,46,66,.06)!important;
+            .header-content{
+                display: flex;
+                justify-content: space-between;
+                line-height: 50px;
+                // border: 1px transparent solid;
+                // border-image: linear-gradient(to right, var(--bg1),#DCDFE6, var(--bg1)) 1 10;
+                // box-shadow: 0 4px 8px 0 rgba(36,46,66,.06)!important;
+            }
+            .header-menu{
+                padding: 0.2rem 0 0.4rem 0;
+                border: 1px transparent solid;
+                border-image: linear-gradient(to right, var(--bg1),#DCDFE6, var(--bg1)) 1 10;
+                box-shadow: 0 4px 8px 0 rgba(36,46,66,.06)!important;
+            }
         }
         .el-main{
             padding: 0;
             overflow-x: hidden;
             overflow-y: auto;
             background: var(--bg1);
-            .menu-tag{
-                padding: 0.2rem 0 0.4rem 0;
-                border: 1px transparent solid;
-                border-image: linear-gradient(to right, var(--bg1),#DCDFE6, var(--bg1)) 1 10;
-                box-shadow: 0 4px 8px 0 rgba(36,46,66,.06)!important;
-            }
         }
         .el-main::-webkit-scrollbar{
             width: 0px;

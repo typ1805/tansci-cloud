@@ -1,14 +1,4 @@
-<template>
-    <div v-if="verifyRefresh" class="sliding-verify">
-        <div class="slider" :class="rangeStatus?'success':''" >
-            <el-icon @mousedown.self="onMove">
-                <component :is="rangeStatus?successIcon:startIcon"></component>
-            </el-icon>
-            {{rangeStatus?successText:startText}}
-        </div>
-    </div>
-</template>
-<script setup>
+<script setup lang="ts">
     import {defineProps, reactive, toRefs, nextTick} from 'vue'
 
     const prop = defineProps({
@@ -109,6 +99,16 @@
         onRefresh
     })
 </script>
+<template>
+    <div v-if="verifyRefresh" class="sliding-verify">
+        <div class="slider" :class="rangeStatus?'success':''" >
+            <el-icon @mousedown.self="onMove">
+                <component :is="rangeStatus?successIcon:startIcon"></component>
+            </el-icon>
+            {{rangeStatus?successText:startText}}
+        </div>
+    </div>
+</template>
 <style scoped lang="scss">
     .sliding-verify{
         width: 100%;

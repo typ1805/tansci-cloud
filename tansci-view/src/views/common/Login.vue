@@ -104,7 +104,7 @@
 </template>
 <style lang="scss" scoped="scoped">
 	.login-container {
-		background-image: url('../assets/image/login-bg.svg');
+		background-image: url('../../assets/image/login-bg.svg');
 		background-size: 100% 100%;
 		height: 100%;
 		width: 100%;
