@@ -8,10 +8,6 @@ Tansci Cloud 基于 SpringCloud Alibaba + Vue3.2 + Element Plus 的微服务项�
 
 此项目分为微服务版和单体版：
 
-微服务版：
-- Gitee: [https://gitee.com/typ1805/tansci](https://gitee.com/typ1805/tansci)
-- GitHub：[https://github.com/typ1805/tansci](https://github.com/typ1805/tansci)
-
 单体版：
 - Gitee: [https://gitee.com/typ1805/tansci](https://gitee.com/typ1805/tansci)
 - GitHub：[https://github.com/typ1805/tansci](https://github.com/typ1805/tansci)
