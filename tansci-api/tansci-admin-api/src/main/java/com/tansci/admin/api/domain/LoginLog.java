@@ -48,9 +48,6 @@ public class LoginLog implements Serializable {
     @ApiModelProperty(value = "请求IP")
     private String ip;
 
-    @ApiModelProperty(value = "版本号")
-    private String version;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     @ApiModelProperty(value = "登录时间")
     private LocalDateTime loginTime;
