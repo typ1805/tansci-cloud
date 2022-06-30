@@ -35,7 +35,7 @@
     })
 
     const onMenuTree = () =>{
-        menuList({status: 1}).then(res=>{
+        menuList({}).then(res=>{
             if(res){
                 state.treeData = res.result;
             }
@@ -216,6 +216,7 @@
                         <el-option label="菜单" :value="0"></el-option>
                         <el-option label="按钮" :value="1"></el-option>
                         <el-option label="链接" :value="2"></el-option>
+                        <el-option label="嵌套页面" :value="3"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="菜单路由" prop="url" :rules="[{required: true, message: '路由不能为空', trigger: 'blur'}]">

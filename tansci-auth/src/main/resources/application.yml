@@ -17,7 +17,7 @@ spring:
 #        namespace: d01a5728-d581-438a-a0e8-e180a08f1e6d
   redis:
     database: 2
-    host: 127.0.0.1
+    host: 10.167.1.73
     port: 6379
     password:
 

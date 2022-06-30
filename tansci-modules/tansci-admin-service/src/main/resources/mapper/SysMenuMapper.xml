@@ -16,8 +16,11 @@
                     <if test="dto.status != null and dto.status != ''">
                         and m.status = #{dto.status}
                     </if>
-                    <if test="dto.type != null and dto.type != ''">
-                        and m.type = #{dto.type}
+                    <if test="dto.types != null and dto.types.size > 0">
+                        and m.type in
+                        <foreach collection="dto.types" item="type" open="(" close=")" separator=",">
+                            #{type}
+                        </foreach>
                     </if>
                     <if test="dto.name != null and dto.name != ''">
                         and m.name = #{dto.name}
@@ -30,8 +33,11 @@
                     <if test="dto.status != null and dto.status != ''">
                         and m.status = #{dto.status}
                     </if>
-                    <if test="dto.type != null and dto.type != ''">
-                        and m.type = #{dto.type}
+                    <if test="dto.types != null and dto.types.size > 0">
+                        and m.type in
+                        <foreach collection="dto.types" item="type" open="(" close=")" separator=",">
+                            #{type}
+                        </foreach>
                     </if>
                     <if test="dto.name != null and dto.name != ''">
                         and m.name = #{dto.name}
@@ -46,8 +52,11 @@
                 <if test="dto.status != null and dto.status != ''">
                     and m.status = #{dto.status}
                 </if>
-                <if test="dto.type != null and dto.type != ''">
-                    and m.type = #{dto.type}
+                <if test="dto.types != null and dto.types.size > 0">
+                    and m.type in
+                    <foreach collection="dto.types" item="type" open="(" close=")" separator=",">
+                        #{type}
+                    </foreach>
                 </if>
                 <if test="dto.name != null and dto.name != ''">
                     and m.name = #{dto.name}

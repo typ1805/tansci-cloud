@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import {onMounted, reactive, toRefs} from 'vue'
     import * as echarts from 'echarts'
-    import {useUserStore} from '@/store/setttings'
+    import {useUserStore} from '@/store/settings'
     import {statistics} from '@/api/system/home'
 
     const userStore = useUserStore();

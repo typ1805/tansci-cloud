@@ -3,7 +3,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import {menuList} from '@/api/system/menu'
 import Layout from '@/components/layout/Index.vue'
-import {useMenuStore} from '@/store/setttings'
+import {useMenuStore} from '@/store/settings'
 
 // 路由按模块分类
 import common from './common'
@@ -79,6 +79,8 @@ export function routerFilter(data:any) {
                     icon: item.icon,
                     chineseName: item.chineseName,
                     englishName: item.englishName,
+                    type: item.type,
+                    url: item.url,
                     meta: { title: item.chineseName },
                     component: modules['../views' + item.url + '.vue']
                 }];
@@ -90,6 +92,8 @@ export function routerFilter(data:any) {
             item.chineseName = item.chineseName;
             item.englishName = item.englishName;
             item.icon = item.icon;
+            item.type = item.type;
+            item.url = item.url;
             item.meta = { title: item.chineseName };
             item.component = modules['../views' + item.url + '.vue'];
         }

@@ -5,7 +5,7 @@
     import MenuTag from "@/components/MenuTag.vue"
     import {timeFormate} from '@/utils/utils'
     import {useRouter} from 'vue-router'
-    import {useUserStore, useTokenStore, useMenuStore} from '@/store/setttings'
+    import {useUserStore, useTokenStore, useMenuStore} from '@/store/settings'
     import screenfull from 'screenfull'
     import {logout} from '@/api/login'
     
@@ -22,9 +22,13 @@
         asideWidth: '240px',
         defaultHeight: null,
         routers: [],
+        iframe: {
+            isIframe: true,
+            src: '',
+        },
     })
     const {
-        isCollapse,asideWidth,defaultHeight,routers
+        isCollapse,asideWidth,defaultHeight,routers,iframe
     } = toRefs(state)
 
     onBeforeMount(() => {
@@ -55,6 +59,14 @@
 
     const onDefaultHeight = () =>{
         state.defaultHeight = window.innerHeight
+    }
+
+    // 嵌套
+    const onNestedLink = (e) =>{
+        state.iframe = {
+            isIframe: true,
+            src: e.url
+        }
     }
 
     // 退出
@@ -100,6 +112,9 @@
     }
 
     const onSelect = (e:any) =>{
+        if(e){
+            state.iframe.isIframe = false
+        }
         menuTag.value.onSelected(e)
     }
 
@@ -124,13 +139,16 @@
                 </el-card>
                 <el-menu router :default-active="$route.path" :collapse="isCollapse" @select="onSelect" text-color="#242e42" active-text-color="#2F9688" background-color="var(--bg1)">
                     <template v-for="item in routers" :key="item">
-                        <el-menu-item v-if="!item.children || item.children.length == 1" :index="item.path">
+                        <!-- 类型(type)：0、菜单，1、按钮，2、链接，3、嵌套页面 -->
+                        <el-menu-item v-if="!item.children || item.children.length == 1" :index="item.type == 0 ? item.path : ''">
                             <el-icon v-if="item.icon" style="vertical-align: middle;">
                                 <component :is="item.icon"></component>
                             </el-icon>
-                            <span style="vertical-align: middle;">{{item.chineseName}}</span>
+                            <span v-if="item.type == 0" style="vertical-align: middle;">{{item.chineseName}}</span>
+                            <a v-else-if="item.type == 2" :href='item.url' target='_blank' style="vertical-align: middle;text-decoration: none;color:#242e42;">{{item.chineseName}}</a>
+                            <span v-else-if="item.type == 3" @click="onNestedLink(item)" style="vertical-align: middle;">{{item.chineseName}}</span>
                         </el-menu-item>
-                        <Submenu v-else :data="item"></Submenu>
+                        <Submenu v-else :data="item" @onNestedLink="onNestedLink"></Submenu>
                     </template>
                 </el-menu>
             </el-aside>
@@ -171,7 +189,8 @@
                     </div>
                 </el-header>
                 <el-main :style="{height: (defaultHeight-100)+'px'}">
-                    <router-view style="margin-right: 0.2rem; padding-bottom: 1rem;"/>
+                    <router-view v-show="!iframe.isIframe" style="margin-right: 0.2rem; padding-bottom: 1rem;"/>
+                    <iframe v-show="iframe.isIframe" :src="iframe.src" :style="{height:defaultHeight-100+'px', marginRight: '0.4rem', paddingBottom: '1rem'}" width="100%" frameborder="0"></iframe>
                 </el-main>
             </el-container>
         </el-container>

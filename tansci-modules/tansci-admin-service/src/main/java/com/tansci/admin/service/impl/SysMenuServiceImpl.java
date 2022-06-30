@@ -38,9 +38,9 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             // 获取所有菜单的父id
             List<String> parentIds = list.stream().map(SysMenu::getParentId).distinct().collect(Collectors.toList());
             if (Objects.nonNull(parentIds) && parentIds.size() > 0) {
-                List<SysMenu> parentList = this.list(
+                List<SysMenu> parentList = this.baseMapper.selectList(
                         Wrappers.<SysMenu>lambdaQuery().in(SysMenu::getId, parentIds)
-                                .eq(Objects.nonNull(dto.getType()), SysMenu::getType, dto.getType())
+                                .in(Objects.nonNull(dto.getTypes()) && dto.getTypes().size() > 0, SysMenu::getType, dto.getTypes())
                                 .eq(Objects.nonNull(dto.getStatus()), SysMenu::getStatus, dto.getStatus())
                 );
                 list.addAll(parentList);

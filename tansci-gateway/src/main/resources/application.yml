@@ -5,7 +5,7 @@ spring:
     name: tansci-gateway
   redis:
     database: 2
-    host: 127.0.0.1
+    host: 10.167.1.73
     port: 6379
     password:
   cloud:
@@ -52,7 +52,7 @@ spring:
     sentinel:
       transport:
         port: 8719
-        dashboard: 127.0.0.1:8858 # sentinel控制台
+        dashboard: 10.167.1.73:8858 # sentinel控制台
       eager: true  # 服务启动直接建立心跳连接
       datasource: # Sentinel使用Nacos存储规则
         ds1:

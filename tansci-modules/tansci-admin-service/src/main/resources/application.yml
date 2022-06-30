@@ -32,6 +32,11 @@ spring:
 #            namespace: d01a5728-d581-438a-a0e8-e180a08f1e6d
             data-type: json
             rule-type: flow
+  redis:
+    database: 2
+    host: 10.167.1.73
+    port: 6379
+    password:
   #Druid 连接池通用配置
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/tansci_cloud?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true&useSSL=false

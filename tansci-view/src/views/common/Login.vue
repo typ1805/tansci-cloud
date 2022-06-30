@@ -3,7 +3,7 @@
 	import type {FormInstance} from 'element-plus'
 	import {useRouter} from 'vue-router'
 	import SlidingVerify from '@/components/SlidingVerify.vue'
-	import {useUserStore, useTokenStore} from '@/store/setttings'
+	import {useUserStore, useTokenStore} from '@/store/settings'
 	import {login} from '@/api/login'
 
 	const userStore = useUserStore();

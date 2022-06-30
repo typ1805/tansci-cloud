@@ -62,7 +62,7 @@ public class SysMenu implements Serializable {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
-    @ApiModelProperty(value = "类型：0、菜单，1、按钮，2、链接")
+    @ApiModelProperty(value = "类型：0、菜单，1、按钮，2、链接，3、嵌套页面")
     private Integer type;
 
     @ApiModelProperty(value = "描述")
