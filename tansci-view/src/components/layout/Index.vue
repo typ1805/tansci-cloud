@@ -2,7 +2,7 @@
     import {onBeforeMount, onDeactivated, onMounted, reactive, ref, toRefs} from 'vue'
     import {ElMessage, ElMessageBox } from 'element-plus'
     import Submenu from "@/components/Submenu.vue"
-    import MenuTag from "@/components/MenuTag.vue"
+    import TabsMenu from "@/components/TabsMenu.vue"
     import {timeFormate} from '@/utils/utils'
     import {useRouter} from 'vue-router'
     import {useUserStore, useTokenStore, useMenuStore} from '@/store/settings'
@@ -14,7 +14,6 @@
     const menuStore = useMenuStore();
     const router = useRouter()
     const nowTimes = ref('')
-    const menuTag = ref(null)
     const username = userStore.getUser.username == null ? '未登录':userStore.getUser.username
     const state = reactive({
         isCollapse: false,
@@ -115,7 +114,6 @@
         if(e){
             state.iframe.isIframe = false
         }
-        menuTag.value.onSelected(e)
     }
 
     // 全屏展示
@@ -184,9 +182,7 @@
                             </el-dropdown>
                         </div>
                     </div>
-                    <div class="header-menu">
-                        <MenuTag ref="menuTag" :size="'default'"></MenuTag>
-                    </div>
+                    <TabsMenu></TabsMenu>
                 </el-header>
                 <el-main :style="{height: (defaultHeight-100)+'px'}">
                     <router-view v-show="!iframe.isIframe" style="margin-right: 0.2rem; padding-bottom: 1rem;"/>
@@ -234,20 +230,15 @@
         .el-header{
             color: var(--theme);
             background: var(--bg1);
-            padding-left: 0;
+            padding: 0;
             .header-content{
                 display: flex;
                 justify-content: space-between;
                 line-height: 50px;
+                padding-right: 1rem;
                 // border: 1px transparent solid;
                 // border-image: linear-gradient(to right, var(--bg1),#DCDFE6, var(--bg1)) 1 10;
                 // box-shadow: 0 4px 8px 0 rgba(36,46,66,.06)!important;
-            }
-            .header-menu{
-                padding: 0.2rem 0 0.4rem 0;
-                border: 1px transparent solid;
-                border-image: linear-gradient(to right, var(--bg1),#DCDFE6, var(--bg1)) 1 10;
-                box-shadow: 0 4px 8px 0 rgba(36,46,66,.06)!important;
             }
         }
         .el-main{
