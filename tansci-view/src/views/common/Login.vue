@@ -8,7 +8,6 @@
 
 	const userStore = useUserStore();
 	const tokenStore = useTokenStore();
-	
 	const router = useRouter()
 	const loginFormRef = ref<FormInstance>() 
 	let slidingVerify = ref()
@@ -55,7 +54,7 @@
 						userStore.setUser(res.result);
 						tokenStore.setToken(res.result.token);
 						state.loading = false;
-						router.push({path: 'index'});
+						router.push({path: 'main'});
 					}
 				}).catch(()=>{
 					state.loginForm.verifyStatus = null;

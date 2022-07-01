@@ -9,7 +9,7 @@
         <choose>
             <when test="dto.userType == 1">
                 <if test="dto.roleId != null and dto.roleId != ''">
-                    SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, m.id as role_id
+                    SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, mr.role_id
                     FROM sys_menu m
                     LEFT JOIN sys_menu_role mr on mr.menu_id = m.id
                     WHERE mr.role_id = #{dto.roleId}
@@ -45,7 +45,7 @@
                 </where>
             </when>
             <otherwise>
-                SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, m.id as role_id
+                SELECT `id`, `name`, `parent_id`, `chinese_name`, `english_name`, `status`, `type`, `url`, `icon`, `level`, `sort`, `update_time`, `create_time`, `remarks`, mr.role_id
                 FROM sys_menu m
                 LEFT JOIN sys_menu_role mr on mr.menu_id = m.id
                 WHERE mr.role_id = #{dto.roleId}

@@ -27,7 +27,7 @@
                 path: router.currentRoute.value.path
             })
         } else {
-            state.menuTags.push({name:'首页',effect:'dark',path:'/index'})
+            state.menuTags.push({name:'首页',effect:'dark',path:'/main'})
         }
     })
 
@@ -75,9 +75,9 @@
             state.menuTags.push({
                 name:'首页',
                 effect:'dark',
-                path:'/index'
+                path:'/main'
             })
-            router.push({path: '/index'});
+            router.push({path: '/main'});
         } else {
             let index = state.menuTags.indexOf(tag);
             if(state.menuTags[index].effect == 'dark'){

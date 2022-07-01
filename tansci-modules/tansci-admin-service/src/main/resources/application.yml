@@ -16,30 +16,30 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
-#        namespace: d01a5728-d581-438a-a0e8-e180a08f1e6d
+        server-addr: ${NACOS-HOST:tansci-nacos}:${NACOS-PORT:8848}
+        namespace: d01a5728-d581-438a-a0e8-e180a08f1e6d
     # Sentinel熔断器
     sentinel:
       transport:
         port: 8719
-        dashboard: 127.0.0.1:8858 # sentinel控制台
+        dashboard: ${SENTINEL-HOST:tansci-sentinel}:${SENTINEL-HOST:8858} # sentinel控制台
       eager: true  # 服务启动直接建立心跳连接
       datasource: # Sentinel使用Nacos存储规则
         ds1:
           nacos:
-            server-addr: 127.0.0.1:8848
+            server-addr: ${NACOS-HOST:tansci-nacos}:${NACOS-PORT:8848}
             dataId: ${spring.application.name}-flow-rules
-#            namespace: d01a5728-d581-438a-a0e8-e180a08f1e6d
+            namespace: d01a5728-d581-438a-a0e8-e180a08f1e6d
             data-type: json
             rule-type: flow
   redis:
     database: 2
-    host: 10.167.1.73
+    host: ${REDIS-HOST:tansci-redis}
     port: 6379
     password:
   #Druid 连接池通用配置
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/tansci_cloud?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://${MYSQL-HOST:tansci-mysql}:${MYSQL-PORT:3306}/${MYSQL-DB:tansci_cloud}?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true&useSSL=false
     username: root
     password: admin
     type: com.alibaba.druid.pool.DruidDataSource
@@ -96,7 +96,7 @@ dubbo:
     port: 30882
   registry:
     # 挂载到 Spring Cloud 注册中心
-    address: spring-cloud://127.0.0.1
+    address: spring-cloud://${NACOS-HOST:tansci-nacos}
   scan:
     base-packages: com.tansci.admin.provider.impl
   consumer:

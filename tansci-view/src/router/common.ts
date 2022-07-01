@@ -21,22 +21,16 @@ export default[
         meta: {title: "500"},
         component: () => import("@/views/common/500.vue"),
     },
-    // {
-    //     path: '/index',
-    //     name: 'index',
-    //     chineseName: '首页',
-    //     englishName: 'Index',
-    //     icon: "HomeFilled",
-    //     meta: { title: "首页" },
-    //     component: () => import('@/components/layout/Index.vue'),
-    //     children: [{
-    //         path: "/index",
-    //         name: "index",
-    //         chineseName: '首页',
-    //         englishName: 'Index',
-    //         icon: "HomeFilled",
-    //         meta: { title: "首页" },
-    //         component: () => import('@/views/Index.vue')
-    //     }]
-    // }
+    {
+        path: '/main',
+        name: 'main',
+        meta: { title: "首页" },
+        component: () => import('@/components/layout/Index.vue'),
+        children: [{
+            path: "/main",
+            name: "main",
+            meta: { title: "首页" },
+            component: () => import('@/views/common/Main.vue')
+        }]
+    }
 ]

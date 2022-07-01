@@ -197,9 +197,6 @@
 			</div>
 		</div>
 		<div class="index-footer">
-			<el-card>
-				fdgkfds
-			</el-card>
 		</div>
     </div>
 </template>

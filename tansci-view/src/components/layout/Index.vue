@@ -9,7 +9,6 @@
     import screenfull from 'screenfull'
     import {logout} from '@/api/login'
     
-
 	const userStore = useUserStore();
     const tokenStore = useTokenStore();
     const menuStore = useMenuStore();
@@ -85,6 +84,7 @@
                     menuStore.delMenu();
                     // 获取菜单
                     router.push({path: 'login'});
+                    location.reload();
                 }
             }).catch(()=>{
             })
