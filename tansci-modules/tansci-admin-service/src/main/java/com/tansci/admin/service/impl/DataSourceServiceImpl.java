@@ -121,7 +121,7 @@ public class DataSourceServiceImpl extends ServiceImpl<DataSourceMapper, DataSou
     @Override
     public Object getDbTables(SourceDto dto) {
         DataSource source = this.baseMapper.selectById(dto.getId());
-        DbQueryProperty dbQueryProperty = new DbQueryProperty(String.valueOf(source.getType()), source.getHost(), source.getUsername(), source.getPassword(), Integer.parseInt(source.getPort()), source.getName(), source.getId());
+        DbQueryProperty dbQueryProperty = new DbQueryProperty(String.valueOf(source.getType()), source.getHost(), source.getUsername(), source.getPassword(), Integer.parseInt(source.getPort()), source.getName(), source.getName());
         DbQuery dbQuery = dataSourceFactory.createDbQuery(dbQueryProperty);
         return dbQuery.getTables(source.getName());
     }
@@ -129,7 +129,7 @@ public class DataSourceServiceImpl extends ServiceImpl<DataSourceMapper, DataSou
     @Override
     public Object getDbTableColumns(SourceDto dto) {
         DataSource source = this.baseMapper.selectById(dto.getId());
-        DbQueryProperty dbQueryProperty = new DbQueryProperty(String.valueOf(source.getType()), source.getHost(), source.getUsername(), source.getPassword(), Integer.parseInt(source.getPort()), source.getName(), source.getId());
+        DbQueryProperty dbQueryProperty = new DbQueryProperty(String.valueOf(source.getType()), source.getHost(), source.getUsername(), source.getPassword(), Integer.parseInt(source.getPort()), source.getName(), source.getName());
         DbQuery dbQuery = dataSourceFactory.createDbQuery(dbQueryProperty);
         return dbQuery.getTableColumns(source.getName(), dto.getTableName());
     }
@@ -141,7 +141,7 @@ public class DataSourceServiceImpl extends ServiceImpl<DataSourceMapper, DataSou
         }
 
         DataSource source = this.baseMapper.selectById(dto.getId());
-        DbQueryProperty dbQueryProperty = new DbQueryProperty(String.valueOf(source.getType()), source.getHost(), source.getUsername(), source.getPassword(), Integer.parseInt(source.getPort()), source.getName(), source.getId());
+        DbQueryProperty dbQueryProperty = new DbQueryProperty(String.valueOf(source.getType()), source.getHost(), source.getUsername(), source.getPassword(), Integer.parseInt(source.getPort()), source.getName(), source.getName());
         DbQuery dbQuery = dataSourceFactory.createDbQuery(dbQueryProperty);
         if (Objects.nonNull(dto.getSize()) && Objects.nonNull(dto.getOffset())) {
             return dbQuery.queryByPage(dto.getSql(), dto.getOffset(), dto.getSize());
