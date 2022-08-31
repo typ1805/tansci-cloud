@@ -18,6 +18,7 @@
         <module>common-core</module>
         <module>common-web</module>
         <module>common-database</module>
+        <module>common-redisson</module>
     </modules>
 
 </project>
