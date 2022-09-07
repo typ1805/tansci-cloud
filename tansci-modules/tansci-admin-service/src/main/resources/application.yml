@@ -87,7 +87,27 @@ mybatis-plus:
       id-type: auto
       # 驼峰转下划线
 
-# dubbo配置
+# seata 配置
+seata:
+  enable: true
+  application-id: seata-admin-service
+  tx-service-group: default_tx_group
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server # seata 服务名
+      # 非本地请修改具体的地址
+      server-addr: ${NACOS-HOST:tansci-nacos}:${NACOS-PORT:8848}
+      group: SEATA_GROUP
+  config:
+    type: nacos
+    nacos:
+      # nacos ip地址
+      server-addr: ${NACOS-HOST:tansci-nacos}:${NACOS-PORT:8848}
+      group: SEATA_GROUP
+      data-id: "seataServer.properties"
+
+# dubbo 配置
 dubbo:
   protocol:
     # dubbo 协议
