@@ -124,7 +124,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 32px; 
+            height: 37px; 
             border: 1px solid #dcdfe6;
         }
         .slider .i{

@@ -11,7 +11,8 @@
 	const router = useRouter()
 	const loginFormRef = ref<FormInstance>() 
 	let slidingVerify = ref()
-	const loginLogo = new URL('../../assets/image/login-left.png', import.meta.url).href
+	const logo = new URL('../../assets/image/logo.png', import.meta.url).href
+	const loginLogo = new URL('../../assets/image/login-icon.png', import.meta.url).href
 
 	const state = reactive({
 		loading: false,
@@ -64,25 +65,38 @@
 		});
 	}
 
+	function copyYear(){
+		let date = new Date();
+		return date.getFullYear();
+	}
+
 </script>
 <template>
 	<div class="login-container" :style="loginStyle">
-		<el-card shadow="always">
-			<div class="login-main">
-				<div class="login-logo">
+		<div class="login-header">
+			<div>
+				<el-image :src="logo" style="width: 100%; height: 100%;"></el-image>
+			</div>
+			<div>
+				<span class="title">Tansci Cloud</span>
+			</div>
+		</div>
+		<div class="login-main">
+			<div class="main-title">帐号登录</div>
+			<div class="main-container">
+				<div class="logo">
 					<el-image :src="loginLogo"  style="width: 100%; height: 100%;"></el-image>
 				</div>
-				<div class="login-form">
-					<el-form :model="loginForm" :rules="rules" ref="loginFormRef">
-						<div class="login-form-title">欢迎登录</div>
+				<div class="form">
+					<el-form :model="loginForm" :rules="rules" size="large" ref="loginFormRef">
 						<el-form-item prop="username" :rules="[
-								{required: true,message: '请输入用户名',trigger: 'blur'},
-								{pattern: /^[a-zA-Z]\w{4,17}$/,message: '用户名式有误，请重新输入',trigger: 'blur'}]">
-							<el-input v-model="state.loginForm.username" prefix-icon="Avatar" placeholder="请输入用户名称" style="width:100%"></el-input>
+								{required: true,message: '请输入账号',trigger: 'blur'},
+								{pattern: /^[a-zA-Z]\w{4,17}$/,message: '账号有误，请重新输入',trigger: 'blur'}]">
+							<el-input v-model="state.loginForm.username" prefix-icon="Avatar" placeholder="请输入账号" style="width:100%"></el-input>
 						</el-form-item>
 						<el-form-item prop="password" :rules="[
 								{required: true,message: '请输入密码',trigger: 'blur'},
-								{pattern: /^[a-zA-Z]\w{5,17}$/,message: '密码格式有误，请重新输入',trigger: 'blur'}]">
+								{pattern: /^[a-zA-Z]\w{5,17}$/,message: '密码有误，请重新输入',trigger: 'blur'}]">
 							<el-input type="password" v-model="loginForm.password" prefix-icon="Lock" show-password placeholder="请输入密码" style="width:100%"></el-input>
 						</el-form-item>
 						<el-form-item prop="verifyStatus" :rules="[{required: true,message: '请拖动滑块验证',trigger: 'blur'}]">
@@ -92,48 +106,77 @@
 							<el-checkbox v-model="loginForm.keepPassword" label="记住密码"></el-checkbox>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" round @click="submit(loginFormRef)" :loading="loading" style="width:100%">登录</el-button>
+							<el-button type="primary" @click="submit(loginFormRef)" :loading="loading" style="width:100%">登录</el-button>
 						</el-form-item>
 					</el-form>
-					<el-divider><el-icon><star-filled /></el-icon></el-divider>
 				</div>
 			</div>
-		</el-card>
+		</div>
+		<div class="login-footer">
+			<div>
+				<el-link href="https://typ1805.gitee.io" target="_blank">关于作者</el-link>
+				<el-divider direction="vertical" />
+				<el-link href="https://gitee.com/typ1805/tansci-cloud" target="_blank">源码地址 Gitee GitHub</el-link>
+				<el-divider direction="vertical" />
+				<el-link href="https://typ1805.gitee.io" target="_blank">联系作者</el-link>
+			</div>
+			<div class="copy">
+				&copy; 2022- {{copyYear()}} Tansci Cloud 版权所有
+			</div>
+		</div>
 	</div>
 </template>
 <style lang="scss" scoped="scoped">
 	.login-container {
-		background-image: url('../../assets/image/login-bg.svg');
-		background-size: 100% 100%;
-		height: 100%;
-		width: 100%;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		align-items: center;
-		.el-card__body{
-			padding: 0;
+		background-image: radial-gradient( white 0%, #FAFDFE 10%, #ddf8e7 50%, #FAFDFE 90%, white 100%);
+		// background-image: radial-gradient(#ddf8e7 00%, #FAFDFE 80%, white 100%);
+		.login-header{
+			width: 100%;
+			height: 5rem;
+			line-height: 5rem;
+			display: flex;
+			padding: 0 20%;
+			.title{
+				padding: 0 1rem;
+				color: var(--t9);
+				font-size: 20px;
+				font-weight: 700;
+			}
 		}
 		.login-main{
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			.login-logo{
-				background: var(--theme);
-				width: 20rem;
-				padding: 8rem 5rem;
-				border-top-right-radius: 38px;
-				border-bottom-right-radius: 38px;
+			height: 80%;
+			.main-title{
+				font-size: 32px;
+				text-align: center;
+				padding: 6rem 0;
 			}
-			.login-form{
-				width: 20rem;
-				padding: 8rem 5rem;
-				.login-form-title{
-					font-size: 18px;
-					font-weight: 700;
-					text-align: center;
-					padding-bottom: 2rem;
+			.main-container{
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				align-items: center;
+				.logo{
+					width: 36rem;
+					padding-right: 2rem;
+					// transition: all .2s;
 				}
+				// .logo:hover{
+				// 	transform: scaleY(1.1) scaleX(1.1) translateZ(0);
+				// }
+				.form{
+					width: 26rem;
+					padding-left: 4rem;
+					border-left: 1px solid #c7f6da;
+				}
+			}
+		}
+		.login-footer{
+			height: 100%;
+			text-align: center;
+			color: #606266;
+			padding-top: 1.2rem;
+			.copy{
+				padding-top: 1rem;
 			}
 		}
 	}
