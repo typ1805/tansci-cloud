@@ -1,4 +1,4 @@
-package com.tansci.common.web.handler;
+package com.tansci.common.sentinel.handler;
 
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
 import com.alibaba.csp.sentinel.slots.block.BlockException;

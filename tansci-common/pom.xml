@@ -19,6 +19,8 @@
         <module>common-web</module>
         <module>common-database</module>
         <module>common-redisson</module>
+        <module>common-sentinel</module>
+        <module>common-amqp</module>
     </modules>
 
 </project>

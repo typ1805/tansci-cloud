@@ -1,4 +1,4 @@
-package com.tansci.common.web.handler;
+package com.tansci.common.sentinel.handler;
 
 import com.tansci.common.core.exception.BusinessException;
 import com.tansci.common.core.utils.WrapMapper;
@@ -18,7 +18,7 @@ import java.util.Objects;
 
 /**
  * @ClassName： GlobalExceptionHandler.java
- * @ClassPath： com.tansci.common.web.handler.GlobalExceptionHandler.java
+ * @ClassPath： com.tansci.common.sentinel.handler.GlobalExceptionHandler.java
  * @Description： 全局异常处理流程，根据需要设置需要处理的异常
  * @Author： tanyp
  * @Date： 2022/9/1 14:34
