@@ -116,12 +116,12 @@
 			<div>
 				<el-link href="https://typ1805.gitee.io" target="_blank">关于作者</el-link>
 				<el-divider direction="vertical" />
-				<el-link href="https://gitee.com/typ1805/tansci-cloud" target="_blank">源码地址 Gitee GitHub</el-link>
+				<el-link href="https://gitee.com/typ1805/tansci-cloud" target="_blank">源码地址 Gitee & GitHub</el-link>
 				<el-divider direction="vertical" />
 				<el-link href="https://typ1805.gitee.io" target="_blank">联系作者</el-link>
 			</div>
 			<div class="copy">
-				&copy; 2022- {{copyYear()}} Tansci Cloud 版权所有
+				&copy; {{copyYear()}} Tansci Cloud 版权所有
 			</div>
 		</div>
 	</div>

@@ -28,7 +28,7 @@
         },
         headerCellStyle: {
             type: Object,
-            default:{color:'#606266', fontWeight: 700, background:'var(--bg1)'}
+            default:{color:'#606266', fontWeight: 700, background:'#fafafa'}
         },
         data: {
             type: Array,

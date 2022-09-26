@@ -14,6 +14,7 @@
     const menuStore = useMenuStore();
     const router = useRouter()
     const nowTimes = ref('')
+    const logo = new URL('../../assets/image/logo.png', import.meta.url).href
     const username = userStore.getUser.username == null ? '未登录':userStore.getUser.username
     const state = reactive({
         isCollapse: false,
@@ -129,13 +130,11 @@
     <div class="layout-container">
         <el-container>
             <el-aside :style="{height: defaultHeight+'px'}" :width="asideWidth">
-                <el-card v-show="!isCollapse" shadow="always">
-                    <div>
-                        <el-icon :size="26" style="vertical-align: middle;"><OfficeBuilding/></el-icon>
-                        <span style="vertical-align: middle;padding-left:1rem;">TANSCI CLOUD</span>
-                    </div>
-                </el-card>
-                <el-menu router :default-active="$route.path" :collapse="isCollapse" @select="onSelect" text-color="#242e42" active-text-color="#2F9688" background-color="var(--bg1)">
+                <div class="logo" @click="onCollapse">
+                    <el-image :src="logo"></el-image>
+                    <div v-show="!isCollapse" class="logo-title">Tansci Cloud</div>
+                </div>
+                <el-menu router :default-active="$route.path" :collapse="isCollapse" @select="onSelect" text-color="#242e42" active-text-color="#2F9688" background-color="transparent">
                     <template v-for="item in routers" :key="item">
                         <!-- 类型(type)：0、菜单，1、按钮，2、链接，3、嵌套页面 -->
                         <el-menu-item v-if="!item.children || item.children.length == 1" :index="item.type == 0 ? item.path : ''">
@@ -153,25 +152,18 @@
             <el-container>
                 <el-header height="50">
                     <div class="header-content">
-                        <div>
-                            <el-icon @click="onCollapse" :size="20" style="vertical-align: middle; cursor: pointer;">
-                                <component :is="isCollapse?'Expand':'Fold'"></component>
-                            </el-icon>
-                            <el-icon :size="18" color="#55bc8a" style="vertical-align: middle;padding: 0 0.2rem 0 1rem;">
-                                <Timer/>
-                            </el-icon>
-                            <span style="padding-right: 2rem;vertical-align: middle;">{{nowTimes}}</span>
+                        <div class="content-item">
+                            <span style="vertical-align: middle;">{{nowTimes}}</span>
                         </div>
-                        <div>
-                            <el-tooltip content="深色">
-                                <el-icon :size="20" style="vertical-align: middle; padding-right: 1rem;"><Moon /></el-icon>
-                            </el-tooltip>
+                        <div class="content-item">
                             <el-tooltip content="全屏">
-                                <el-icon @click="onFullScreen" :size="20" style="vertical-align: middle; padding-right: 1rem;"><FullScreen /></el-icon>
+                                <el-icon @click="onFullScreen" :size="20" style="vertical-align: middle;"><FullScreen /></el-icon>
                             </el-tooltip>
+                        </div>
+                        <div class="content-item">
                             <el-dropdown style="line-height: 50px;">
                                 <span class="el-dropdown-link" style="color:var(--theme);">
-                                    <span style="cursor:pointer;vertical-align: middle;">{{username}} 欢迎您</span>
+                                    <span style="cursor:pointer;vertical-align: middle;">{{username}}</span>
                                     <el-icon style="vertical-align: middle;"><arrow-down /></el-icon>
                                 </span>
                                 <template #dropdown>
@@ -194,18 +186,23 @@
 </template>
 <style lang="scss">
     .layout-container{
+        // background-image: radial-gradient(#ddf8e7 0%, #FAFDFE 80%, white 100%);
+        background-image: radial-gradient(farthest-side at left top,#fcfbf8 0%, #e9f3ed 40%,#eef7f1 80%,#ffffff 100%);
         .el-aside{
             height: 100%;
             transition: all .5s;
-            background: var(--bg1);
             overflow-y: auto;
             overflow-x: hidden;
-            .el-card{
-                margin: 0.4rem 0.6rem;
-                background-color: var(--theme);
-                color:#fff;
-                .el-card__body{
-                    padding: 1.2rem 2rem;
+            .logo{
+                display: flex;
+                height: 50px;
+                line-height: 50px;
+                padding-left: 1rem;
+                cursor: pointer;
+                .logo-title{
+                    font-weight: 700;
+                    font-size: 18px;
+                    color: var(--theme);
                 }
             }
             .el-menu{
@@ -215,12 +212,12 @@
                     line-height: 40px;
                 }
                 .el-sub-menu__title:hover{
-                    background: var(--bg1) !important;
-                    color: #2F9688 !important;
+                    background: transparent !important;
+                    color: var(--theme2) !important;
                 }
                 .el-menu-item:hover{
-                    background: var(--bg1) !important;
-                    color: #2F9688 !important;
+                    background: transparent !important;
+                    color: var(--theme2) !important;
                 }
             }
         }
@@ -229,23 +226,20 @@
         }
         .el-header{
             color: var(--theme);
-            background: var(--bg1);
             padding: 0;
             .header-content{
                 display: flex;
-                justify-content: space-between;
+                justify-content: right;
                 line-height: 50px;
-                padding-right: 1rem;
-                // border: 1px transparent solid;
-                // border-image: linear-gradient(to right, var(--bg1),#DCDFE6, var(--bg1)) 1 10;
-                // box-shadow: 0 4px 8px 0 rgba(36,46,66,.06)!important;
+                .content-item{
+                    padding-right: 1rem;
+                }
             }
         }
         .el-main{
             padding: 0;
             overflow-x: hidden;
             overflow-y: auto;
-            background: var(--bg1);
         }
         .el-main::-webkit-scrollbar{
             width: 0px;

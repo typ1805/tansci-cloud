@@ -122,7 +122,7 @@
 		width: 100%;
         border-top: 1px transparent solid;
         border-image: linear-gradient(to right, var(--bg1),#DCDFE6, var(--bg1)) 1 10;
-        box-shadow: 0 4px 8px 0 rgba(36,46,66,.06)!important;
+        box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
         margin-bottom: 0.2rem;
 
         .el-dropdown {
